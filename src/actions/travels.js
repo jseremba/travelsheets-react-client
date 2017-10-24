@@ -1,4 +1,5 @@
 import * as TravelConstant from '../constants/travels';
+import axios from 'axios';
 
 /**
  * ListTravels action
@@ -11,31 +12,25 @@ export const listTravels = () => {
             type: TravelConstant.LIST_REQUESTED
         });
 
-        // Mock server
-        return setTimeout(() => {
-            dispatch({
-                type: TravelConstant.LIST_SUCCESS,
-                travels: [
-                    {
-                        "@id": "/app_dev.php/travels/1",
-                        "@type": "Travel",
-                        "id": 1,
-                        "name": "New travel 5",
-                        "summary": "Lorem ipsum dolor",
-                        "dateStart": "2017-01-01T00:00:00+00:00",
-                        "dateEnd": null
-                    },
-                    {
-                        "@id": "/app_dev.php/travels/2",
-                        "@type": "Travel",
-                        "id": 2,
-                        "name": "New travel 6",
-                        "summary": "Lorem ipsum dolor",
-                        "dateStart": "2017-01-01T00:00:00+00:00",
-                        "dateEnd": null
-                    }
-                ]
-            });
-        }, 3000);
+        return axios.get('http://api.travelsheets.dev/app_dev.php/travels')
+            .then(response => {
+                let travels = response.data['hydra:member'];
+
+                travels = travels.map(function(travel) {
+                    travel.id = travel['@id'].replace('/app_dev.php/travels/', '');
+                    return travel;
+                });
+
+                dispatch({
+                    type: TravelConstant.LIST_SUCCESS,
+                    travels: travels
+                });
+            })
+            .catch(error => {
+                dispatch({
+                    type: TravelConstant.LIST_FAILURE
+                });
+            })
+        ;
     }
 };
