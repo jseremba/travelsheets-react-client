@@ -1,5 +1,8 @@
-import * as TravelConstant from '../constants/travels';
 import axios from 'axios';
+
+import * as TravelConstant from '../constants/travels';
+import {API_URL} from '../constants/configuration';
+
 
 /**
  * ListTravels action
@@ -12,14 +15,9 @@ export const listTravels = () => {
             type: TravelConstant.LIST_REQUESTED
         });
 
-        return axios.get('http://api.travelsheets.dev/app_dev.php/travels')
+        return axios.get(API_URL + '/travels')
             .then(response => {
-                let travels = response.data['hydra:member'];
-
-                travels = travels.map(function(travel) {
-                    travel.id = travel['@id'].replace('/app_dev.php/travels/', '');
-                    return travel;
-                });
+                let travels = response.data;
 
                 dispatch({
                     type: TravelConstant.LIST_SUCCESS,

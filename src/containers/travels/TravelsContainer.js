@@ -18,7 +18,7 @@ class TravelsContainer extends Component {
         const {travels, isLoading} = this.props;
 
         return (
-            <TravelsListComponent travels={travels} isLoading={isLoading} />
+            <TravelsListComponent travels={travels['hydra:member']} isLoading={isLoading} />
         );
     }
 }
