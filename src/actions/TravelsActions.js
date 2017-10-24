@@ -21,6 +21,17 @@ export const fetchTravels = (page) => {
             .then(response => {
                 let travels = response.data;
 
+                if(travels['hydra:member']) {
+                    travels['hydra:member'] = travels['hydra:member'].map(function(item) {
+                        let explode = item['@id'].split('/');
+
+                        return {
+                            ...item,
+                            id: explode[explode.length - 1]
+                        };
+                    });
+                }
+
                 dispatch({
                     type: TravelConstant.LIST_SUCCESS,
                     travels: travels

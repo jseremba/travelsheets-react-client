@@ -4,7 +4,7 @@ import {Link} from "react-router-dom";
 export default class TravelsListComponent extends PureComponent {
     createListItem(item) {
         return (
-            <Link className="list-group-item" to={`travels/${item.id}`} key={item['@id']}>
+            <Link className="list-group-item" to={`/travels/${item.id}`} key={item['@id']}>
                 <h4 className="list-group-item-heading">{item.name}</h4>
                 <p className="list-group-item-text">{item.summary}</p>
                 <p className="list-group-item-text">21/08/2017  - 01/09/2017</p>
