@@ -9,13 +9,15 @@ import {API_URL} from '../settings/configuration';
  *
  * @returns {{type}}
  */
-export const listTravels = () => {
+export const fetchTravels = (page) => {
+    page = page ? page : 1;
+
     return dispatch => {
         dispatch({
             type: TravelConstant.LIST_REQUESTED
         });
 
-        return axios.get(API_URL + '/travels')
+        return axios.get(`${API_URL}/travels?page=${page}`)
             .then(response => {
                 let travels = response.data;
 

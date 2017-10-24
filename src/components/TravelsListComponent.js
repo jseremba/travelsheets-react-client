@@ -1,8 +1,6 @@
 import React, { PureComponent } from 'react';
 import {Link} from "react-router-dom";
 
-import Loader from './LoaderComponent';
-
 export default class TravelsListComponent extends PureComponent {
     createListItem(item) {
         return (
@@ -14,38 +12,23 @@ export default class TravelsListComponent extends PureComponent {
         );
     }
 
-    addTravel() {
-        console.log('addTravel');
-    }
-
     render() {
-        const { travels, isLoading } = this.props;
+        const {travels} = this.props;
 
-        if(isLoading) {
+        if(!travels) {
             return (
-                <Loader />
-            )
+                <p>Vous n'avez aucun voyage, partez à l'aventure !</p>
+            );
         }
 
         return (
-            <div className="travels-list">
+            <div className="list-group">
                 {
-                    travels ? (
-                        <div className="list-group">
-                            {
-                                // A Game is only shown if its name contains the string from the searchBar
-                                travels && travels.map((travel, i) => {
-                                    return this.createListItem(travel);
-                                })
-                            }
-                        </div>
-                    ) : (
-                        <p>Vous n'avez aucun voyage, partez à l'aventure !</p>
-                    )
+                    // A Game is only shown if its name contains the string from the searchBar
+                    travels && travels.map((travel, i) => {
+                        return this.createListItem(travel);
+                    })
                 }
-                <div className="btn-group" role="group" aria-label="...">
-                    <button onClick={this.addTravel} className="btn btn-default btn-sm"><i className="glyphicon glyphicon-plus"/></button>
-                </div>
             </div>
         );
     }
