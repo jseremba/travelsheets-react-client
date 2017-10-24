@@ -1,18 +1,11 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
-import Immutable from "immutable";
 import {bindActionCreators} from "redux";
 
 import TravelsListComponent from "../../components/travels/TravelsListComponent";
-import * as travelsActionsCreators from '../../actions/travels';
+import * as travelsActions from '../../actions/travels';
 
 class TravelsContainer extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {};
-    }
-
     componentDidMount() {
         this.listTravels();
     }
@@ -22,24 +15,25 @@ class TravelsContainer extends Component {
     }
 
     render () {
-        const {travels} = this.props;
+        const {travels, isLoading} = this.props;
 
         return (
-            <TravelsListComponent travels={travels} />
+            <TravelsListComponent travels={travels} isLoading={isLoading} />
         );
     }
 }
 
-function mapStateToProps(state) {
+const mapStateToProps = state => {
     return {
-        travels: state.travels.getIn(['list'], Immutable.List()).toJS()
+        travels: state.travels.travels,
+        isLoading: state.travels.isLoading
     };
-}
+};
 
-function mapDispatchToProps(dispatch) {
+const mapDispatchToProps = dispatch => {
     return {
-        travelsActions: bindActionCreators(travelsActionsCreators, dispatch)
+        travelsActions: bindActionCreators(travelsActions, dispatch)
     };
-}
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(TravelsContainer);
