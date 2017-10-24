@@ -1,9 +1,9 @@
 import {combineReducers} from 'redux';
 import {routerReducer} from 'react-router-redux';
 
-import travels from './travels';
+import TravelsReducer from './TravelsReducer';
 
 export default combineReducers({
     routing: routerReducer,
-    travels
+    travels: TravelsReducer
 });

@@ -1,4 +1,4 @@
-import * as TravelConstant from '../constants/travels';
+import * as TravelConstant from '../constants/TravelsConstants';
 
 const initialState = {
     travels: [],

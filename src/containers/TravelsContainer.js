@@ -2,8 +2,8 @@ import React, {Component} from 'react';
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 
-import TravelsListComponent from "../../components/travels/TravelsListComponent";
-import * as travelsActions from '../../actions/travels';
+import TravelsListComponent from "../components/TravelsListComponent";
+import * as travelsActions from '../actions/TravelsActions';
 
 class TravelsContainer extends Component {
     componentDidMount() {

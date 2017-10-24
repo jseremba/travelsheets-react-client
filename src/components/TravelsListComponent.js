@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import {Link} from "react-router-dom";
 
-import Loader from '../LoaderComponent';
+import Loader from './LoaderComponent';
 
 export default class TravelsListComponent extends PureComponent {
     createListItem(item) {

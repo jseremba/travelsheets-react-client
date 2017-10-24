@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-import * as TravelConstant from '../constants/travels';
-import {API_URL} from '../constants/configuration';
+import * as TravelConstant from '../constants/TravelsConstants';
+import {API_URL} from '../settings/configuration';
 
 
 /**
