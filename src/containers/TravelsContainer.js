@@ -51,6 +51,9 @@ class TravelsContainer extends Component {
             currentPage = parseInt(query.page, 0);
         }
 
+        let itemsPerPage = travels['hydra:member'] && travels['hydra:member'].length;
+        let totalItems = travels['hydra:totalItems'];
+
         return (
             <div>
                 {
@@ -60,8 +63,8 @@ class TravelsContainer extends Component {
                         <div>
                             <TravelsListComponent travels={travels['hydra:member']} />
                             <PaginationComponent
-                                totalItems={travels['hydra:totalItems']}
-                                itemsPerPage={travels['hydra:itemsPerPage']}
+                                totalItems={totalItems}
+                                itemsPerPage={itemsPerPage}
                                 currentPage={currentPage}
                                 onPageChange={(page) => {
                                     this.props.travelsActions.changePage(page);

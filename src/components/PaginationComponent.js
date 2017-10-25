@@ -25,7 +25,7 @@ export default class LoaderComponent extends React.PureComponent {
                     {
                         pages && pages.map(function (page) {
                             return (
-                                <li key={page} className={(currentPage === page ? 'active' : '')}><a onClick={() => onPageChange(page)}>{page}</a></li>
+                                <li key={page} className={(currentPage === page ? 'active' : '')}><a href="javascript:void(0);" onClick={() => onPageChange(page)}>{page}</a></li>
                             );
                         })
                     }

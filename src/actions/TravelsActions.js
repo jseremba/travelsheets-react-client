@@ -22,22 +22,9 @@ export const fetchTravels = (page) => {
 
         return axios.get(url)
             .then(response => {
-                let travels = response.data;
-
-                if(travels['hydra:member']) {
-                    travels['hydra:member'] = travels['hydra:member'].map(function(item) {
-                        let explode = item['@id'].split('/');
-
-                        return {
-                            ...item,
-                            id: explode[explode.length - 1]
-                        };
-                    });
-                }
-
                 dispatch({
                     type: TravelConstant.LIST_SUCCESS,
-                    travels: travels
+                    travels: response.data
                 });
             })
             .catch(error => {
