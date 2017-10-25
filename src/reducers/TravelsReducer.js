@@ -2,7 +2,8 @@ import * as TravelConstant from '../constants/TravelsConstants';
 
 const initialState = {
     travels: [],
-    isLoading: false
+    isLoading: false,
+    searchBar: '',
 };
 
 export default (state = initialState, action) => {
@@ -24,6 +25,13 @@ export default (state = initialState, action) => {
                 travels: [],
                 isLoading: false
             };
+        case TravelConstant.SET_SEARCH_BAR:
+            return {
+                ...state,
+                searchBar: action.keyword,
+                isLoading: true
+            };
+
         default:
             return state;
     }

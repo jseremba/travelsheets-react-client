@@ -11,8 +11,22 @@ import LoaderComponent from '../components/LoaderComponent';
 import * as travelsActions from '../actions/TravelsActions';
 
 class TravelsContainer extends Component {
+    constructor(props) {
+        super(props);
+
+        this.setSearchBar = this.setSearchBar.bind(this);
+        this.fetchTravels = this.fetchTravels.bind(this);
+        this.changePage = this.changePage.bind(this);
+
+        this.searchTimeout = null;
+    }
+
     componentDidMount() {
-        this.fetchTravels();
+        // Fetch page from query
+        let query = queryString.parse(this.props.location.search);
+
+        this.props.travelsActions.setSearchBar(query.search);
+        this.fetchTravels(query.page, query.search);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -23,28 +37,43 @@ class TravelsContainer extends Component {
             let oldPage = oldQuery.page ? parseInt(oldQuery.page, 0) : 1;
             let newPage = newQuery.page ? parseInt(newQuery.page, 0) : 1;
 
-            if(oldPage !== newPage) {
-                this.fetchTravels(newPage);
+            let oldSearch = oldQuery.search;
+            let newSearch = newQuery.search;
+
+            if(oldPage !== newPage || oldSearch !== newSearch) {
+                this.fetchTravels(newPage, newSearch);
+            }
+
+            if(oldSearch !== newSearch) {
+                this.props.travelsActions.setSearchBar(newSearch);
             }
         }
     }
 
-    fetchTravels(page) {
-        // Fetch page from query
-        if(!page) {
-            let query = queryString.parse(this.props.location.search);
+    fetchTravels(page, keyword) {
+        this.props.travelsActions.fetchTravels(page, keyword);
+    }
 
-            if(query.page) {
-                page = query.page;
-            }
-        }
+    setSearchBar (event) {
+        if(this.searchTimeout) clearTimeout(this.searchTimeout);
 
-        this.props.travelsActions.fetchTravels(page);
+        let keyword = event.target.value.toLowerCase();
+
+        this.searchTimeout = setTimeout(() => {
+            this.props.travelsActions.searchTravels(keyword);
+        }, 200);
+
+        this.props.travelsActions.setSearchBar(keyword);
+    }
+
+    changePage (page) {
+        this.props.travelsActions.changePage(page);
     }
 
     render () {
-        const {travels, isLoading} = this.props;
+        const {travels, isLoading, searchBar} = this.props;
 
+        // Pagination
         let currentPage = 1;
         let query = queryString.parse(this.props.location.search);
 
@@ -55,21 +84,28 @@ class TravelsContainer extends Component {
         let itemsPerPage = API_PAGINATION_ITEMS_PER_PAGE;
         let totalItems = travels['hydra:totalItems'];
 
+        // Search
+        let displayTravels = travels['hydra:member'];
+
+        if(searchBar && searchBar.length > 0) {
+            displayTravels = displayTravels && displayTravels.filter(travel => travel.name.toLowerCase().includes(searchBar));
+        }
+
         return (
             <div>
+                <input type="search" value={this.props.searchBar} placeholder="Search by Name" className="form-control search-bar" onChange={this.setSearchBar} />
+
                 {
                     isLoading ? (
-                        <LoaderComponent />
+                        <LoaderComponent/>
                     ) : (
                         <div>
-                            <TravelsListComponent travels={travels['hydra:member']} />
+                            <TravelsListComponent travels={displayTravels}/>
                             <PaginationComponent
-                                totalItems={totalItems}
-                                itemsPerPage={itemsPerPage}
+                                totalItems={!isLoading ? totalItems : 1}
+                                itemsPerPage={!isLoading ? itemsPerPage : 1}
                                 currentPage={currentPage}
-                                onPageChange={(page) => {
-                                    this.props.travelsActions.changePage(page);
-                                }}
+                                onPageChange={this.changePage}
                             />
                         </div>
                     )
@@ -86,7 +122,8 @@ class TravelsContainer extends Component {
 const mapStateToProps = state => {
     return {
         travels: state.travels.travels,
-        isLoading: state.travels.isLoading
+        isLoading: state.travels.isLoading,
+        searchBar: state.travels.searchBar
     };
 };
 

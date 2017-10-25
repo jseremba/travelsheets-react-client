@@ -11,16 +11,32 @@ import {API_URL} from '../settings/configuration';
  *
  * @returns {{type}}
  */
-export const fetchTravels = (page) => {
+export const fetchTravels = (page, keyword) => {
     return dispatch => {
         dispatch({
             type: TravelConstant.LIST_REQUESTED
         });
 
         let url = `${API_URL}/travels`;
-        if(page) url += `?page=${page}`;
+        let query = {};
 
-        return axios.get(url)
+        if(page) {
+            query = {
+                ...query,
+                page: page
+            };
+        }
+
+        if(keyword) {
+            query = {
+                ...query,
+                name: keyword
+            };
+        }
+
+        query = queryString.stringify(query);
+
+        return axios.get(url + '?' + query)
             .then(response => {
                 dispatch({
                     type: TravelConstant.LIST_SUCCESS,
@@ -33,6 +49,23 @@ export const fetchTravels = (page) => {
                 });
             })
         ;
+    }
+};
+
+export const searchTravels = (keyword, page) => {
+    return (dispatch, getState) => {
+        let props = getState();
+        let query = queryString.parse(props.routing.location.search);
+
+        query = queryString.stringify({
+            ...query,
+            page: page ? page : undefined,
+            search: keyword ? keyword : undefined
+        });
+
+        dispatch(push({
+            search: `?${query}`,
+        }));
     }
 };
 
@@ -56,5 +89,20 @@ export const changePage = (page) => {
         dispatch(push({
             search: `?${query}`,
         }));
+    }
+};
+
+/**
+ * Action SetSearchBar
+ *
+ * @param keyword
+ * @returns {{type: *, keyword: *}}
+ */
+export const setSearchBar = (keyword) => {
+    return (dispatch) => {
+        dispatch({
+            type: TravelConstant.SET_SEARCH_BAR,
+            keyword: keyword ? keyword : ""
+        });
     }
 };
