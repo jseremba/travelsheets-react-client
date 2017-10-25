@@ -19,14 +19,13 @@ export default class LoaderComponent extends React.PureComponent {
             }
         }
 
-
         return (
             <nav aria-label="Page navigation">
                 <ul className="pagination">
                     {
                         pages && pages.map(function (page) {
                             return (
-                                <li key={page} className={(currentPage === page ? 'active' : '')}><a onClick={() => {onPageChange(page);}}>{page}</a></li>
+                                <li key={page} className={(currentPage === page ? 'active' : '')}><a onClick={() => onPageChange(page)}>{page}</a></li>
                             );
                         })
                     }

@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
+import queryString from 'query-string';
 
 import TravelsListComponent from "../components/TravelsListComponent";
 import PaginationComponent from "../components/PaginationComponent";
@@ -13,18 +14,42 @@ class TravelsContainer extends Component {
         this.fetchTravels();
     }
 
-    fetchTravels(page) {
-        this.props.travelsActions.fetchTravels(page);
+    componentWillReceiveProps(nextProps) {
+        if(nextProps.location.search !== this.props.location.search) {
+            let oldQuery = queryString.parse(this.props.location.search);
+            let newQuery = queryString.parse(nextProps.location.search);
+
+            let oldPage = oldQuery.page ? parseInt(oldQuery.page, 0) : 1;
+            let newPage = newQuery.page ? parseInt(newQuery.page, 0) : 1;
+
+            if(oldPage !== newPage) {
+                this.fetchTravels(newPage);
+            }
+        }
     }
 
-    addTravel() {
-        console.log('addTravel');
+    fetchTravels(page) {
+        // Fetch page from query
+        if(!page) {
+            let query = queryString.parse(this.props.location.search);
+
+            if(query.page) {
+                page = query.page;
+            }
+        }
+
+        this.props.travelsActions.fetchTravels(page);
     }
 
     render () {
         const {travels, isLoading} = this.props;
 
-        let currentPage = travels['@id'] ? parseInt(travels['@id'].replace('/app_dev.php/travels?page=', ''), 0) : null;
+        let currentPage = 1;
+        let query = queryString.parse(this.props.location.search);
+
+        if(query.page) {
+            currentPage = parseInt(query.page, 0);
+        }
 
         return (
             <div>
@@ -39,7 +64,7 @@ class TravelsContainer extends Component {
                                 itemsPerPage={travels['hydra:itemsPerPage']}
                                 currentPage={currentPage}
                                 onPageChange={(page) => {
-                                    this.fetchTravels(page);
+                                    this.props.travelsActions.changePage(page);
                                 }}
                             />
                         </div>
@@ -47,7 +72,7 @@ class TravelsContainer extends Component {
                 }
 
                 <div className="btn-group" role="group">
-                    <button onClick={this.addTravel} className="btn btn-default btn-sm"><i className="glyphicon glyphicon-plus"/></button>
+                    {/*<button onClick={() => } className="btn btn-default btn-sm"><i className="glyphicon glyphicon-plus"/></button>*/}
                 </div>
             </div>
         );
@@ -61,9 +86,9 @@ const mapStateToProps = state => {
     };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch, props) => {
     return {
-        travelsActions: bindActionCreators(travelsActions, dispatch)
+        travelsActions: bindActionCreators(travelsActions, dispatch, props)
     };
 };
 
