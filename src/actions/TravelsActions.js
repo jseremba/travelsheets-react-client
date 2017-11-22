@@ -30,7 +30,7 @@ export const fetchTravels = (page, keyword) => {
         if(keyword) {
             query = {
                 ...query,
-                name: keyword
+                search: keyword
             };
         }
 
