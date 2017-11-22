@@ -3,29 +3,27 @@ import React from 'react';
 export default class LoaderComponent extends React.PureComponent {
     render() {
         const {
-            currentPage,
-            itemsPerPage,
-            totalItems,
+            pagination,
             onPageChange
         } = this.props;
 
-        let nbPages;
         let pages = [];
 
-        if(itemsPerPage && totalItems) {
-            nbPages = Math.ceil(totalItems / itemsPerPage);
-            for(let i=0; i<nbPages; i++) {
-                pages.push(i+1);
+        if(pagination) {
+            for(let i=1; i<=pagination.last; i++) {
+                pages.push(i);
             }
         }
 
         return (
-            <nav aria-label="Page navigation">
+            <nav aria-label="Navigation">
                 <ul className="pagination">
                     {
-                        pages && pages.map(function (page) {
+                        pages && pages.map(function(page) {
                             return (
-                                <li key={page} className={(currentPage === page ? 'active' : '')}><a onClick={() => onPageChange(page)}>{page}</a></li>
+                                <li key={page} className={(pagination.current === page ? 'active' : '')}>
+                                    <a onClick={() => onPageChange(page)}>{page}</a>
+                                </li>
                             );
                         })
                     }

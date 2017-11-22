@@ -71,25 +71,10 @@ class TravelsContainer extends Component {
     }
 
     render () {
-        const {travels, isLoading, searchBar} = this.props;
-
-        // Pagination
-        let currentPage = 1;
-        let query = queryString.parse(this.props.location.search);
-
-        if(query.page) {
-            currentPage = parseInt(query.page, 0);
-        }
-
-        let itemsPerPage = API_PAGINATION_ITEMS_PER_PAGE;
-        let totalItems = travels['hydra:totalItems'];
+        const {travels, isLoading} = this.props;
 
         // Search
-        let displayTravels = travels['hydra:member'];
-
-        if(searchBar && searchBar.length > 0) {
-            displayTravels = displayTravels && displayTravels.filter(travel => travel.name.toLowerCase().includes(searchBar));
-        }
+        let displayTravels = travels['items'];
 
         return (
             <div>
@@ -102,9 +87,7 @@ class TravelsContainer extends Component {
                         <div>
                             <TravelsListComponent travels={displayTravels}/>
                             <PaginationComponent
-                                totalItems={!isLoading ? totalItems : 1}
-                                itemsPerPage={!isLoading ? itemsPerPage : 1}
-                                currentPage={currentPage}
+                                pagination={travels.pagination}
                                 onPageChange={this.changePage}
                             />
                         </div>
