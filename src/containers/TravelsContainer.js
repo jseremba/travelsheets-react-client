@@ -84,7 +84,7 @@ class TravelsContainer extends Component {
                     isLoading ? (
                         <LoaderComponent/>
                     ) : (
-                        <div>
+                        <div className="list-travels">
                             <TravelsListComponent travels={displayTravels}/>
                             <PaginationComponent
                                 pagination={travels.pagination}
