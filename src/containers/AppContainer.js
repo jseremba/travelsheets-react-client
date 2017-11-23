@@ -2,6 +2,7 @@ import React from 'react';
 import { Route, Link } from 'react-router-dom';
 
 import TravelsContainer from './TravelsContainer';
+import TravelContainer from './TravelContainer';
 
 const App = () => (
     <div>
@@ -15,7 +16,8 @@ const App = () => (
         </header>
 
         <main className="container">
-            <Route component={TravelsContainer}/>
+            <Route exact path="/" component={TravelsContainer}/>
+            <Route exact path="/travels/:id" component={TravelContainer}/>
         </main>
     </div>
 );
