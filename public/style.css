@@ -24,6 +24,10 @@ body {
     color: #18bc9c;
 }
 
+.list-travels {
+    margin-top: 20px;
+}
+
 @font-face {
     font-family: 'icomoon';
     src:  url('../fonts/icomoon.eot?vxg909');
