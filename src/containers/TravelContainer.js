@@ -6,6 +6,7 @@ import * as TravelActions from '../actions/TravelActions';
 
 import LoaderComponent from '../components/LoaderComponent';
 import TravelInfosComponent from "../components/TravelInfosComponent";
+import StepsContainer from "./StepsContainer";
 
 class TravelContainer extends Component {
     componentDidMount() {
@@ -28,10 +29,12 @@ class TravelContainer extends Component {
                             <div className="col-md-4">
                                 <TravelInfosComponent travel={travel}/>
                             </div>
+                            <div className="col-md-8">
+                                <StepsContainer travel={travel}/>
+                            </div>
                         </div>
                     )
                 }
-
             </div>
         );
     }
