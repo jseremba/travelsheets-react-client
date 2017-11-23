@@ -13,10 +13,6 @@ export default class StepsListComponent extends PureComponent {
         return (
             <div className="panel panel-default">
                 <div className="panel-heading" role="tab" id={`heading-${step['@id']}`}>
-                    {/*<div className="btn-group fr" role="group" aria-label="...">*/}
-                    {/*<a href="/travels/1/steps/7/edit" className="btn btn-default btn-xs" data-toggle="tooltip" data-placement="top" title="" data-original-title="Modifier"><i class="glyphicon glyphicon-pencil"></i></a>*/}
-                    {/*<a href="/travels/1/steps/7/delete" className="btn btn-default btn-xs" data-toggle="tooltip" data-placement="top" title="" data-original-title="Supprimer"><i class="glyphicon glyphicon-trash"></i></a>*/}
-                    {/*</div>*/}
                     <h3 className="panel-title">
                         <a className="collapsed" data-toggle="collapse" data-parent="#accordion" href={`#collapse-${step['@id']}`} aria-expanded="false" aria-controls={`collapse-${step['@id']}`}>
                             <i className="icon-step transportation train"/>&nbsp;&nbsp;{step.name}
@@ -25,10 +21,11 @@ export default class StepsListComponent extends PureComponent {
                 </div>
                 <div id={`collapse-${step['@id']}`} className="panel-collapse collapse" role="tabpanel" aria-labelledby={`heading-${step['@id']}`} aria-expanded="false">
                     <div className="panel-body">
-                        <h4>Informations</h4>
                         {step.summary ? (
                             <p>{step.summary}</p>
                         ) : ''}
+
+                        <h4>Informations</h4>
 
                         <table className="table table-bordered">
                             <tbody>
@@ -93,10 +90,6 @@ export default class StepsListComponent extends PureComponent {
                                     </tr>
                                 ) : null}
                             </tbody>
-
-
-                            {/*{step.type ? (<li className="list-group-item">Type de transport <strong>{step.type}</strong></li>) : ''}*/}
-                            {/*{step.price ? (<li className="list-group-item">Prix <strong>{step.price}&nbsp;€</strong></li>) : ''}*/}
                         </table>
                     </div>
                 </div>
