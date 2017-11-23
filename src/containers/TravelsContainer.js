@@ -78,7 +78,8 @@ class TravelsContainer extends Component {
 
         return (
             <div>
-                <input type="search" value={this.props.searchBar} placeholder="Search by Name" className="form-control search-bar" onChange={this.setSearchBar} />
+                <h1>Mes voyages</h1>
+                <input type="search" value={this.props.searchBar} placeholder="Rechercher" className="form-control search-bar" onChange={this.setSearchBar} />
 
                 {
                     isLoading ? (

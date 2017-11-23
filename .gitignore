@@ -26,3 +26,5 @@ out
 gen
 
 src/settings/configuration.js
+public/**/*.css
+.sass-cache
