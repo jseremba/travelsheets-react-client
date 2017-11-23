@@ -15,7 +15,7 @@ export default class StepsListComponent extends PureComponent {
                 <div className="panel-heading" role="tab" id={`heading-${step['@id']}`}>
                     <h3 className="panel-title">
                         <a className="collapsed" data-toggle="collapse" data-parent="#accordion" href={`#collapse-${step['@id']}`} aria-expanded="false" aria-controls={`collapse-${step['@id']}`}>
-                            <i className="icon-step transportation train"/>&nbsp;&nbsp;{step.name}
+                            <i className={`icon-step ${step['@type'].toLowerCase()} ${step.type}`}/>&nbsp;&nbsp;{step.name}
                         </a>
                     </h3>
                 </div>

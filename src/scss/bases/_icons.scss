@@ -1,0 +1,73 @@
+.icon-step {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-step.accomodationstep {
+  color: #18bc9c;
+}
+
+.icon-step.accomodationstep.location:before,
+.icon-step.accomodationstep.other:before {
+  content: "\e901";
+}
+.icon-step.accomodationstep.hotel:before {
+  content: "\e90a";
+}
+.icon-step.accomodationstep.camping:before {
+  content: "\e90e";
+}
+
+.icon-step.transportationstep {
+  color: #f39c12;
+}
+
+.icon-step.transportationstep.plane:before {
+  content: "\e900";
+}
+.icon-step.transportationstep.subway:before {
+  content: "\e903";
+}
+.icon-step.transportationstep.car:before {
+  content: "\e904";
+}
+.icon-step.transportationstep.helicopter:before {
+  content: "\e909";
+}
+.icon-step.transportationstep.boat:before {
+  content: "\e90d";
+}
+.icon-step.transportationstep.train:before {
+  content: "\e90f";
+}
+
+.icon-step.tourstep {
+  color: #3498db;
+}
+
+.icon-step.tourstep.club:before {
+  content: "\e905";
+}
+.icon-step.tourstep.coffee:before {
+  content: "\e906";
+}
+.icon-step.tourstep.restaurant:before {
+  content: "\e907";
+}
+.icon-step.tourstep.place:before {
+  content: "\e908";
+}
+.icon-step.tourstep.museum:before,
+.icon-step.tourstep.other:before {
+  content: "\e90c";
+}
