@@ -11,7 +11,7 @@ export default class TravelInfosComponent extends PureComponent {
         }
 
         return (
-            <div className="panel panel-default">
+            <div className="panel panel-default travel-infos-component">
                 <div className="panel-heading">
                     <div className="btn-group fr" role="group" aria-label="...">
                         <Link to="/travels/{travel['@id']}/edit" className="btn btn-default btn-xs"><i className="glyphicon glyphicon-pencil"/></Link>
