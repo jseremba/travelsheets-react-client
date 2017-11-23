@@ -1,12 +1,9 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
-import queryString from 'query-string';
 
 import * as TravelActions from '../actions/TravelActions';
 
-// import TravelComponent from "../components/TravelsListComponent";
-// import PaginationComponent from "../components/PaginationComponent";
 import LoaderComponent from '../components/LoaderComponent';
 import TravelInfosComponent from "../components/TravelInfosComponent";
 

@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 import queryString from 'query-string';
-import {API_PAGINATION_ITEMS_PER_PAGE} from '../settings/configuration';
 
 import TravelsListComponent from "../components/TravelsListComponent";
 import PaginationComponent from "../components/PaginationComponent";
