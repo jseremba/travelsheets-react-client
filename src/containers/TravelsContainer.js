@@ -2,9 +2,9 @@ import React, {Component} from 'react';
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 import queryString from 'query-string';
+import {Pagination} from 'react-bootstrap';
 
 import TravelsListComponent from "../components/TravelsListComponent";
-import PaginationComponent from "../components/PaginationComponent";
 import LoaderComponent from '../components/LoaderComponent';
 
 import * as travelsActions from '../actions/TravelsActions';
@@ -86,10 +86,7 @@ class TravelsContainer extends Component {
                     ) : (
                         <div className="list-travels">
                             <TravelsListComponent travels={displayTravels}/>
-                            <PaginationComponent
-                                pagination={travels.pagination}
-                                onPageChange={this.changePage}
-                            />
+                            <Pagination  activePage={travels.pagination.current} items={travels.pagination.last} onSelect={this.changePage}/>
                         </div>
                     )
                 }
