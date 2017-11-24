@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 import queryString from 'query-string';
-import {Pagination} from 'react-bootstrap';
+import { Pagination, PageHeader } from 'react-bootstrap';
 
 import TravelsListComponent from "../components/TravelsListComponent";
 import LoaderComponent from '../components/LoaderComponent';
@@ -77,7 +77,7 @@ class TravelsContainer extends Component {
 
         return (
             <div>
-                <h1>Mes voyages</h1>
+                <PageHeader>Mes voyages</PageHeader>
                 <input type="search" value={this.props.searchBar} placeholder="Rechercher" className="form-control search-bar" onChange={this.setSearchBar} />
 
                 {
