@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
+import { Grid, Row, Col, PageHeader } from 'react-bootstrap';
 
 import * as TravelActions from '../actions/TravelActions';
 
@@ -20,22 +21,21 @@ class TravelContainer extends Component {
         const {travel, isLoading} = this.props;
 
         return (
-            <div className="travel-container">
-                {
-                    isLoading ? (
-                        <LoaderComponent/>
-                    ) : (
-                        <div className="row">
-                            <div className="col-md-4">
-                                <TravelInfosComponent travel={travel}/>
-                            </div>
-                            <div className="col-md-8">
-                                <StepsContainer travel={travel}/>
-                            </div>
-                        </div>
-                    )
-                }
-            </div>
+            isLoading ? (
+                <LoaderComponent/>
+            ) : (
+                <Grid>
+                    <PageHeader>{travel.name}</PageHeader>
+                    <Row>
+                        <Col md={4}>
+                            <TravelInfosComponent travel={travel}/>
+                        </Col>
+                        <Col md={8}>
+                            <StepsContainer travel={travel}/>
+                        </Col>
+                    </Row>
+                </Grid>
+            )
         );
     }
 }

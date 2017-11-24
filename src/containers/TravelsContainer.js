@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 import queryString from 'query-string';
-import { Pagination, PageHeader } from 'react-bootstrap';
+import { Pagination, PageHeader, Grid } from 'react-bootstrap';
 
 import TravelsListComponent from "../components/TravelsListComponent";
 import LoaderComponent from '../components/LoaderComponent';
@@ -76,7 +76,7 @@ class TravelsContainer extends Component {
         let displayTravels = travels['items'];
 
         return (
-            <div>
+            <Grid>
                 <PageHeader>Mes voyages</PageHeader>
                 <input type="search" value={this.props.searchBar} placeholder="Rechercher" className="form-control search-bar" onChange={this.setSearchBar} />
 
@@ -94,7 +94,7 @@ class TravelsContainer extends Component {
                 <div className="btn-group" role="group">
                     {/*<button onClick={() => } className="btn btn-default btn-sm"><i className="glyphicon glyphicon-plus"/></button>*/}
                 </div>
-            </div>
+            </Grid>
         );
     }
 }

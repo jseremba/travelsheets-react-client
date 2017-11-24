@@ -15,10 +15,8 @@ const App = () => (
             </Navbar.Header>
         </Navbar>
 
-        <main className="container">
-            <Route exact path="/" component={TravelsContainer}/>
-            <Route exact path="/travels/:id" component={TravelContainer}/>
-        </main>
+        <Route exact path="/" component={TravelsContainer}/>
+        <Route exact path="/travels/:id" component={TravelContainer}/>
     </div>
 );
 
