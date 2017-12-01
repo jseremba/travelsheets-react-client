@@ -44,16 +44,26 @@ class TravelEditContainer extends Component {
         if(!dateStart.value || dateStart.value.length === 0) {
             this.props.travelFormActions.setError('dateStart', 'Ce champs est obligatoire');
             isValid = false;
-        } else {
-            if(!REGEX_DATE.test(dateStart.value)) {
-                this.props.travelFormActions.setError('dateStart', 'La date est invalide');
-                isValid = false;
-            }
+        } else if(!REGEX_DATE.test(dateStart.value)) {
+            this.props.travelFormActions.setError('dateStart', 'La date est invalide');
+            isValid = false;
         }
 
         if(dateEnd.value && dateEnd.value.length > 0) {
             if(!REGEX_DATE.test(dateEnd.value)) {
                 this.props.travelFormActions.setError('dateEnd', 'La date est invalide');
+                isValid = false;
+            }
+        }
+
+        if(dateStart.value && dateEnd.value) {
+            let dateStartDate = new Date(dateStart.value);
+            let dateEndDate = new Date(dateEnd.value);
+
+            console.log(dateEndDate.getTime(), dateStartDate.getTime());
+
+            if(dateEndDate.getTime() < dateStartDate.getTime()) {
+                this.props.travelFormActions.setError('dateEnd', 'La date de fin doit être après celle du début');
                 isValid = false;
             }
         }
