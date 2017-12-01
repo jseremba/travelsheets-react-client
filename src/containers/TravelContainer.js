@@ -9,7 +9,7 @@ import * as TravelFormActions from '../actions/TravelFormActions';
 import LoaderComponent from '../components/LoaderComponent';
 import TravelInfosComponent from "../components/TravelInfosComponent";
 import StepsContainer from "./StepsContainer";
-import TravelEditContainer from "./TravelEditContainer";
+import TravelFormContainer from "./TravelFormContainer";
 
 class TravelContainer extends Component {
     componentDidMount() {
@@ -37,7 +37,7 @@ class TravelContainer extends Component {
                             <StepsContainer travel={travel}/>
                         </Col>
                     </Row>
-                    <TravelEditContainer travel={travel}/>
+                    <TravelFormContainer travel={travel}/>
                 </Grid>
             )
         );

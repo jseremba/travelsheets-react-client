@@ -2,14 +2,14 @@ import React, {Component} from "react";
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 import queryString from "query-string";
-import {Button, Grid, Modal, PageHeader, Pagination} from "react-bootstrap";
+import {Button, Grid, PageHeader, Pagination} from "react-bootstrap";
 
 import TravelsListComponent from "../components/TravelsListComponent";
 import LoaderComponent from "../components/LoaderComponent";
-import TravelAddContainer from "./TravelAddContainer";
 
 import * as travelsActions from "../actions/TravelsActions";
 import * as travelFormActions from "../actions/TravelFormActions";
+import TravelFormContainer from "./TravelFormContainer";
 
 class TravelsContainer extends Component {
     constructor(props) {
@@ -99,7 +99,7 @@ class TravelsContainer extends Component {
                     )
                 }
 
-                <TravelAddContainer />
+                <TravelFormContainer />
             </Grid>
         );
     }
