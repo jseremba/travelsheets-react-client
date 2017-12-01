@@ -1,13 +1,15 @@
-import React, {Component} from 'react';
+import React, {Component} from "react";
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
-import queryString from 'query-string';
-import { Pagination, PageHeader, Grid } from 'react-bootstrap';
+import queryString from "query-string";
+import {Button, Grid, Modal, PageHeader, Pagination} from "react-bootstrap";
 
 import TravelsListComponent from "../components/TravelsListComponent";
-import LoaderComponent from '../components/LoaderComponent';
+import LoaderComponent from "../components/LoaderComponent";
+import TravelAddContainer from "./TravelAddContainer";
 
-import * as travelsActions from '../actions/TravelsActions';
+import * as travelsActions from "../actions/TravelsActions";
+import * as travelAddActions from "../actions/TravelAddActions";
 
 class TravelsContainer extends Component {
     constructor(props) {
@@ -29,7 +31,7 @@ class TravelsContainer extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if(nextProps.location.search !== this.props.location.search) {
+        if (nextProps.location.search !== this.props.location.search) {
             let oldQuery = queryString.parse(this.props.location.search);
             let newQuery = queryString.parse(nextProps.location.search);
 
@@ -39,11 +41,11 @@ class TravelsContainer extends Component {
             let oldSearch = oldQuery.search;
             let newSearch = newQuery.search;
 
-            if(oldPage !== newPage || oldSearch !== newSearch) {
+            if (oldPage !== newPage || oldSearch !== newSearch) {
                 this.fetchTravels(newPage, newSearch);
             }
 
-            if(oldSearch !== newSearch) {
+            if (oldSearch !== newSearch) {
                 this.props.travelsActions.setSearchBar(newSearch);
             }
         }
@@ -53,8 +55,8 @@ class TravelsContainer extends Component {
         this.props.travelsActions.fetchTravels(page, keyword);
     }
 
-    setSearchBar (event) {
-        if(this.searchTimeout) clearTimeout(this.searchTimeout);
+    setSearchBar(event) {
+        if (this.searchTimeout) clearTimeout(this.searchTimeout);
 
         let keyword = event.target.value.toLowerCase();
 
@@ -65,11 +67,11 @@ class TravelsContainer extends Component {
         this.props.travelsActions.setSearchBar(keyword);
     }
 
-    changePage (page) {
+    changePage(page) {
         this.props.travelsActions.changePage(page);
     }
 
-    render () {
+    render() {
         const {travels, isLoading} = this.props;
 
         // Search
@@ -77,8 +79,13 @@ class TravelsContainer extends Component {
 
         return (
             <Grid>
-                <PageHeader>Mes voyages</PageHeader>
-                <input type="search" value={this.props.searchBar} placeholder="Rechercher" className="form-control search-bar" onChange={this.setSearchBar} />
+                <PageHeader>
+                    Mes voyages
+                    &nbsp;<Button bsStyle="primary" bsSize="xsmall" onClick={this.props.travelAddActions.openModal}><i
+                    className="glyphicon glyphicon-plus"/></Button>
+                </PageHeader>
+                <input type="search" value={this.props.searchBar} placeholder="Rechercher"
+                       className="form-control search-bar" onChange={this.setSearchBar}/>
 
                 {
                     isLoading ? (
@@ -86,14 +93,13 @@ class TravelsContainer extends Component {
                     ) : (
                         <div className="list-travels">
                             <TravelsListComponent travels={displayTravels}/>
-                            <Pagination  activePage={travels.pagination.current} items={travels.pagination.last} onSelect={this.changePage}/>
+                            <Pagination activePage={travels.pagination.current} items={travels.pagination.last}
+                                        onSelect={this.changePage}/>
                         </div>
                     )
                 }
 
-                <div className="btn-group" role="group">
-                    {/*<button onClick={() => } className="btn btn-default btn-sm"><i className="glyphicon glyphicon-plus"/></button>*/}
-                </div>
+                <TravelAddContainer />
             </Grid>
         );
     }
@@ -103,13 +109,14 @@ const mapStateToProps = state => {
     return {
         travels: state.travels.travels,
         isLoading: state.travels.isLoading,
-        searchBar: state.travels.searchBar
+        searchBar: state.travels.searchBar,
     };
 };
 
 const mapDispatchToProps = (dispatch, props) => {
     return {
-        travelsActions: bindActionCreators(travelsActions, dispatch, props)
+        travelsActions: bindActionCreators(travelsActions, dispatch, props),
+        travelAddActions: bindActionCreators(travelAddActions, dispatch, props)
     };
 };
 
