@@ -1,5 +1,8 @@
 import axios from 'axios';
+
 import * as TravelFormConstants from '../constants/TravelFormConstants';
+import * as TravelConstants from '../constants/TravelConstants';
+
 import {API_URL} from "../settings/configuration";
 
 /**
@@ -54,6 +57,11 @@ export const edit = (id, data) => {
             .then(response => {
                 dispatch({
                     type: TravelFormConstants.SAVE_SUCCESS,
+                    travel: response.data
+                });
+
+                dispatch({
+                    type: TravelConstants.SET,
                     travel: response.data
                 });
             })

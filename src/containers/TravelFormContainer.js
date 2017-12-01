@@ -57,6 +57,7 @@ class TravelEditContainer extends Component {
         }
 
         if(dateStart.value && dateEnd.value) {
+
             let dateStartDate = new Date(dateStart.value);
             let dateEndDate = new Date(dateEnd.value);
 
