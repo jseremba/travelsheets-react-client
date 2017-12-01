@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react';
-import {Link} from "react-router-dom";
-import {Button, ButtonGroup, Panel} from "react-bootstrap";
+import {Button, ButtonGroup} from "react-bootstrap";
 import Moment from 'moment';
 
 export default class TravelInfosComponent extends PureComponent {

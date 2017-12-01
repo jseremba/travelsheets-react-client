@@ -23,7 +23,7 @@ class TravelEditContainer extends Component {
         this.props.travelFormActions.closeModal();
     }
 
-    componentDidMount(nextProps) {
+    componentDidMount() {
         const {travel} = this.props;
 
         if(travel) {
@@ -34,7 +34,7 @@ class TravelEditContainer extends Component {
     validate() {
         let isValid = true;
 
-        const {name, summary, dateStart, dateEnd} = this.props.values;
+        const {name, dateStart, dateEnd} = this.props.values;
 
         if(!name.value || name.value.length === 0) {
             this.props.travelFormActions.setError('name', 'Ce champs est obligatoire');

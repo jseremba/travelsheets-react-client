@@ -1,7 +1,5 @@
 import React, { PureComponent } from 'react';
-import {Link} from "react-router-dom";
-import {Button, ButtonGroup, ControlLabel, FormControl, FormGroup, HelpBlock, Panel} from "react-bootstrap";
-import Moment from 'moment';
+import {ControlLabel, FormControl, FormGroup, HelpBlock} from "react-bootstrap";
 
 export default class TravelInfosComponent extends PureComponent {
     render() {

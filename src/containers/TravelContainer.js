@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
-import {Grid, Row, Col, PageHeader, ButtonGroup, Button} from 'react-bootstrap';
+import {Grid, Row, Col, PageHeader} from 'react-bootstrap';
 
 import * as TravelActions from '../actions/TravelActions';
 import * as TravelFormActions from '../actions/TravelFormActions';
