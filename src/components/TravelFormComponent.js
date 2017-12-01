@@ -36,7 +36,7 @@ export default class TravelInfosComponent extends PureComponent {
                     <FormControl type="date"
                                  placeholder="dd/mm/yyyy"
                                  disabled={isLoading}
-                                 value={values.dateStart.value}
+                                 value={values.dateStart.value ? values.dateStart.value : ''}
                                  name="dateStart"
                                  onChange={onChange}
                     />
@@ -47,7 +47,7 @@ export default class TravelInfosComponent extends PureComponent {
                     <FormControl type="date"
                                  placeholder="dd/mm/yyyy"
                                  disabled={isLoading}
-                                 value={values.dateEnd.value}
+                                 value={values.dateEnd.value ? values.dateEnd.value : ''}
                                  name="dateEnd"
                                  onChange={onChange}
                     />

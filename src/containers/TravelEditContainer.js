@@ -110,9 +110,9 @@ class TravelEditContainer extends Component {
 
 const mapStateToProps = state => {
     return {
-        showModal: state.TravelEditReducer.showModal,
-        values: state.TravelEditReducer.values,
-        isLoading: state.TravelEditReducer.isLoading
+        showModal: state.TravelFormReducer.showModal,
+        values: state.TravelFormReducer.values,
+        isLoading: state.TravelFormReducer.isLoading
     };
 };
 

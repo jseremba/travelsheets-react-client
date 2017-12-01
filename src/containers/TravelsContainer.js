@@ -9,7 +9,7 @@ import LoaderComponent from "../components/LoaderComponent";
 import TravelAddContainer from "./TravelAddContainer";
 
 import * as travelsActions from "../actions/TravelsActions";
-import * as travelAddActions from "../actions/TravelAddActions";
+import * as travelFormActions from "../actions/TravelFormActions";
 
 class TravelsContainer extends Component {
     constructor(props) {
@@ -81,7 +81,7 @@ class TravelsContainer extends Component {
             <Grid>
                 <PageHeader>
                     Mes voyages
-                    &nbsp;<Button bsStyle="primary" bsSize="xsmall" onClick={this.props.travelAddActions.openModal}><i
+                    &nbsp;<Button bsStyle="primary" bsSize="xsmall" onClick={this.props.travelFormActions.openModal}><i
                     className="glyphicon glyphicon-plus"/></Button>
                 </PageHeader>
                 <input type="search" value={this.props.searchBar} placeholder="Rechercher"
@@ -116,7 +116,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = (dispatch, props) => {
     return {
         travelsActions: bindActionCreators(travelsActions, dispatch, props),
-        travelAddActions: bindActionCreators(travelAddActions, dispatch, props)
+        travelFormActions: bindActionCreators(travelFormActions, dispatch, props)
     };
 };
 
