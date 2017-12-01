@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 
 import moment from 'moment';
+import {Table} from "react-bootstrap";
 
 export default class StepsListComponent extends PureComponent {
     render() {
@@ -27,7 +28,7 @@ export default class StepsListComponent extends PureComponent {
 
                         <h4>Informations</h4>
 
-                        <table className="table table-bordered">
+                        <Table striped>
                             <tbody>
                                 {step.dateStart ? (
                                     <tr>
@@ -90,7 +91,7 @@ export default class StepsListComponent extends PureComponent {
                                     </tr>
                                 ) : null}
                             </tbody>
-                        </table>
+                        </Table>
                     </div>
                 </div>
             </div>

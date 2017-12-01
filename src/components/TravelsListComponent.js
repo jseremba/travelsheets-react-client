@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import {Link} from "react-router-dom";
+import {ListGroup} from 'react-bootstrap';
 import Moment from "moment";
 
 export default class TravelsListComponent extends PureComponent {
@@ -35,14 +36,14 @@ export default class TravelsListComponent extends PureComponent {
         }
 
         return (
-            <div className="list-group">
+            <ListGroup>
                 {
                     // A Game is only shown if its name contains the string from the searchBar
                     travels && travels.map((travel, i) => {
                         return this.createListItem(travel);
                     })
                 }
-            </div>
+            </ListGroup>
         );
     }
 }
