@@ -1,4 +1,4 @@
-import * as TravelAddConstants from '../constants/TravelAddConstants';
+import * as TravelFormConstants from '../constants/TravelFormConstants';
 
 const initialState = {
     showModal: false,
@@ -24,26 +24,36 @@ const initialState = {
             error: null,
             validation: null,
         },
-    }
+    },
+    travel: null
 };
 
 export default (state = initialState, action) => {
     switch(action.type) {
-        case TravelAddConstants.OPEN_MODAL:
+        case TravelFormConstants.OPEN_MODAL:
+            state.values = initialState.values;
+
+            if(state.travel) {
+                state.values.name.value = state.travel.name;
+                state.values.summary.value = state.travel.summary;
+                state.values.dateStart.value = state.travel.dateStart;
+                state.values.dateEnd.value = state.travel.dateEnd;
+            }
+
             return {
                 ...state,
                 showModal: true,
             };
 
-        case TravelAddConstants.CLOSE_MODAL:
+        case TravelFormConstants.CLOSE_MODAL:
             return {
                 ...state,
-                values: initialState.values,
                 showModal: false,
+                values: initialState.values,
                 isLoading: false,
             };
 
-        case TravelAddConstants.UPDATE_VALUE:
+        case TravelFormConstants.UPDATE_VALUE:
             return {
                 ...state,
                 values: {
@@ -57,7 +67,7 @@ export default (state = initialState, action) => {
                 }
             };
 
-        case TravelAddConstants.SET_ERROR:
+        case TravelFormConstants.SET_ERROR:
             return {
                 ...state,
                 values: {
@@ -70,13 +80,13 @@ export default (state = initialState, action) => {
                 }
             };
 
-        case TravelAddConstants.SAVE_REQUESTED:
+        case TravelFormConstants.SAVE_REQUESTED:
             return {
                 ...state,
                 isLoading: true,
             };
 
-        case TravelAddConstants.SAVE_SUCCESS:
+        case TravelFormConstants.SAVE_SUCCESS:
             return {
                 ...state,
                 isLoading: false,
@@ -84,10 +94,16 @@ export default (state = initialState, action) => {
                 showModal: false,
             };
 
-        case TravelAddConstants.SAVE_FAILURE:
+        case TravelFormConstants.SAVE_FAILURE:
             return {
                 ...state,
                 isLoading: false,
+            };
+
+        case TravelFormConstants.SET_TRAVEL:
+            return {
+                ...state,
+                travel: action.travel
             };
 
         default:

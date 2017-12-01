@@ -25,6 +25,13 @@ export default (state = initialState, action) => {
                 isLoading: false
             };
 
+        case TravelConstant.SET:
+            return {
+                ...state,
+                travel: action.travel,
+                isLoading: false
+            };
+
         default:
             return state;
     }

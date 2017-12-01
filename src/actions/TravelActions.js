@@ -28,3 +28,12 @@ export const fetchTravel = (id) => {
         ;
     }
 };
+
+export const setTravel = (travel) => {
+    return dispatch => {
+        dispatch({
+            type: TravelConstant.SET,
+            travel
+        });
+    }
+};
