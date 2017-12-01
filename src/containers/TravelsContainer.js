@@ -2,9 +2,9 @@ import React, {Component} from 'react';
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 import queryString from 'query-string';
+import { Pagination, PageHeader, Grid } from 'react-bootstrap';
 
 import TravelsListComponent from "../components/TravelsListComponent";
-import PaginationComponent from "../components/PaginationComponent";
 import LoaderComponent from '../components/LoaderComponent';
 
 import * as travelsActions from '../actions/TravelsActions';
@@ -76,8 +76,8 @@ class TravelsContainer extends Component {
         let displayTravels = travels['items'];
 
         return (
-            <div>
-                <h1>Mes voyages</h1>
+            <Grid>
+                <PageHeader>Mes voyages</PageHeader>
                 <input type="search" value={this.props.searchBar} placeholder="Rechercher" className="form-control search-bar" onChange={this.setSearchBar} />
 
                 {
@@ -86,10 +86,7 @@ class TravelsContainer extends Component {
                     ) : (
                         <div className="list-travels">
                             <TravelsListComponent travels={displayTravels}/>
-                            <PaginationComponent
-                                pagination={travels.pagination}
-                                onPageChange={this.changePage}
-                            />
+                            <Pagination  activePage={travels.pagination.current} items={travels.pagination.last} onSelect={this.changePage}/>
                         </div>
                     )
                 }
@@ -97,7 +94,7 @@ class TravelsContainer extends Component {
                 <div className="btn-group" role="group">
                     {/*<button onClick={() => } className="btn btn-default btn-sm"><i className="glyphicon glyphicon-plus"/></button>*/}
                 </div>
-            </div>
+            </Grid>
         );
     }
 }

@@ -1,8 +1,11 @@
 import * as TravelConstant from '../constants/TravelsConstants';
 
 const initialState = {
-    travels: [],
-    isLoading: false,
+    travels: {
+        items: [],
+        pagination: null,
+    },
+    isLoading: true,
     searchBar: '',
 };
 
@@ -22,7 +25,7 @@ export default (state = initialState, action) => {
         case TravelConstant.LIST_FAILURE:
             return {
                 ...state,
-                travels: [],
+                travels: initialState.travels,
                 isLoading: false
             };
         case TravelConstant.SET_SEARCH_BAR:
