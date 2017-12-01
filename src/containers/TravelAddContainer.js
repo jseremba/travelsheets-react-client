@@ -65,7 +65,12 @@ class TravelAddContainer extends Component {
         e.preventDefault();
 
         if(this.validate()) {
-            this.props.travelAddActions.save();
+            this.props.travelAddActions.save({
+                name: this.props.values.name.value,
+                summary: this.props.values.summary.value,
+                dateStart: this.props.values.dateStart.value,
+                dateEnd: this.props.values.dateEnd.value,
+            });
         }
     }
 
@@ -79,22 +84,46 @@ class TravelAddContainer extends Component {
                     <form id="travelAddForm" ref="travelAddForm" onSubmit={this.handleSubmit}>
                         <FormGroup controlId="travelName" validationState={this.props.values.name.validation}>
                             <ControlLabel>Nom*</ControlLabel>
-                            <FormControl type="text" placeholder="Mon super voyage" value={this.props.values.name.value} name="name" onChange={this.handleChange} />
+                            <FormControl type="text"
+                                         placeholder="Mon super voyage"
+                                         disabled={this.props.isLoading}
+                                         value={this.props.values.name.value}
+                                         name="name"
+                                         onChange={this.handleChange}
+                            />
                             {this.props.values.name.error && <HelpBlock>{this.props.values.name.error}</HelpBlock>}
                         </FormGroup>
                         <FormGroup controlId="travelSummary" validationState={this.props.values.summary.validation}>
                             <ControlLabel>Description</ControlLabel>
-                            <FormControl componentClass="textarea" placeholder="Youpi, je pars en voyage ! Heureusement, TravelSheets m'accompagne ;)" value={this.props.values.summary.value} name="summary" onChange={this.handleChange} />
+                            <FormControl componentClass="textarea"
+                                         placeholder="Youpi, je pars en voyage ! Heureusement, TravelSheets m'accompagne ;)"
+                                         disabled={this.props.isLoading}
+                                         value={this.props.values.summary.value}
+                                         name="summary"
+                                         onChange={this.handleChange}
+                            />
                             {this.props.values.summary.error && <HelpBlock>{this.props.values.summary.error}</HelpBlock>}
                         </FormGroup>
                         <FormGroup controlId="travelDateStart" validationState={this.props.values.dateStart.validation}>
                             <ControlLabel>Date de début*</ControlLabel>
-                            <FormControl type="date" placeholder="dd/mm/yyyy" value={this.props.values.dateStart.value} name="dateStart" onChange={this.handleChange} />
+                            <FormControl type="date"
+                                         placeholder="dd/mm/yyyy"
+                                         disabled={this.props.isLoading}
+                                         value={this.props.values.dateStart.value}
+                                         name="dateStart"
+                                         onChange={this.handleChange}
+                            />
                             {this.props.values.dateStart.error && <HelpBlock>{this.props.values.dateStart.error}</HelpBlock>}
                         </FormGroup>
                         <FormGroup controlId="travelDateEnd" validationState={this.props.values.dateEnd.validation}>
                             <ControlLabel>Date de fin</ControlLabel>
-                            <FormControl type="date" placeholder="dd/mm/yyyy" value={this.props.values.dateEnd.value} name="dateEnd" onChange={this.handleChange} />
+                            <FormControl type="date"
+                                         placeholder="dd/mm/yyyy"
+                                         disabled={this.props.isLoading}
+                                         value={this.props.values.dateEnd.value}
+                                         name="dateEnd"
+                                         onChange={this.handleChange}
+                            />
                             {this.props.values.dateEnd.error && <HelpBlock>{this.props.values.dateEnd.error}</HelpBlock>}
                         </FormGroup>
                         <button style={{'display': 'none'}} type='submit' ref={ (button) => { this.activityFormButton = button } } >Submit</button>

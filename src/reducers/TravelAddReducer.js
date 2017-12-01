@@ -38,7 +38,9 @@ export default (state = initialState, action) => {
         case TravelAddConstants.CLOSE_MODAL:
             return {
                 ...state,
+                values: initialState.values,
                 showModal: false,
+                isLoading: false,
             };
 
         case TravelAddConstants.UPDATE_VALUE:
@@ -72,6 +74,20 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 isLoading: true,
+            };
+
+        case TravelAddConstants.SAVE_SUCCESS:
+            return {
+                ...state,
+                isLoading: false,
+                values: initialState.values,
+                showModal: false,
+            };
+
+        case TravelAddConstants.SAVE_FAILURE:
+            return {
+                ...state,
+                isLoading: false,
             };
 
         default:

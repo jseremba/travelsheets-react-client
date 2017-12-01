@@ -1,10 +1,34 @@
+import axios from 'axios';
 import * as TravelAddConstants from '../constants/TravelAddConstants';
+import {API_URL} from "../settings/configuration";
 
+/**
+ * Action to Save
+ *
+ * @returns {function(*)}
+ */
 export const save = (values) => {
     return dispatch => {
         dispatch({
             type: TravelAddConstants.SAVE_REQUESTED
-        })
+        });
+
+        let url = `${API_URL}/travels`;
+
+        return axios.post(url, values)
+            .then(response => {
+                dispatch({
+                    type: TravelAddConstants.SAVE_SUCCESS,
+                    travel: response.data
+                });
+            })
+            .catch(error => {
+                dispatch({
+                    type: TravelAddConstants.SAVE_FAILURE,
+                    error: error
+                });
+            })
+        ;
     };
 };
 
