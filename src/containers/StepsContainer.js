@@ -26,7 +26,9 @@ class StepsContainer extends Component {
                     isLoading ? (
                         <LoaderComponent/>
                     ) : (
-                        <StepsListComponent steps={steps}/>
+                        steps.length > 0 ? (
+                            <StepsListComponent steps={steps}/>
+                        ) : ''
                     )
                 }
             </div>
