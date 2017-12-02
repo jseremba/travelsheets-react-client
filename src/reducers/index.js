@@ -5,6 +5,7 @@ import TravelsReducer from './TravelsReducer';
 import TravelReducer from './TravelReducer';
 import StepReducer from './StepReducer';
 import TravelFormReducer from "./TravelFormReducer";
+import NotificationReducer from "./NotificationsReducer";
 
 export default combineReducers({
     routing: routerReducer,
@@ -12,4 +13,5 @@ export default combineReducers({
     TravelReducer: TravelReducer,
     TravelFormReducer: TravelFormReducer,
     StepReducer: StepReducer,
+    NotificationReducer: NotificationReducer,
 });
