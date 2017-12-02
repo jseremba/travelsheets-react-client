@@ -1,9 +1,12 @@
 import React from 'react';
 import { Route, Link } from 'react-router-dom';
-import { Navbar } from 'react-bootstrap';
+import {Navbar} from 'react-bootstrap';
 
 import TravelsContainer from './TravelsContainer';
 import TravelContainer from './TravelContainer';
+import NotificationsContainer from "./NotificationsContainer";
+
+
 
 const App = () => (
     <div>
@@ -17,6 +20,8 @@ const App = () => (
 
         <Route exact path="/" component={TravelsContainer}/>
         <Route exact path="/travels/:id" component={TravelContainer}/>
+
+        <NotificationsContainer/>
     </div>
 );
 
