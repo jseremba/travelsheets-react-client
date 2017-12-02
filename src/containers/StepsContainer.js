@@ -25,8 +25,7 @@ class StepsContainer extends Component {
     }
 
     handleAddStep(eventKey) {
-        console.log(eventKey);
-        this.props.stepFormActions.openModal();
+        this.props.stepFormActions.openModal(eventKey);
     }
 
     render() {

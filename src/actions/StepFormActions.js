@@ -5,10 +5,11 @@ import * as StepFormConstants from '../constants/StepFormConstants';
  *
  * @returns {function(*)}
  */
-export const openModal = () => {
+export const openModal = (type) => {
     return dispatch => {
         dispatch({
-            type: StepFormConstants.OPEN_MODAL
+            type: StepFormConstants.OPEN_MODAL,
+            stepType: type,
         });
     };
 };
