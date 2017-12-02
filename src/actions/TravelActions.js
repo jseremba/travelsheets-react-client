@@ -1,13 +1,13 @@
 import axios from 'axios';
 
-import * as TravelConstant from '../constants/TravelConstants';
+import * as TravelConstants from '../constants/TravelConstants';
 
 import {API_URL} from "../settings/configuration";
 
 export const fetchTravel = (id) => {
     return dispatch => {
         dispatch({
-            type: TravelConstant.GET_REQUESTED
+            type: TravelConstants.GET_REQUESTED
         });
 
         let url = `${API_URL}/travels/${id}`;
@@ -15,13 +15,13 @@ export const fetchTravel = (id) => {
         return axios.get(url)
             .then(response => {
                 dispatch({
-                    type: TravelConstant.GET_SUCCESS,
+                    type: TravelConstants.GET_SUCCESS,
                     travel: response.data
                 });
             })
             .catch(error => {
                 dispatch({
-                    type: TravelConstant.GET_FAILURE,
+                    type: TravelConstants.GET_FAILURE,
                     error: error
                 });
             })
@@ -32,7 +32,7 @@ export const fetchTravel = (id) => {
 export const setTravel = (travel) => {
     return dispatch => {
         dispatch({
-            type: TravelConstant.SET,
+            type: TravelConstants.SET_TRAVEL,
             travel
         });
     }

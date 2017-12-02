@@ -61,7 +61,12 @@ export const edit = (id, data) => {
                 });
 
                 dispatch({
-                    type: TravelConstants.SET,
+                    type: TravelFormConstants.SET_TRAVEL,
+                    travel: response.data
+                });
+
+                dispatch({
+                    type: TravelConstants.SET_TRAVEL,
                     travel: response.data
                 });
             })
