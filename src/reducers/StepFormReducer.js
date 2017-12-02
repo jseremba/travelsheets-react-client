@@ -77,12 +77,27 @@ export default (state = initialState, action) => {
                 ...state,
                 showModal: true,
                 type: action.stepType,
+                values: initialState.values,
             };
 
         case StepFormConstants.CLOSE_MODAL:
             return {
                 ...state,
                 showModal: false
+            };
+
+        case StepFormConstants.UPDATE_VALUE:
+            return {
+                ...state,
+                values: {
+                    ...state.values,
+                    [action.name]: {
+                        ...state.values[action.name],
+                        value: action.value,
+                        error: null,
+                        validation: null,
+                    }
+                }
             };
 
         default:

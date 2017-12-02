@@ -59,8 +59,6 @@ class TravelEditContainer extends Component {
             let dateStartDate = new Date(dateStart.value);
             let dateEndDate = new Date(dateEnd.value);
 
-            console.log(dateEndDate.getTime(), dateStartDate.getTime());
-
             if(dateEndDate.getTime() < dateStartDate.getTime()) {
                 this.props.travelFormActions.setError('dateEnd', 'La date de fin doit être après celle du début');
                 isValid = false;

@@ -37,15 +37,16 @@ class StepFormContainer extends Component {
         console.log('submit');
     }
 
-    handleChange() {
-        console.log('change');
+    handleChange(e) {
+        let name = e.target.getAttribute('name');
+        let value = e.target.value;
+
+        this.props.stepFormActions.updateValue(name, value);
     }
 
 
     render() {
         const {step, showModal, values, isLoading, type} = this.props;
-
-        console.log(type);
 
         return (
             <Modal show={showModal} onHide={this.close}>

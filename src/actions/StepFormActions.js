@@ -26,3 +26,21 @@ export const closeModal = () => {
         });
     };
 };
+
+/**
+ * Action to update value of form item
+ *
+ * @param name
+ * @param value
+ *
+ * @returns {function(*)}
+ */
+export const updateValue = (name, value) => {
+    return dispatch => {
+        dispatch({
+            type: StepFormConstants.UPDATE_VALUE,
+            name,
+            value
+        });
+    }
+};
