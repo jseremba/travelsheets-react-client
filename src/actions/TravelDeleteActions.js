@@ -4,6 +4,7 @@ import Notifications from "react-notification-system-redux";
 import * as TravelDeleteConstants from '../constants/TravelDeleteConstants';
 
 import {API_URL} from "../settings/configuration";
+import {push} from "react-router-redux";
 
 export const deleteTravel = (id) => {
     return dispatch => {
@@ -23,6 +24,8 @@ export const deleteTravel = (id) => {
                     title: 'Yeah!',
                     message: 'Le voyage à bien été supprimé.',
                 }));
+
+                dispatch(push('/'));
             })
             .catch(error => {
                 dispatch({
