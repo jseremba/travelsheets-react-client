@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
-import {Grid, Row, Col, PageHeader, DropdownButton, MenuItem} from 'react-bootstrap';
+import {Grid, Row, Col, PageHeader} from 'react-bootstrap';
 
 import * as TravelActions from '../actions/TravelActions';
 import * as TravelFormActions from '../actions/TravelFormActions';
@@ -19,7 +19,6 @@ class TravelContainer extends Component {
 
         this.openEditModal = this.openEditModal.bind(this);
         this.openDeleteModal = this.openDeleteModal.bind(this);
-        this.handleAddStep = this.handleAddStep.bind(this);
     }
 
     componentDidMount() {
@@ -35,10 +34,6 @@ class TravelContainer extends Component {
 
     openDeleteModal() {
         this.props.travelDeleteActions.openModal();
-    }
-
-    handleAddStep(eventKey) {
-        console.log(eventKey);
     }
 
     render() {
@@ -59,11 +54,6 @@ class TravelContainer extends Component {
                         </Col>
                         <Col md={8}>
                             <StepsContainer travel={travel}/>
-                            <DropdownButton bsSize="small" title="Ajouter une étape&nbsp;" id="addStepButton">
-                                <MenuItem eventKey="transportation" onSelect={this.handleAddStep}>Transport</MenuItem>
-                                <MenuItem eventKey="accomodation" onSelect={this.handleAddStep}>Logement</MenuItem>
-                                <MenuItem eventKey="tour" onSelect={this.handleAddStep}>Visite</MenuItem>
-                            </DropdownButton>
                         </Col>
                     </Row>
                     <TravelFormContainer travel={travel}/>
