@@ -12,7 +12,7 @@ export default class TravelInfosComponent extends PureComponent {
                     <FormControl type="text"
                                  placeholder="Mon super voyage"
                                  disabled={isLoading}
-                                 value={values.name.value}
+                                 value={values.name.value ? values.name.value : ''}
                                  name="name"
                                  onChange={onChange}
                     />
@@ -23,7 +23,7 @@ export default class TravelInfosComponent extends PureComponent {
                     <FormControl componentClass="textarea"
                                  placeholder="Youpi, je pars en voyage ! Heureusement, TravelSheets m'accompagne ;)"
                                  disabled={isLoading}
-                                 value={values.summary.value}
+                                 value={values.summary.value ? values.summary.value : ''}
                                  name="summary"
                                  onChange={onChange}
                     />

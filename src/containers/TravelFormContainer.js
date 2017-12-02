@@ -26,9 +26,7 @@ class TravelEditContainer extends Component {
     componentDidMount() {
         const {travel} = this.props;
 
-        if(travel) {
-            this.props.travelFormActions.setTravel(travel);
-        }
+        this.props.travelFormActions.setTravel(travel);
     }
 
     validate() {

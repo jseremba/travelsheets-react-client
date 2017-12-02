@@ -31,19 +31,37 @@ const initialState = {
 export default (state = initialState, action) => {
     switch(action.type) {
         case TravelFormConstants.OPEN_MODAL:
-            state.values = initialState.values;
-
-            if(state.travel) {
-                state.values.name.value = state.travel.name;
-                state.values.summary.value = state.travel.summary;
-                state.values.dateStart.value = state.travel.dateStart;
-                state.values.dateEnd.value = state.travel.dateEnd;
-            }
-
-            return {
+            state = {
                 ...state,
+                values: initialState.values,
                 showModal: true,
             };
+
+            if(state.travel) {
+                state = {
+                    ...state,
+                    values: {
+                        name: {
+                            ...state.values.name,
+                            value: state.travel.name,
+                        },
+                        summary: {
+                            ...state.values.summary,
+                            value: state.travel.summary,
+                        },
+                        dateStart: {
+                            ...state.values.dateStart,
+                            value: state.travel.dateStart,
+                        },
+                        dateEnd: {
+                            ...state.values.dateEnd,
+                            value: state.travel.dateEnd,
+                        },
+                    }
+                };
+            }
+
+            return state;
 
         case TravelFormConstants.CLOSE_MODAL:
             return {
