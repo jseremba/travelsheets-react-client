@@ -4,7 +4,7 @@ import Moment from 'moment';
 
 export default class TravelInfosComponent extends PureComponent {
     render() {
-        const {travel, onEdit} = this.props;
+        const {travel, onEdit, onDelete} = this.props;
 
         if(!travel) {
             return '';
@@ -16,6 +16,9 @@ export default class TravelInfosComponent extends PureComponent {
                     <ButtonGroup style={{float: 'right'}}>
                         <Button bsStyle="primary" bsSize="xsmall" onClick={onEdit}>
                             <i className="glyphicon glyphicon-pencil"/>
+                        </Button>
+                        <Button bsStyle="primary" bsSize="xsmall" onClick={onDelete}>
+                            <i className="glyphicon glyphicon-trash"/>
                         </Button>
                     </ButtonGroup>
 
