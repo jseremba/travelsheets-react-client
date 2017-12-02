@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Notifications from "react-notification-system-redux";
 
 import * as TravelConstants from '../constants/TravelConstants';
 
@@ -24,6 +25,18 @@ export const fetchTravel = (id) => {
                     type: TravelConstants.GET_FAILURE,
                     error: error
                 });
+
+                dispatch(Notifications.error({
+                    title: 'Oh!',
+                    message: 'Une erreur s\'est produite lors de l\'accès au serveur.',
+                    autoDismiss: 0,
+                    action: {
+                        label: 'Réessayer',
+                        callback: () => {
+                            fetchTravel(id)(dispatch);
+                        }
+                    }
+                }));
             })
         ;
     }

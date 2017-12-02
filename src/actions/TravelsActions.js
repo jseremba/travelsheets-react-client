@@ -1,6 +1,7 @@
 import axios from 'axios';
 import {push} from 'react-router-redux';
 import queryString from 'query-string';
+import Notifications from 'react-notification-system-redux';
 
 import * as TravelConstant from '../constants/TravelsConstants';
 import {API_URL} from '../settings/configuration';
@@ -47,6 +48,18 @@ export const fetchTravels = (page, keyword) => {
                 dispatch({
                     type: TravelConstant.LIST_FAILURE
                 });
+
+                dispatch(Notifications.error({
+                    title: 'Oh!',
+                    message: 'Une erreur s\'est produite lors de l\'accès au serveur.',
+                    autoDismiss: 0,
+                    action: {
+                        label: 'Réessayer',
+                        callback: () => {
+                            fetchTravels(page, keyword)(dispatch);
+                        }
+                    }
+                }));
             })
         ;
     }

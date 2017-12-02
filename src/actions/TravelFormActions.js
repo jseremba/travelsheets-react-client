@@ -1,10 +1,3 @@
-import axios from 'axios';
-
-import * as TravelFormConstants from '../constants/TravelFormConstants';
-import * as TravelConstants from '../constants/TravelConstants';
-
-import {API_URL} from "../settings/configuration";
-
 /**
  * Action to add a Travel
  *
@@ -12,6 +5,16 @@ import {API_URL} from "../settings/configuration";
  *
  * @returns {function(*)}
  */
+import axios from 'axios';
+import Notifications from 'react-notification-system-redux';
+
+import * as TravelFormConstants from '../constants/TravelFormConstants';
+import * as TravelConstants from '../constants/TravelConstants';
+
+import * as NotificationsActions from 'react-notification-system-redux';
+
+import {API_URL} from "../settings/configuration";
+
 export const add = (data) => {
     return dispatch => {
         dispatch({
@@ -26,12 +29,33 @@ export const add = (data) => {
                     type: TravelFormConstants.SAVE_SUCCESS,
                     travel: response.data
                 });
+
+                dispatch(NotificationsActions.success({
+                    title: 'Yeah!',
+                    message: 'Le voyage à bien été enregistré.',
+                    action: {
+                        label: 'Voir le voyage',
+                        callback: () => alert('clicked!')
+                    }
+                }));
             })
             .catch(error => {
                 dispatch({
                     type: TravelFormConstants.SAVE_FAILURE,
                     error: error
                 });
+
+                dispatch(Notifications.error({
+                    title: 'Oh!',
+                    message: 'Une erreur s\'est produite lors de l\'enregistrement.',
+                    autoDismiss: 0,
+                    action: {
+                        label: 'Réessayer',
+                        callback: () => {
+                            add(data)(dispatch);
+                        }
+                    }
+                }));
             })
             ;
     };
@@ -69,12 +93,33 @@ export const edit = (id, data) => {
                     type: TravelConstants.SET_TRAVEL,
                     travel: response.data
                 });
+
+                dispatch(NotificationsActions.success({
+                    title: 'Yeah!',
+                    message: 'Le voyage à bien été enregistré.',
+                    action: {
+                        label: 'Voir le voyage',
+                        callback: () => alert('clicked!')
+                    }
+                }));
             })
             .catch(error => {
                 dispatch({
                     type: TravelFormConstants.SAVE_FAILURE,
                     error: error
                 });
+
+                dispatch(Notifications.error({
+                    title: 'Oh!',
+                    message: 'Une erreur s\'est produite lors de l\'enregistrement.',
+                    autoDismiss: 0,
+                    action: {
+                        label: 'Réessayer',
+                        callback: () => {
+                            edit(id, data)(dispatch);
+                        }
+                    }
+                }));
             })
         ;
     };
