@@ -76,6 +76,7 @@ class TravelsContainer extends Component {
 
         // Search
         let displayTravels = travels['items'];
+        let pagination = travels['pagination'];
 
         return (
             <Grid>
@@ -91,10 +92,12 @@ class TravelsContainer extends Component {
                     isLoading ? (
                         <LoaderComponent/>
                     ) : (
-                        <div className="list-travels">
+                        displayTravels && pagination && <div className="list-travels">
                             <TravelsListComponent travels={displayTravels}/>
-                            <Pagination activePage={travels.pagination.current} items={travels.pagination.last}
-                                        onSelect={this.changePage}/>
+                            <Pagination activePage={pagination.current}
+                                        items={pagination.last}
+                                        onSelect={this.changePage}
+                            />
                         </div>
                     )
                 }

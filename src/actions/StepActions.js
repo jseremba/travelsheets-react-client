@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Notifications from "react-notification-system-redux";
 
 import * as StepConstants from '../constants/StepConstants';
 
@@ -25,6 +26,18 @@ export const fetchSteps = (travel) => {
                     type: StepConstants.LIST_FAILURE,
                     error: error
                 });
+
+                dispatch(Notifications.error({
+                    title: 'Oh!',
+                    message: 'Une erreur s\'est produite lors de l\'accès au serveur.',
+                    autoDismiss: 0,
+                    action: {
+                        label: 'Réessayer',
+                        callback: () => {
+                            fetchSteps(travel)(dispatch);
+                        }
+                    }
+                }));
             })
             ;
     }

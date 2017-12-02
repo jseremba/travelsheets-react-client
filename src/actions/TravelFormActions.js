@@ -6,6 +6,7 @@
  * @returns {function(*)}
  */
 import axios from 'axios';
+import Notifications from 'react-notification-system-redux';
 
 import * as TravelFormConstants from '../constants/TravelFormConstants';
 import * as TravelConstants from '../constants/TravelConstants';
@@ -44,13 +45,17 @@ export const add = (data) => {
                     error: error
                 });
 
-                // dispatch({
-                //     type: NotificationsConstants.ADD_NOTIFICATION,
-                //     message: (
-                //         <p>Une erreur s'est produite lors de l'enregistrement du voyage</p>
-                //     ),
-                //     level: 'warning'
-                // });
+                dispatch(Notifications.error({
+                    title: 'Oh!',
+                    message: 'Une erreur s\'est produite lors de l\'enregistrement.',
+                    autoDismiss: 0,
+                    action: {
+                        label: 'Réessayer',
+                        callback: () => {
+                            add(data)(dispatch);
+                        }
+                    }
+                }));
             })
             ;
     };
@@ -89,13 +94,14 @@ export const edit = (id, data) => {
                     travel: response.data
                 });
 
-                // dispatch({
-                //     type: NotificationsConstants.ADD_NOTIFICATION,
-                //     message: (
-                //         <p>Le voyage à bien été sauvegardé.</p>
-                //     ),
-                //     level: 'success'
-                // });
+                dispatch(NotificationsActions.success({
+                    title: 'Yeah!',
+                    message: 'Le voyage à bien été enregistré.',
+                    action: {
+                        label: 'Voir le voyage',
+                        callback: () => alert('clicked!')
+                    }
+                }));
             })
             .catch(error => {
                 dispatch({
@@ -103,13 +109,17 @@ export const edit = (id, data) => {
                     error: error
                 });
 
-                // dispatch({
-                //     type: NotificationsConstants.ADD_NOTIFICATION,
-                //     message: (
-                //         <p>Une erreur s'est produite lors de l'enregistrement du voyage</p>
-                //     ),
-                //     level: 'warning'
-                // });
+                dispatch(Notifications.error({
+                    title: 'Oh!',
+                    message: 'Une erreur s\'est produite lors de l\'enregistrement.',
+                    autoDismiss: 0,
+                    action: {
+                        label: 'Réessayer',
+                        callback: () => {
+                            edit(id, data)(dispatch);
+                        }
+                    }
+                }));
             })
         ;
     };

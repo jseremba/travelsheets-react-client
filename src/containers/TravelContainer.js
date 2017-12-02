@@ -27,6 +27,7 @@ class TravelContainer extends Component {
             isLoading ? (
                 <LoaderComponent/>
             ) : (
+                travel &&
                 <Grid>
                     <PageHeader>{travel.name}</PageHeader>
                     <Row>
