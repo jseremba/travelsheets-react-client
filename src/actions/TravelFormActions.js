@@ -11,7 +11,7 @@ import Notifications from 'react-notification-system-redux';
 import * as TravelFormConstants from '../constants/TravelFormConstants';
 import * as TravelConstants from '../constants/TravelConstants';
 
-import * as NotificationsActions from 'react-notification-system-redux';
+import {fetchTravels} from './TravelsActions';
 
 import {API_URL} from "../settings/configuration";
 
@@ -30,7 +30,7 @@ export const add = (data) => {
                     travel: response.data
                 });
 
-                dispatch(NotificationsActions.success({
+                dispatch(Notifications.success({
                     title: 'Yeah!',
                     message: 'Le voyage à bien été enregistré.',
                     action: {
@@ -38,6 +38,8 @@ export const add = (data) => {
                         callback: () => alert('clicked!')
                     }
                 }));
+
+                fetchTravels()(dispatch);
             })
             .catch(error => {
                 dispatch({
@@ -94,7 +96,7 @@ export const edit = (id, data) => {
                     travel: response.data
                 });
 
-                dispatch(NotificationsActions.success({
+                dispatch(Notifications.success({
                     title: 'Yeah!',
                     message: 'Le voyage à bien été enregistré.',
                     action: {
