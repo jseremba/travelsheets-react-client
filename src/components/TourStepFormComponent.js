@@ -64,6 +64,7 @@ export default class TourStepFormComponent extends PureComponent {
                                      value={values.price.value ? values.price.value : ''}
                                      name="price"
                                      onChange={onChange}
+                                     min="0"
                         />
                         <InputGroup.Addon>
                             <Glyphicon glyph="euro" />
