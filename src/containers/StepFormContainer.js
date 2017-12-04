@@ -192,7 +192,8 @@ const mapStateToProps = state => {
         showModal: state.StepFormReducer.showModal,
         values: state.StepFormReducer.values,
         isLoading: state.StepFormReducer.isLoading,
-        type: state.StepFormReducer.type
+        type: state.StepFormReducer.type,
+        step: state.StepFormReducer.step
     };
 };
 
