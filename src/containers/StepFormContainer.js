@@ -113,33 +113,33 @@ class StepFormContainer extends Component {
 
         if(this.validate()) {
             let data = {
-                name: values.name.value,
-                dateStart: values.dateStart.value,
-                dateEnd: values.dateEnd.value,
-                summary: values.summary.value,
-                price: values.summary.price,
-                type: values.type.value,
+                name: values.name.value ? values.name.value : '',
+                dateStart: values.dateStart.value ? values.dateStart.value : null,
+                dateEnd: values.dateEnd.value ? values.dateEnd.value : null,
+                summary: values.summary.value ? values.summary.value : '',
+                price: values.summary.price ? values.summary.price : 0,
+                type: values.type.value ? values.type.value : '',
             };
 
             if(type === 'AccomodationStep') {
                 data = {
                     ...data,
-                    company: values.company.value,
-                    bookingNumber: values.bookingNumber.value,
+                    company: values.company.value ? values.company.value : '',
+                    bookingNumber: values.bookingNumber.value ? values.bookingNumber.value : '',
                 }
             } else if(type === 'TourStep') {
                 data = {
                     ...data,
-                    bookingNumber: values.bookingNumber.value,
+                    bookingNumber: values.bookingNumber.value ? values.bookingNumber.value : '',
                 }
             } else {
                 data = {
                     ...data,
-                    company: values.company.value,
-                    bookingNumber: values.bookingNumber.value,
-                    flightNumber: values.flightNumber.value,
-                    openingLuggage: values.openingLuggage.value,
-                    closingLuggage: values.closingLuggage.value,
+                    company: values.company.value ? values.company.value : '',
+                    bookingNumber: values.bookingNumber.value ? values.bookingNumber.value : '',
+                    flightNumber: values.flightNumber.value ? values.flightNumber.value : '',
+                    openingLuggage: values.openingLuggage.value ? values.openingLuggage.value : null,
+                    closingLuggage: values.closingLuggage.value ? values.closingLuggage.value : null,
                     seat: values.seat.value,
                 }
             }
