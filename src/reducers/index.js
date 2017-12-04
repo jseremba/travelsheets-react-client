@@ -8,10 +8,12 @@ import StepReducer from './StepReducer';
 import TravelFormReducer from "./TravelFormReducer";
 import TravelDeleteReducer from "./TravelDeleteReducer";
 import StepFormReducer from "./StepFormReducer";
+import ConfirmReducer from "./ConfirmReducer";
 
 export default combineReducers({
     routing: routerReducer,
     notifications: notificationsReducer,
+    ConfirmReducer: ConfirmReducer,
     travels: TravelsReducer,
     TravelReducer: TravelReducer,
     TravelFormReducer: TravelFormReducer,
