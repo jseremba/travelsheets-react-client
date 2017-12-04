@@ -24,6 +24,10 @@ class StepsContainer extends Component {
         }
     }
 
+    componentWillUnmount() {
+        this.props.stepActions.setSteps();
+    }
+
     handleAddStep(eventKey) {
         this.props.stepFormActions.openModal(eventKey);
     }

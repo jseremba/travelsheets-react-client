@@ -27,6 +27,12 @@ export default (state = initialState, action) => {
                 isLoading: false
             };
 
+        case StepConstants.SET_STEPS:
+            return {
+                ...state,
+                collection: action.steps,
+            };
+
         default:
             return state;
     }
