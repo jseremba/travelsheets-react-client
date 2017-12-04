@@ -73,12 +73,36 @@ export default (state = initialState, action) => {
     switch(action.type) {
         // LIST
         case StepFormConstants.OPEN_MODAL:
-            return {
+            if(action.step) {
+                action.stepType = action.step['@type'];
+            }
+
+            state = {
                 ...state,
                 showModal: true,
                 type: action.stepType,
                 values: initialState.values,
+                step: action.step ? action.step : initialState.step,
             };
+
+            if(state.step) {
+                for(let key in state.step) {
+                    if(state.step.hasOwnProperty(key) && state.values[key] !== undefined) {
+                        state = {
+                            ...state,
+                            values: {
+                                ...state.values,
+                                [key]: {
+                                    ...state.values[key],
+                                    value: state.step[key],
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            return state;
 
         case StepFormConstants.CLOSE_MODAL:
             return {

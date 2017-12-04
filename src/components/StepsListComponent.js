@@ -4,7 +4,7 @@ import StepItemComponent from './StepItemComponent';
 
 export default class StepsListComponent extends PureComponent {
     render() {
-        const {steps} = this.props;
+        const {steps, onEdit, onDelete} = this.props;
 
         if(!steps) {
             return '';
@@ -15,7 +15,7 @@ export default class StepsListComponent extends PureComponent {
                 {
                     steps && steps.map(step => {
                         return (
-                            <StepItemComponent step={step} key={step['@id']}/>
+                            <StepItemComponent step={step} key={step['@id']} onEdit={onEdit} onDelete={onDelete} />
                         );
                     })
                 }

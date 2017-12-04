@@ -15,6 +15,8 @@ class StepsContainer extends Component {
         super(props);
 
         this.handleAddStep = this.handleAddStep.bind(this);
+        this.onDelete = this.onDelete.bind(this);
+        this.onEdit = this.onEdit.bind(this);
     }
 
     componentDidMount() {
@@ -29,7 +31,15 @@ class StepsContainer extends Component {
     }
 
     handleAddStep(eventKey) {
-        this.props.stepFormActions.openModal(eventKey);
+        this.props.stepFormActions.openAddModal(eventKey);
+    }
+
+    onEdit(step) {
+        this.props.stepFormActions.openEditModal(step);
+    }
+
+    onDelete(step) {
+        console.log("onDelete", step);
     }
 
     render() {
@@ -46,13 +56,13 @@ class StepsContainer extends Component {
                 }
                 {
                     steps && steps.length > 0 ? (
-                        <StepsListComponent steps={steps}/>
+                        <StepsListComponent steps={steps} onEdit={this.onEdit} onDelete={this.onDelete} />
                     ) : ''
                 }
                 <DropdownButton bsSize="small" title="Ajouter une étape&nbsp;" id="addStepButton">
-                    <MenuItem eventKey="transportation" onSelect={this.handleAddStep}>Transport</MenuItem>
-                    <MenuItem eventKey="accomodation" onSelect={this.handleAddStep}>Logement</MenuItem>
-                    <MenuItem eventKey="tour" onSelect={this.handleAddStep}>Visite</MenuItem>
+                    <MenuItem eventKey="TransportationStep" onSelect={this.handleAddStep}>Transport</MenuItem>
+                    <MenuItem eventKey="AccomodationStep" onSelect={this.handleAddStep}>Logement</MenuItem>
+                    <MenuItem eventKey="TourStep" onSelect={this.handleAddStep}>Visite</MenuItem>
                 </DropdownButton>
 
                 <StepFormContainer travel={travel}/>

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import Notifications from "react-notification-system-redux";
+import * as Notifications from "react-notification-system-redux";
 
 import * as StepFormConstants from '../constants/StepFormConstants';
 import {API_URL} from "../settings/configuration";
@@ -12,13 +12,27 @@ import {fetchSteps} from "./StepActions";
  *
  * @returns {function(*)}
  */
-export const openModal = (type) => {
+export const openAddModal = (type) => {
     return dispatch => {
         dispatch({
             type: StepFormConstants.OPEN_MODAL,
             stepType: type,
         });
     };
+};
+
+/**
+ * Action to Open Edit Modal
+ *
+ * @returns {function(*)}
+ */
+export const openEditModal = (step) => {
+    return dispatch => {
+        dispatch({
+            type: StepFormConstants.OPEN_MODAL,
+            step
+        });
+    }
 };
 
 /**
@@ -93,7 +107,7 @@ export const add = (travel, type, data) => {
             .then(response => {
                 dispatch({
                     type: StepFormConstants.SAVE_SUCCESS,
-                    travel: response.data
+                    step: response.data
                 });
 
                 dispatch(Notifications.success({
@@ -128,4 +142,62 @@ export const add = (travel, type, data) => {
                 }));
             });
     };
+};
+
+/**
+ * Action to edit a step
+ *
+ * @param stepId
+ * @param travelId
+ * @param data
+ *
+ * @returns {function(*)}
+ */
+export const edit = (stepId, travelId, data) => {
+    return dispatch => {
+        dispatch({
+            type: StepFormConstants.SAVE_REQUESTED,
+        });
+
+        let url = `${API_URL}/travels/${travelId}/steps/${stepId}`;
+
+        axios.patch(url, data)
+            .then(response => {
+                dispatch({
+                    type: StepFormConstants.SAVE_SUCCESS,
+                    step: response.data
+                });
+
+                dispatch(Notifications.success({
+                    title: 'Yeah!',
+                    message: 'L\'étape à bien été enregistrée.',
+                    action: {
+                        label: 'Voir l\'étape',
+                        callback: () => {
+                            console.log('go to step');
+                        }
+                    }
+                }));
+
+                fetchSteps(travelId)(dispatch);
+            })
+            .catch(error => {
+                dispatch({
+                    type: StepFormConstants.SAVE_FAILURE,
+                    error: error
+                });
+
+                dispatch(Notifications.error({
+                    title: 'Oh!',
+                    message: 'Une erreur s\'est produite lors de l\'enregistement.',
+                    autoDismiss: 0,
+                    action: {
+                        label: 'Réessayer',
+                        callback: () => {
+                            edit(stepId, travelId, data)(dispatch);
+                        }
+                    }
+                }));
+            });
+    }
 };

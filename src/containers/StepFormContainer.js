@@ -9,7 +9,6 @@ import TransportationStepFormComponent from "../components/TransportationStepFor
 import TourStepFormComponent from "../components/TourStepFormComponent";
 import AccomodationStepFormComponent from "../components/AccomodationStepFormComponent";
 
-const REGEX_DATE = /^[0-9]{4}-(((0[13578]|(10|12))-(0[1-9]|[1-2][0-9]|3[0-1]))|(02-(0[1-9]|[1-2][0-9]))|((0[469]|11)-(0[1-9]|[1-2][0-9]|30)))$/;
 const REGEX_DATETIME = /^(19[0-9]{2}|[2-9][0-9]{3})-((0(1|3|5|7|8)|10|12)-(0[1-9]|1[0-9]|2[0-9]|3[0-1])|(0(4|6|9)|11)-(0[1-9]|1[0-9]|2[0-9]|30)|(02)-(0[1-9]|1[0-9]|2[0-9]))\x20(0[0-9]|1[0-9]|2[0-3])(:[0-5][0-9]){2}$/;
 const REGEX_TIME = /^(([0-1][0-9])|([2][0-3])):([0-5][0-9])(:([0-5][0-9]))?$/;
 const REGEX_PRICE = /^[0-9]*(\.[0-9]{1,2})?$/;
@@ -113,14 +112,35 @@ class StepFormContainer extends Component {
         const {step, values, type, travel} = this.props;
 
         if(this.validate()) {
-            let data = {};
+            let data = {
+                name: values.name.value ? values.name.value : '',
+                dateStart: values.dateStart.value ? values.dateStart.value : null,
+                dateEnd: values.dateEnd.value ? values.dateEnd.value : null,
+                summary: values.summary.value ? values.summary.value : '',
+                price: values.summary.price ? values.summary.price : 0,
+                type: values.type.value ? values.type.value : '',
+            };
 
-            // Set data for form
-            for(let key in values) {
-                if(values.hasOwnProperty(key)) {
-                    if(values[key].value && values[key].value.length > 0) {
-                        data[key] = values[key].value;
-                    }
+            if(type === 'AccomodationStep') {
+                data = {
+                    ...data,
+                    company: values.company.value ? values.company.value : '',
+                    bookingNumber: values.bookingNumber.value ? values.bookingNumber.value : '',
+                }
+            } else if(type === 'TourStep') {
+                data = {
+                    ...data,
+                    bookingNumber: values.bookingNumber.value ? values.bookingNumber.value : '',
+                }
+            } else {
+                data = {
+                    ...data,
+                    company: values.company.value ? values.company.value : '',
+                    bookingNumber: values.bookingNumber.value ? values.bookingNumber.value : '',
+                    flightNumber: values.flightNumber.value ? values.flightNumber.value : '',
+                    openingLuggage: values.openingLuggage.value ? values.openingLuggage.value : null,
+                    closingLuggage: values.closingLuggage.value ? values.closingLuggage.value : null,
+                    seat: values.seat.value,
                 }
             }
 
@@ -150,14 +170,14 @@ class StepFormContainer extends Component {
                 </Modal.Header>
                 <Modal.Body>
                     {
-                        type === 'transportation' ? (
+                        type === 'TransportationStep' ? (
                             <TransportationStepFormComponent ref="stepFormComponent"
                                                              values={values}
                                                              onSubmit={this.handleSubmit}
                                                              onChange={this.handleChange}
                                                              isLoading={isLoading}/>
                         ) : (
-                            type === 'accomodation' ? (
+                            type === 'AccomodationStep' ? (
                                 <AccomodationStepFormComponent ref="stepFormComponent"
                                                                values={values}
                                                                onSubmit={this.handleSubmit}
@@ -192,7 +212,8 @@ const mapStateToProps = state => {
         showModal: state.StepFormReducer.showModal,
         values: state.StepFormReducer.values,
         isLoading: state.StepFormReducer.isLoading,
-        type: state.StepFormReducer.type
+        type: state.StepFormReducer.type,
+        step: state.StepFormReducer.step
     };
 };
 
