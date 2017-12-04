@@ -4,6 +4,7 @@ import {bindActionCreators} from "redux";
 
 import * as StepActions from '../actions/StepActions';
 import * as StepFormActions from '../actions/StepFormActions';
+import * as ConfirmActions from '../actions/ConfirmActions';
 
 import LoaderComponent from '../components/LoaderComponent';
 import StepsListComponent from "../components/StepsListComponent";
@@ -39,7 +40,18 @@ class StepsContainer extends Component {
     }
 
     onDelete(step) {
-        console.log("onDelete", step);
+        const {travel} = this.props;
+        let travelId;
+
+        if(travel) {
+            travelId = travel['@id'];
+        }
+
+        this.props.confirmActions.openConfirm('Voulez-vous vraiment supprimer cette étape ?', 'Confirmation', () => {
+            if(travelId) {
+                this.props.stepActions.deleteStep(step['@id'], travelId);
+            }
+        });
     }
 
     render() {
@@ -81,7 +93,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = (dispatch, props) => {
     return {
         stepActions: bindActionCreators(StepActions, dispatch, props),
-        stepFormActions: bindActionCreators(StepFormActions, dispatch, props)
+        stepFormActions: bindActionCreators(StepFormActions, dispatch, props),
+        confirmActions: bindActionCreators(ConfirmActions, dispatch, props),
     };
 };
 

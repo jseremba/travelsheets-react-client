@@ -36,8 +36,6 @@ class ConfirmContainer extends Component {
     render() {
         const {showConfirm, title, message} = this.props;
 
-        console.log(this.props);
-
         return (
             <Modal show={showConfirm} onHide={this.close}>
                 <Modal.Header>
