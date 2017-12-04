@@ -38,13 +38,13 @@ class StepsContainer extends Component {
                 {
                     isLoading ? (
                         <LoaderComponent/>
-                    ) : (
-                        steps.length > 0 ? (
-                            <StepsListComponent steps={steps}/>
-                        ) : ''
-                    )
+                    ) : ''
                 }
-
+                {
+                    steps && steps.length > 0 ? (
+                        <StepsListComponent steps={steps}/>
+                    ) : ''
+                }
                 <DropdownButton bsSize="small" title="Ajouter une étape&nbsp;" id="addStepButton">
                     <MenuItem eventKey="transportation" onSelect={this.handleAddStep}>Transport</MenuItem>
                     <MenuItem eventKey="accomodation" onSelect={this.handleAddStep}>Logement</MenuItem>
