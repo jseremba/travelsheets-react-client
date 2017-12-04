@@ -74,7 +74,7 @@ export default class TourStepFormComponent extends PureComponent {
                     {values.price.error && <HelpBlock>{values.price.error}</HelpBlock>}
                 </FormGroup>
 
-                <FormGroup controlId="stepType">
+                <FormGroup controlId="stepType" validationState={values.type.validation}>
                     <ControlLabel>Type de logement</ControlLabel>
                     <FormControl componentClass="select"
                                  disabled={isLoading}
@@ -90,6 +90,7 @@ export default class TourStepFormComponent extends PureComponent {
                         <option value="club">Bar / Club</option>
                         <option value="other">Autre</option>
                     </FormControl>
+                    {values.type.error && <HelpBlock>{values.type.error}</HelpBlock>}
                 </FormGroup>
 
                 <FormGroup controlId="stepBookingNumber" validationState={values.bookingNumber.validation}>
