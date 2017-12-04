@@ -65,6 +65,7 @@ export default class AccomodationStepFormComponent extends PureComponent {
                                      name="price"
                                      onChange={onChange}
                                      min="0"
+                                     step="0.01"
                         />
                         <InputGroup.Addon>
                             <Glyphicon glyph="euro" />
