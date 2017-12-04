@@ -28,6 +28,10 @@ class TravelContainer extends Component {
         }
     }
 
+    componentWillUnmount() {
+        this.props.travelActions.setTravel(null);
+    }
+
     openEditModal() {
         this.props.travelFormActions.openModal();
     }
@@ -38,28 +42,29 @@ class TravelContainer extends Component {
 
     render() {
         const {travel, isLoading} = this.props;
+        console.log(travel);
 
         return (
-            isLoading ? (
-                <LoaderComponent/>
-            ) : (
-                travel &&
-                <Grid>
-                    <PageHeader>{travel.name}</PageHeader>
-                    <Row>
-                        <Col md={4}>
-                            <TravelInfosComponent travel={travel}
-                                                  onEdit={this.openEditModal}
-                                                  onDelete={this.openDeleteModal}/>
-                        </Col>
-                        <Col md={8}>
-                            <StepsContainer travel={travel}/>
-                        </Col>
-                    </Row>
-                    <TravelFormContainer travel={travel}/>
-                    <TravelDeleteContainer travel={travel}/>
-                </Grid>
-            )
+            <div className="travel-container">
+                {isLoading ? <LoaderComponent/> : ''}
+                {travel ? (
+                    <Grid>
+                        <PageHeader>{travel.name}</PageHeader>
+                        <Row>
+                            <Col md={4}>
+                                <TravelInfosComponent travel={travel}
+                                                      onEdit={this.openEditModal}
+                                                      onDelete={this.openDeleteModal}/>
+                            </Col>
+                            <Col md={8}>
+                                <StepsContainer travel={travel}/>
+                            </Col>
+                        </Row>
+                        <TravelFormContainer travel={travel}/>
+                        <TravelDeleteContainer travel={travel}/>
+                    </Grid>
+                ) : ''}
+            </div>
         );
     }
 }

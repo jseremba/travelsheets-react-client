@@ -42,3 +42,12 @@ export const fetchSteps = (travel) => {
             ;
     }
 };
+
+export const setSteps = (steps = []) => {
+    return dispatch => {
+        dispatch({
+            type: StepConstants.SET_STEPS,
+            steps
+        });
+    }
+};
