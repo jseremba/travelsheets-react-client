@@ -26,6 +26,32 @@ export default (state = initialState, action) => {
                 collection: [],
                 isLoading: false
             };
+        case StepConstants.DELETE_REQUESTED:
+            let index = -1;
+
+            state.collection.items.map((item, i) => {
+                if(item['@id'] === action.stepId) {
+                    index = i;
+                    return;
+                }
+            });
+
+            return {
+                ...state,
+                collection: {
+                    ...state.collection,
+                    items: [
+                        ...state.collection.items.slice(0, index),
+                        ...state.collection.items.slice(index + 1)
+                    ]
+                }
+            };
+
+        case StepConstants.DELETE_FAILURE:
+            return {
+                ...state,
+                isLoading: false,
+            };
 
         case StepConstants.SET_STEPS:
             return {
