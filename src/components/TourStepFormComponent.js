@@ -103,30 +103,6 @@ export default class TourStepFormComponent extends PureComponent {
                     {values.bookingNumber.error && <HelpBlock>{values.bookingNumber.error}</HelpBlock>}
                 </FormGroup>
 
-                <FormGroup controlId="stepOpeningLuggage" validationState={values.openingLuggage.validation}>
-                    <ControlLabel>Horaires d'ouverture</ControlLabel>
-                    <FormControl type="time"
-                                 placeholder="hh:mm"
-                                 disabled={isLoading}
-                                 value={values.openingLuggage.value ? values.openingLuggage.value : ''}
-                                 name="openingLuggage"
-                                 onChange={onChange}
-                    />
-                    {values.openingLuggage.error && <HelpBlock>{values.openingLuggage.error}</HelpBlock>}
-                </FormGroup>
-
-                <FormGroup controlId="stepClosingLuggage" validationState={values.closingLuggage.validation}>
-                    <ControlLabel>Horaires de fermeture</ControlLabel>
-                    <FormControl type="time"
-                                 placeholder="hh:mm"
-                                 disabled={isLoading}
-                                 value={values.closingLuggage.value ? values.closingLuggage.value : ''}
-                                 name="closingLuggage"
-                                 onChange={onChange}
-                    />
-                    {values.closingLuggage.error && <HelpBlock>{values.closingLuggage.error}</HelpBlock>}
-                </FormGroup>
-
                 <button style={{'display': 'none'}} type='submit' ref={ (button) => { this.button = button } } >Submit</button>
             </form>
         )
