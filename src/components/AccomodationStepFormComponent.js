@@ -65,6 +65,7 @@ export default class AccomodationStepFormComponent extends PureComponent {
                                      name="price"
                                      onChange={onChange}
                                      min="0"
+                                     step="0.01"
                         />
                         <InputGroup.Addon>
                             <Glyphicon glyph="euro" />
@@ -73,7 +74,7 @@ export default class AccomodationStepFormComponent extends PureComponent {
                     {values.price.error && <HelpBlock>{values.price.error}</HelpBlock>}
                 </FormGroup>
 
-                <FormGroup controlId="stepType">
+                <FormGroup controlId="stepType" validationState={values.type.validation}>
                     <ControlLabel>Type de logement</ControlLabel>
                     <FormControl componentClass="select"
                                  disabled={isLoading}
@@ -88,6 +89,7 @@ export default class AccomodationStepFormComponent extends PureComponent {
                         <option value="hostel">Auberge</option>
                         <option value="other">Autre</option>
                     </FormControl>
+                    {values.type.error && <HelpBlock>{values.type.error}</HelpBlock>}
                 </FormGroup>
 
                 <FormGroup controlId="stepCompany" validationState={values.company.validation}>
@@ -112,30 +114,6 @@ export default class AccomodationStepFormComponent extends PureComponent {
                                  onChange={onChange}
                     />
                     {values.bookingNumber.error && <HelpBlock>{values.bookingNumber.error}</HelpBlock>}
-                </FormGroup>
-
-                <FormGroup controlId="stepOpeningLuggage" validationState={values.openingLuggage.validation}>
-                    <ControlLabel>Arrivée à partir de</ControlLabel>
-                    <FormControl type="time"
-                                 placeholder="hh:mm"
-                                 disabled={isLoading}
-                                 value={values.openingLuggage.value ? values.openingLuggage.value : ''}
-                                 name="openingLuggage"
-                                 onChange={onChange}
-                    />
-                    {values.openingLuggage.error && <HelpBlock>{values.openingLuggage.error}</HelpBlock>}
-                </FormGroup>
-
-                <FormGroup controlId="stepClosingLuggage" validationState={values.closingLuggage.validation}>
-                    <ControlLabel>Départ avant</ControlLabel>
-                    <FormControl type="time"
-                                 placeholder="hh:mm"
-                                 disabled={isLoading}
-                                 value={values.closingLuggage.value ? values.closingLuggage.value : ''}
-                                 name="closingLuggage"
-                                 onChange={onChange}
-                    />
-                    {values.closingLuggage.error && <HelpBlock>{values.closingLuggage.error}</HelpBlock>}
                 </FormGroup>
 
                 <button style={{'display': 'none'}} type='submit' ref={ (button) => { this.button = button } } >Submit</button>
