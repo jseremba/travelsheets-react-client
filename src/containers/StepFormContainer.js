@@ -113,14 +113,35 @@ class StepFormContainer extends Component {
         const {step, values, type, travel} = this.props;
 
         if(this.validate()) {
-            let data = {};
+            let data = {
+                name: values.name.value,
+                dateStart: values.dateStart.value,
+                dateEnd: values.dateEnd.value,
+                summary: values.summary.value,
+                price: values.summary.price,
+                type: values.type.value,
+            };
 
-            // Set data for form
-            for(let key in values) {
-                if(values.hasOwnProperty(key)) {
-                    if(values[key].value && values[key].value.length > 0) {
-                        data[key] = values[key].value;
-                    }
+            if(type === 'AccomodationStep') {
+                data = {
+                    ...data,
+                    company: values.company.value,
+                    bookingNumber: values.bookingNumber.value,
+                }
+            } else if(type === 'TourStep') {
+                data = {
+                    ...data,
+                    bookingNumber: values.bookingNumber.value,
+                }
+            } else {
+                data = {
+                    ...data,
+                    company: values.company.value,
+                    bookingNumber: values.bookingNumber.value,
+                    flightNumber: values.flightNumber.value,
+                    openingLuggage: values.openingLuggage.value,
+                    closingLuggage: values.closingLuggage.value,
+                    seat: values.seat.value,
                 }
             }
 
