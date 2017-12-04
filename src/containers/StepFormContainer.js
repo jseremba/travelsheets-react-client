@@ -110,8 +110,25 @@ class StepFormContainer extends Component {
     handleSubmit(e) {
         e.preventDefault();
 
+        const {step, values, type, travel} = this.props;
+
         if(this.validate()) {
-            console.log('submit');
+            let data = {};
+
+            // Set data for form
+            for(let key in values) {
+                if(values.hasOwnProperty(key)) {
+                    if(values[key].value && values[key].value.length > 0) {
+                        data[key] = values[key].value;
+                    }
+                }
+            }
+
+            if(step) {
+                this.props.stepFormActions.edit(step['@id'], travel['@id'], data);
+            } else {
+                this.props.stepFormActions.add(travel['@id'], type, data);
+            }
         }
     }
 

@@ -29,7 +29,7 @@ class StepsContainer extends Component {
     }
 
     render() {
-        const {collection, isLoading} = this.props;
+        const {collection, isLoading, travel} = this.props;
 
         let steps = collection.items;
 
@@ -51,7 +51,7 @@ class StepsContainer extends Component {
                     <MenuItem eventKey="tour" onSelect={this.handleAddStep}>Visite</MenuItem>
                 </DropdownButton>
 
-                <StepFormContainer/>
+                <StepFormContainer travel={travel}/>
             </div>
         );
     }

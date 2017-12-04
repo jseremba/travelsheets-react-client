@@ -113,6 +113,25 @@ export default (state = initialState, action) => {
                 }
             };
 
+        case StepFormConstants.SAVE_REQUESTED:
+            return {
+                ...state,
+                isLoading: true,
+            };
+
+        case StepFormConstants.SAVE_FAILURE:
+            return {
+                ...state,
+                isLoading: false,
+            };
+
+        case StepFormConstants.SAVE_SUCCESS:
+            return {
+                ...state,
+                isLoading: false,
+                showModal: false,
+            };
+
         default:
             return state;
     }
