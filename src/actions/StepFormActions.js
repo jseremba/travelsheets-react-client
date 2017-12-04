@@ -12,13 +12,27 @@ import {fetchSteps} from "./StepActions";
  *
  * @returns {function(*)}
  */
-export const openModal = (type) => {
+export const openAddModal = (type) => {
     return dispatch => {
         dispatch({
             type: StepFormConstants.OPEN_MODAL,
             stepType: type,
         });
     };
+};
+
+/**
+ * Action to Open Edit Modal
+ *
+ * @returns {function(*)}
+ */
+export const openEditModal = (step) => {
+    return dispatch => {
+        dispatch({
+            type: StepFormConstants.OPEN_MODAL,
+            step
+        });
+    }
 };
 
 /**

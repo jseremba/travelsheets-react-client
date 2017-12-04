@@ -1,11 +1,11 @@
 import React, { PureComponent } from 'react';
 
 import moment from 'moment';
-import {Table} from "react-bootstrap";
+import {Button, ButtonGroup, Table} from "react-bootstrap";
 
 export default class StepsListComponent extends PureComponent {
     render() {
-        const {step} = this.props;
+        const {step, onEdit, onDelete} = this.props;
 
         if(!step) {
             return '';
@@ -14,6 +14,15 @@ export default class StepsListComponent extends PureComponent {
         return (
             <div className="panel panel-default">
                 <div className="panel-heading" role="tab" id={`heading-${step['@id']}`}>
+                    <ButtonGroup style={{float: 'right'}}>
+                        <Button bsStyle="primary" bsSize="xsmall" onClick={() => { onEdit(step) }}>
+                            <i className="glyphicon glyphicon-pencil"/>
+                        </Button>
+                        <Button bsStyle="primary" bsSize="xsmall" onClick={() => { onDelete(step) }}>
+                            <i className="glyphicon glyphicon-trash"/>
+                        </Button>
+                    </ButtonGroup>
+
                     <h3 className="panel-title">
                         <a className="collapsed" data-toggle="collapse" data-parent="#accordion" href={`#collapse-${step['@id']}`} aria-expanded="false" aria-controls={`collapse-${step['@id']}`}>
                             <i className={`icon-step ${step['@type'].toLowerCase()} ${step.type}`}/>&nbsp;&nbsp;{step.name}

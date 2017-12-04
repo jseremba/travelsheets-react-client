@@ -150,14 +150,14 @@ class StepFormContainer extends Component {
                 </Modal.Header>
                 <Modal.Body>
                     {
-                        type === 'transportation' ? (
+                        type === 'TransportationStep' ? (
                             <TransportationStepFormComponent ref="stepFormComponent"
                                                              values={values}
                                                              onSubmit={this.handleSubmit}
                                                              onChange={this.handleChange}
                                                              isLoading={isLoading}/>
                         ) : (
-                            type === 'accomodation' ? (
+                            type === 'AccomodationStep' ? (
                                 <AccomodationStepFormComponent ref="stepFormComponent"
                                                                values={values}
                                                                onSubmit={this.handleSubmit}
