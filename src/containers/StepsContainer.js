@@ -36,7 +36,6 @@ class StepsContainer extends Component {
 
     onEdit(step) {
         this.props.stepFormActions.openEditModal(step);
-        console.log("onEdit", step);
     }
 
     onDelete(step) {

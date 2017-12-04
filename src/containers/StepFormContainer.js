@@ -9,7 +9,6 @@ import TransportationStepFormComponent from "../components/TransportationStepFor
 import TourStepFormComponent from "../components/TourStepFormComponent";
 import AccomodationStepFormComponent from "../components/AccomodationStepFormComponent";
 
-const REGEX_DATE = /^[0-9]{4}-(((0[13578]|(10|12))-(0[1-9]|[1-2][0-9]|3[0-1]))|(02-(0[1-9]|[1-2][0-9]))|((0[469]|11)-(0[1-9]|[1-2][0-9]|30)))$/;
 const REGEX_DATETIME = /^(19[0-9]{2}|[2-9][0-9]{3})-((0(1|3|5|7|8)|10|12)-(0[1-9]|1[0-9]|2[0-9]|3[0-1])|(0(4|6|9)|11)-(0[1-9]|1[0-9]|2[0-9]|30)|(02)-(0[1-9]|1[0-9]|2[0-9]))\x20(0[0-9]|1[0-9]|2[0-3])(:[0-5][0-9]){2}$/;
 const REGEX_TIME = /^(([0-1][0-9])|([2][0-3])):([0-5][0-9])(:([0-5][0-9]))?$/;
 const REGEX_PRICE = /^[0-9]*(\.[0-9]{1,2})?$/;

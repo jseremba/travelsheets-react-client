@@ -42,7 +42,6 @@ class TravelContainer extends Component {
 
     render() {
         const {travel, isLoading} = this.props;
-        console.log(travel);
 
         return (
             <div className="travel-container">
