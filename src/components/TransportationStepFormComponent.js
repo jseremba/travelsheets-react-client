@@ -22,7 +22,7 @@ export default class TransportationStepFormComponent extends PureComponent {
                 <FormGroup controlId="stepDateStart" validationState={values.dateStart.validation}>
                     <ControlLabel>Départ le*</ControlLabel>
                     <FormControl type="datetime"
-                                 placeholder="dd/mm/yyyy hh:mm"
+                                 placeholder="yyyy-mm-dd hh:mm:ss"
                                  disabled={isLoading}
                                  value={values.dateStart.value ? values.dateStart.value : ''}
                                  name="dateStart"
@@ -34,7 +34,7 @@ export default class TransportationStepFormComponent extends PureComponent {
                 <FormGroup controlId="stepDateEnd" validationState={values.dateEnd.validation}>
                     <ControlLabel>Arrivée le*</ControlLabel>
                     <FormControl type="datetime"
-                                 placeholder="dd/mm/yyyy hh:mm"
+                                 placeholder="yyyy-mm-dd hh:mm:ss"
                                  disabled={isLoading}
                                  value={values.dateEnd.value ? values.dateEnd.value : ''}
                                  name="dateEnd"
@@ -65,6 +65,7 @@ export default class TransportationStepFormComponent extends PureComponent {
                                      name="price"
                                      onChange={onChange}
                                      min="0"
+                                     step="0.01"
                         />
                         <InputGroup.Addon>
                             <Glyphicon glyph="euro" />
@@ -73,7 +74,7 @@ export default class TransportationStepFormComponent extends PureComponent {
                     {values.price.error && <HelpBlock>{values.price.error}</HelpBlock>}
                 </FormGroup>
 
-                <FormGroup controlId="stepType">
+                <FormGroup controlId="stepType" validationState={values.type.validation}>
                     <ControlLabel>Type de transport</ControlLabel>
                     <FormControl componentClass="select"
                                  disabled={isLoading}
@@ -91,6 +92,7 @@ export default class TransportationStepFormComponent extends PureComponent {
                         <option value="subway">Transports en commun</option>
                         <option value="other">Autre</option>
                     </FormControl>
+                    {values.type.error && <HelpBlock>{values.type.error}</HelpBlock>}
                 </FormGroup>
 
                 <FormGroup controlId="stepCompany" validationState={values.company.validation}>

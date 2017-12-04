@@ -8,3 +8,4 @@ export const SAVE_SUCCESS = 'StepFormConstants/SAVE_SUCCESS';
 export const SAVE_FAILURE = 'StepFormConstants/SAVE_FAILURE';
 
 export const UPDATE_VALUE = 'StepFormConstants/UPDATE_VALUE';
+export const SET_ERROR = 'StepFormConstants/SET_ERROR';

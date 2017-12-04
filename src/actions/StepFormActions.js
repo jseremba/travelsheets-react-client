@@ -44,3 +44,23 @@ export const updateValue = (name, value) => {
         });
     }
 };
+
+/**
+ * Action to set error to a field
+ *
+ * @param name
+ * @param error
+ * @param validation
+ *
+ * @returns {function(*)}
+ */
+export const setError = (name, error, validation = 'error') => {
+    return dispatch => {
+        dispatch({
+            type: StepFormConstants.SET_ERROR,
+            name,
+            error,
+            validation,
+        })
+    }
+};

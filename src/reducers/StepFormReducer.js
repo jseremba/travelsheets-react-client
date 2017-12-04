@@ -100,6 +100,19 @@ export default (state = initialState, action) => {
                 }
             };
 
+        case StepFormConstants.SET_ERROR:
+            return {
+                ...state,
+                values: {
+                    ...state.values,
+                    [action.name]: {
+                        ...state.values[action.name],
+                        error: action.error,
+                        validation: action.validation,
+                    }
+                }
+            };
+
         default:
             return state;
     }
