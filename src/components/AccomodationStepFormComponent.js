@@ -27,6 +27,7 @@ export default class AccomodationStepFormComponent extends PureComponent {
                               value={values.dateStart.value ? values.dateStart.value : null}
                               inputProps={{
                                   placeholder: "dd/mm/yyyy hh:mm",
+                                  disabled: isLoading,
                               }}
                               closeOnSelect={false}
                               onChange={(value) => onChange(value, 'dateStart')}/>
@@ -40,6 +41,7 @@ export default class AccomodationStepFormComponent extends PureComponent {
                               value={values.dateEnd.value ? values.dateEnd.value : null}
                               inputProps={{
                                   placeholder: "dd/mm/yyyy hh:mm",
+                                  disabled: isLoading,
                               }}
                               onChange={(value) => onChange(value, 'dateEnd')}/>
                     {values.dateEnd.error && <HelpBlock>{values.dateEnd.error}</HelpBlock>}

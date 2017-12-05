@@ -37,6 +37,7 @@ export default class TravelInfosComponent extends PureComponent {
                               value={values.dateStart.value}
                               inputProps={{
                                   placeholder: "DD/MM/YYYY",
+                                  disabled: isLoading,
                               }}
                               timeFormat={false}
                               closeOnSelect={true}
@@ -50,6 +51,7 @@ export default class TravelInfosComponent extends PureComponent {
                               value={values.dateEnd.value}
                               inputProps={{
                                   placeholder: "DD/MM/YYYY",
+                                  disabled: isLoading,
                               }}
                               timeFormat={false}
                               closeOnSelect={true}
