@@ -10,7 +10,6 @@ import TourStepFormComponent from "../components/TourStepFormComponent";
 import AccomodationStepFormComponent from "../components/AccomodationStepFormComponent";
 import Moment from "moment";
 
-const REGEX_TIME = /^(([0-1][0-9])|([2][0-3])):([0-5][0-9])(:([0-5][0-9]))?$/;
 const REGEX_PRICE = /^[0-9]*(\.[0-9]{1,2})?$/;
 
 class StepFormContainer extends Component {
@@ -81,16 +80,16 @@ class StepFormContainer extends Component {
         }
 
         // Opening luggage
-        if(openingLuggage.value && openingLuggage.value.length > 0) {
-            if(!REGEX_TIME.test(openingLuggage.value)) {
+        if(openingLuggage.value) {
+            if(!(openingLuggage.value instanceof Moment) || !openingLuggage.value.isValid()) {
                 this.props.stepFormActions.setError('openingLuggage', 'L\'heure est invalide');
                 isValid = false;
             }
         }
 
         // Closing luggage
-        if(closingLuggage.value && closingLuggage.value.length > 0) {
-            if(!REGEX_TIME.test(closingLuggage.value)) {
+        if(closingLuggage.value) {
+            if(!(closingLuggage.value instanceof Moment) || !closingLuggage.value.isValid()) {
                 this.props.stepFormActions.setError('closingLuggage', 'L\'heure est invalide');
                 isValid = false;
             }
