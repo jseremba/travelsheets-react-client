@@ -1,5 +1,6 @@
 import React, {PureComponent} from "react";
 import {ControlLabel, FormControl, FormGroup, Glyphicon, HelpBlock, InputGroup} from "react-bootstrap";
+import Datetime from "react-datetime";
 
 export default class TourStepFormComponent extends PureComponent {
     render() {
@@ -20,26 +21,27 @@ export default class TourStepFormComponent extends PureComponent {
                 </FormGroup>
 
                 <FormGroup controlId="stepDateStart" validationState={values.dateStart.validation}>
-                    <ControlLabel>Arrivée le*</ControlLabel>
-                    <FormControl type="datetime"
-                                 placeholder="dd/mm/yyyy hh:mm"
-                                 disabled={isLoading}
-                                 value={values.dateStart.value ? values.dateStart.value : ''}
-                                 name="dateStart"
-                                 onChange={onChange}
-                    />
+                    <ControlLabel>Date de début*</ControlLabel>
+                    <Datetime dateFormat="DD/MM/YYYY"
+                              timeFormat="HH:mm"
+                              value={values.dateStart.value ? values.dateStart.value : null}
+                              inputProps={{
+                                  placeholder: "dd/mm/yyyy hh:mm",
+                              }}
+                              closeOnSelect={false}
+                              onChange={(value) => onChange(value, 'dateStart')}/>
                     {values.dateStart.error && <HelpBlock>{values.dateStart.error}</HelpBlock>}
                 </FormGroup>
 
                 <FormGroup controlId="stepDateEnd" validationState={values.dateEnd.validation}>
-                    <ControlLabel>Départ le*</ControlLabel>
-                    <FormControl type="datetime"
-                                 placeholder="dd/mm/yyyy hh:mm"
-                                 disabled={isLoading}
-                                 value={values.dateEnd.value ? values.dateEnd.value : ''}
-                                 name="dateEnd"
-                                 onChange={onChange}
-                    />
+                    <ControlLabel>Date de fin</ControlLabel>
+                    <Datetime dateFormat="DD/MM/YYYY"
+                              timeFormat="HH:mm"
+                              value={values.dateEnd.value ? values.dateEnd.value : null}
+                              inputProps={{
+                                  placeholder: "dd/mm/yyyy hh:mm",
+                              }}
+                              onChange={(value) => onChange(value, 'dateEnd')}/>
                     {values.dateEnd.error && <HelpBlock>{values.dateEnd.error}</HelpBlock>}
                 </FormGroup>
 
