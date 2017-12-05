@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {Button, Modal} from "react-bootstrap";
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
+import Moment from "moment";
 
 import * as travelFormActions from "../actions/TravelFormActions";
 import TravelFormComponent from "../components/TravelFormComponent";
@@ -39,27 +40,19 @@ class TravelEditContainer extends Component {
             isValid = false;
         }
 
-        if(!dateStart.value || dateStart.value.length === 0) {
+        if(!dateStart.value) {
             this.props.travelFormActions.setError('dateStart', 'Ce champs est obligatoire');
             isValid = false;
-        } else if(!REGEX_DATE.test(dateStart.value)) {
+        } else if(!(dateStart.value instanceof Moment) || !dateStart.value.isValid()) {
             this.props.travelFormActions.setError('dateStart', 'La date est invalide');
             isValid = false;
         }
 
-        if(dateEnd.value && dateEnd.value.length > 0) {
-            if(!REGEX_DATE.test(dateEnd.value)) {
+        if(dateEnd.value) {
+            if(!(dateEnd.value instanceof Moment) || !dateEnd.value.isValid()) {
                 this.props.travelFormActions.setError('dateEnd', 'La date est invalide');
                 isValid = false;
-            }
-        }
-
-        if(dateStart.value && dateEnd.value) {
-
-            let dateStartDate = new Date(dateStart.value);
-            let dateEndDate = new Date(dateEnd.value);
-
-            if(dateEndDate.getTime() < dateStartDate.getTime()) {
+            } else if (dateEnd.value.isBefore(dateStart.value)) {
                 this.props.travelFormActions.setError('dateEnd', 'La date de fin doit être après celle du début');
                 isValid = false;
             }
@@ -73,9 +66,16 @@ class TravelEditContainer extends Component {
         travelFormComponent.button.click();
     }
 
-    handleChange(e) {
-        let name = e.target.getAttribute('name');
-        let value = e.target.value;
+    handleChange(e, field = null) {
+        let name, value;
+
+        if(field) {
+            name = field;
+            value = e;
+        } else {
+            name = e.target.getAttribute('name');
+            value = e.target.value;
+        }
 
         this.props.travelFormActions.updateValue(name, value);
     }
@@ -90,15 +90,15 @@ class TravelEditContainer extends Component {
                 this.props.travelFormActions.edit(travel['@id'], {
                     name: values.name.value,
                     summary: values.summary.value,
-                    dateStart: values.dateStart.value,
-                    dateEnd: values.dateEnd.value,
+                    dateStart: values.dateStart.value ? values.dateStart.value.format('YYYY-MM-DD') : null,
+                    dateEnd: values.dateEnd.value ? values.dateEnd.value.format('YYYY-MM-DD') : null,
                 });
             } else {
                 this.props.travelFormActions.add({
                     name: values.name.value,
                     summary: values.summary.value,
-                    dateStart: values.dateStart.value,
-                    dateEnd: values.dateEnd.value,
+                    dateStart: values.dateStart.value ? values.dateStart.value.format('YYYY-MM-DD') : null,
+                    dateEnd: values.dateEnd.value ? values.dateEnd.value.format('YYYY-MM-DD') : null,
                 });
             }
         }

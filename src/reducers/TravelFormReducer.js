@@ -1,3 +1,4 @@
+import Moment from "moment";
 import * as TravelFormConstants from '../constants/TravelFormConstants';
 
 const initialState = {
@@ -15,12 +16,12 @@ const initialState = {
             validation: null,
         },
         dateStart: {
-            value: '',
+            value: null,
             error: '',
             validation: null,
         },
         dateEnd: {
-            value: '',
+            value: null,
             error: null,
             validation: null,
         },
@@ -51,11 +52,11 @@ export default (state = initialState, action) => {
                         },
                         dateStart: {
                             ...state.values.dateStart,
-                            value: state.travel.dateStart,
+                            value: Moment(state.travel.dateStart),
                         },
                         dateEnd: {
                             ...state.values.dateEnd,
-                            value: state.travel.dateEnd,
+                            value: Moment(state.travel.dateEnd),
                         },
                     }
                 };
