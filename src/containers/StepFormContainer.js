@@ -131,8 +131,8 @@ class StepFormContainer extends Component {
                     company: values.company.value ? values.company.value : '',
                     bookingNumber: values.bookingNumber.value ? values.bookingNumber.value : '',
                     flightNumber: values.flightNumber.value ? values.flightNumber.value : '',
-                    openingLuggage: values.openingLuggage.value ? values.openingLuggage.value : null,
-                    closingLuggage: values.closingLuggage.value ? values.closingLuggage.value : null,
+                    openingLuggage: values.openingLuggage.value ? values.openingLuggage.value.format('YYYY-MM-DD HH:mm:ss') : null,
+                    closingLuggage: values.closingLuggage.value ? values.closingLuggage.value.format('YYYY-MM-DD HH:mm:ss') : null,
                     seat: values.seat.value,
                 }
             }

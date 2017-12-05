@@ -91,7 +91,7 @@ export default (state = initialState, action) => {
                     if(state.step.hasOwnProperty(key) && state.values[key] !== undefined) {
                         let value = state.step[key];
 
-                        if(key === 'dateStart' || key === 'dateEnd') {
+                        if(key === 'dateStart' || key === 'dateEnd' || key === 'openingLuggage' || key === 'closingLuggage') {
                             value = Moment(value);
                         }
 
