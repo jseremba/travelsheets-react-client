@@ -109,7 +109,7 @@ class StepFormContainer extends Component {
                 dateStart: values.dateStart.value ? values.dateStart.value.format('YYYY-MM-DD HH:mm:ss') : null,
                 dateEnd: values.dateEnd.value ? values.dateEnd.value.format('YYYY-MM-DD HH:mm:ss') : null,
                 summary: values.summary.value ? values.summary.value : '',
-                price: values.summary.price ? values.summary.price : 0,
+                price: values.price.value ? parseFloat(values.price.value) : 0,
                 type: values.type.value ? values.type.value : '',
             };
 

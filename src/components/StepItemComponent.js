@@ -96,7 +96,7 @@ export default class StepsListComponent extends PureComponent {
                                 {step.price ? (
                                     <tr>
                                         <th>Prix</th>
-                                        <td>{step.price}&nbsp;€</td>
+                                        <td>{step.price.toFixed(2)}&nbsp;€</td>
                                     </tr>
                                 ) : null}
                             </tbody>
