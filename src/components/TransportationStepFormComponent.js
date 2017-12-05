@@ -1,5 +1,6 @@
 import React, {PureComponent} from "react";
 import {ControlLabel, FormControl, FormGroup, Glyphicon, HelpBlock, InputGroup} from "react-bootstrap";
+import Datetime from "react-datetime";
 
 export default class TransportationStepFormComponent extends PureComponent {
     render() {
@@ -21,25 +22,28 @@ export default class TransportationStepFormComponent extends PureComponent {
 
                 <FormGroup controlId="stepDateStart" validationState={values.dateStart.validation}>
                     <ControlLabel>Départ le*</ControlLabel>
-                    <FormControl type="datetime"
-                                 placeholder="yyyy-mm-dd hh:mm:ss"
-                                 disabled={isLoading}
-                                 value={values.dateStart.value ? values.dateStart.value : ''}
-                                 name="dateStart"
-                                 onChange={onChange}
-                    />
+                    <Datetime dateFormat="DD/MM/YYYY"
+                              timeFormat="HH:mm"
+                              value={values.dateStart.value ? values.dateStart.value : null}
+                              inputProps={{
+                                  placeholder: "dd/mm/yyyy hh:mm",
+                                  disabled: isLoading,
+                              }}
+                              closeOnSelect={false}
+                              onChange={(value) => onChange(value, 'dateStart')}/>
                     {values.dateStart.error && <HelpBlock>{values.dateStart.error}</HelpBlock>}
                 </FormGroup>
 
                 <FormGroup controlId="stepDateEnd" validationState={values.dateEnd.validation}>
                     <ControlLabel>Arrivée le*</ControlLabel>
-                    <FormControl type="datetime"
-                                 placeholder="yyyy-mm-dd hh:mm:ss"
-                                 disabled={isLoading}
-                                 value={values.dateEnd.value ? values.dateEnd.value : ''}
-                                 name="dateEnd"
-                                 onChange={onChange}
-                    />
+                    <Datetime dateFormat="DD/MM/YYYY"
+                              timeFormat="HH:mm"
+                              value={values.dateEnd.value ? values.dateEnd.value : null}
+                              inputProps={{
+                                  placeholder: "dd/mm/yyyy hh:mm",
+                                  disabled: isLoading,
+                              }}
+                              onChange={(value) => onChange(value, 'dateEnd')}/>
                     {values.dateEnd.error && <HelpBlock>{values.dateEnd.error}</HelpBlock>}
                 </FormGroup>
 
@@ -133,25 +137,27 @@ export default class TransportationStepFormComponent extends PureComponent {
 
                 <FormGroup controlId="stepOpeningLuggage" validationState={values.openingLuggage.validation}>
                     <ControlLabel>Ouverture de l'enregistrement des bagages</ControlLabel>
-                    <FormControl type="time"
-                                 placeholder="hh:mm"
-                                 disabled={isLoading}
-                                 value={values.openingLuggage.value ? values.openingLuggage.value : ''}
-                                 name="openingLuggage"
-                                 onChange={onChange}
-                    />
+                    <Datetime dateFormat={false}
+                              timeFormat="HH:mm"
+                              value={values.openingLuggage.value ? values.openingLuggage.value : null}
+                              inputProps={{
+                                  placeholder: "hh:mm",
+                                  disabled: isLoading,
+                              }}
+                              onChange={(value) => onChange(value, 'openingLuggage')}/>
                     {values.openingLuggage.error && <HelpBlock>{values.openingLuggage.error}</HelpBlock>}
                 </FormGroup>
 
                 <FormGroup controlId="stepClosingLuggage" validationState={values.closingLuggage.validation}>
                     <ControlLabel>Fermeture de l'enregistrement des bagages</ControlLabel>
-                    <FormControl type="time"
-                                 placeholder="hh:mm"
-                                 disabled={isLoading}
-                                 value={values.closingLuggage.value ? values.closingLuggage.value : ''}
-                                 name="closingLuggage"
-                                 onChange={onChange}
-                    />
+                    <Datetime dateFormat={false}
+                              timeFormat="HH:mm"
+                              value={values.closingLuggage.value ? values.closingLuggage.value : null}
+                              inputProps={{
+                                  placeholder: "hh:mm",
+                                  disabled: isLoading,
+                              }}
+                              onChange={(value) => onChange(value, 'closingLuggage')}/>
                     {values.closingLuggage.error && <HelpBlock>{values.closingLuggage.error}</HelpBlock>}
                 </FormGroup>
 

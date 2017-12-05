@@ -8,8 +8,8 @@ import {Button, Modal} from "react-bootstrap";
 import TransportationStepFormComponent from "../components/TransportationStepFormComponent";
 import TourStepFormComponent from "../components/TourStepFormComponent";
 import AccomodationStepFormComponent from "../components/AccomodationStepFormComponent";
+import Moment from "moment";
 
-const REGEX_DATETIME = /^(19[0-9]{2}|[2-9][0-9]{3})-((0(1|3|5|7|8)|10|12)-(0[1-9]|1[0-9]|2[0-9]|3[0-1])|(0(4|6|9)|11)-(0[1-9]|1[0-9]|2[0-9]|30)|(02)-(0[1-9]|1[0-9]|2[0-9]))\x20(0[0-9]|1[0-9]|2[0-3])(:[0-5][0-9]){2}$/;
 const REGEX_TIME = /^(([0-1][0-9])|([2][0-3])):([0-5][0-9])(:([0-5][0-9]))?$/;
 const REGEX_PRICE = /^[0-9]*(\.[0-9]{1,2})?$/;
 
@@ -46,30 +46,23 @@ class StepFormContainer extends Component {
             isValid = false;
         }
 
-        // Date Start
-        if(!dateStart.value || dateStart.value.length === 0) {
-            this.props.stepFormActions.setError('dateStart', 'Ce champs ne doit pas être vide');
+        // DateStart
+        if(!dateStart.value) {
+            this.props.stepFormActions.setError('dateStart', 'Ce champs est obligatoire');
             isValid = false;
-        } else {
-            if(!REGEX_DATETIME.test(dateStart.value)) {
-                this.props.stepFormActions.setError('dateStart', 'La date est invalide');
-                isValid = false;
-            }
+        } else if(!(dateStart.value instanceof Moment) || !dateStart.value.isValid()) {
+            this.props.stepFormActions.setError('dateStart', 'La date est invalide');
+            isValid = false;
         }
 
-        // Date End
-        if(dateEnd.value && dateEnd.value.length > 0) {
-            if(!REGEX_DATETIME.test(dateEnd.value)) {
+        // DateEnd
+        if(dateEnd.value) {
+            if(!(dateEnd.value instanceof Moment) || !dateEnd.value.isValid()) {
                 this.props.stepFormActions.setError('dateEnd', 'La date est invalide');
                 isValid = false;
-            } else {
-                let dateStartDate = new Date(dateStart.value);
-                let dateEndDate = new Date(dateEnd.value);
-
-                if(dateEndDate.getTime() < dateStartDate.getTime()) {
-                    this.props.stepFormActions.setError('dateEnd', 'La date de fin doit être après celle du début');
-                    isValid = false;
-                }
+            } else if (dateEnd.value.isBefore(dateStart.value)) {
+                this.props.stepFormActions.setError('dateEnd', 'La date de fin doit être après celle du début');
+                isValid = false;
             }
         }
 
@@ -114,8 +107,8 @@ class StepFormContainer extends Component {
         if(this.validate()) {
             let data = {
                 name: values.name.value ? values.name.value : '',
-                dateStart: values.dateStart.value ? values.dateStart.value : null,
-                dateEnd: values.dateEnd.value ? values.dateEnd.value : null,
+                dateStart: values.dateStart.value ? values.dateStart.value.format('YYYY-MM-DD HH:mm:ss') : null,
+                dateEnd: values.dateEnd.value ? values.dateEnd.value.format('YYYY-MM-DD HH:mm:ss') : null,
                 summary: values.summary.value ? values.summary.value : '',
                 price: values.summary.price ? values.summary.price : 0,
                 type: values.type.value ? values.type.value : '',
@@ -138,8 +131,8 @@ class StepFormContainer extends Component {
                     company: values.company.value ? values.company.value : '',
                     bookingNumber: values.bookingNumber.value ? values.bookingNumber.value : '',
                     flightNumber: values.flightNumber.value ? values.flightNumber.value : '',
-                    openingLuggage: values.openingLuggage.value ? values.openingLuggage.value : null,
-                    closingLuggage: values.closingLuggage.value ? values.closingLuggage.value : null,
+                    openingLuggage: values.openingLuggage.value ? values.openingLuggage.value.format('YYYY-MM-DD HH:mm:ss') : null,
+                    closingLuggage: values.closingLuggage.value ? values.closingLuggage.value.format('YYYY-MM-DD HH:mm:ss') : null,
                     seat: values.seat.value,
                 }
             }
@@ -152,9 +145,16 @@ class StepFormContainer extends Component {
         }
     }
 
-    handleChange(e) {
-        let name = e.target.getAttribute('name');
-        let value = e.target.value;
+    handleChange(e, field = null) {
+        let name, value;
+
+        if(field) {
+            name = field;
+            value = e;
+        } else {
+            name = e.target.getAttribute('name');
+            value = e.target.value;
+        }
 
         this.props.stepFormActions.updateValue(name, value);
     }

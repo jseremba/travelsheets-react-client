@@ -1,6 +1,8 @@
 import React, { PureComponent } from 'react';
 import {ControlLabel, FormControl, FormGroup, HelpBlock} from "react-bootstrap";
 
+import Datetime from 'react-datetime';
+
 export default class TravelInfosComponent extends PureComponent {
     render() {
         const {onSubmit, onChange, values, isLoading} = this.props;
@@ -31,24 +33,32 @@ export default class TravelInfosComponent extends PureComponent {
                 </FormGroup>
                 <FormGroup controlId="travelDateStart" validationState={values.dateStart.validation}>
                     <ControlLabel>Date de début*</ControlLabel>
-                    <FormControl type="date"
-                                 placeholder="dd/mm/yyyy"
-                                 disabled={isLoading}
-                                 value={values.dateStart.value ? values.dateStart.value : ''}
-                                 name="dateStart"
-                                 onChange={onChange}
-                    />
+                    <Datetime dateFormat="DD/MM/YYYY"
+                              value={values.dateStart.value}
+                              inputProps={{
+                                  placeholder: "DD/MM/YYYY",
+                                  disabled: isLoading,
+                              }}
+                              timeFormat={false}
+                              closeOnSelect={true}
+                              onChange={(value) => onChange(value, 'dateStart')}/>
+
                     {values.dateStart.error && <HelpBlock>{values.dateStart.error}</HelpBlock>}
                 </FormGroup>
                 <FormGroup controlId="travelDateEnd" validationState={values.dateEnd.validation}>
                     <ControlLabel>Date de fin</ControlLabel>
-                    <FormControl type="date"
-                                 placeholder="dd/mm/yyyy"
-                                 disabled={isLoading}
-                                 value={values.dateEnd.value ? values.dateEnd.value : ''}
-                                 name="dateEnd"
-                                 onChange={onChange}
-                    />
+                    <Datetime dateFormat="DD/MM/YYYY"
+                              value={values.dateEnd.value}
+                              inputProps={{
+                                  placeholder: "DD/MM/YYYY",
+                                  disabled: isLoading,
+                              }}
+                              timeFormat={false}
+                              closeOnSelect={true}
+                              isValidDate={(current) => {
+                                  return current.isSameOrAfter(values.dateStart.value);
+                              }}
+                              onChange={(value) => onChange(value, 'dateEnd')}/>
                     {values.dateEnd.error && <HelpBlock>{values.dateEnd.error}</HelpBlock>}
                 </FormGroup>
                 <button style={{'display': 'none'}} type='submit' ref={ (button) => { this.button = button } } >Submit</button>

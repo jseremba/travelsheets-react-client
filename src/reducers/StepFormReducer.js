@@ -1,4 +1,5 @@
 import * as StepFormConstants from '../constants/StepFormConstants';
+import Moment from "moment";
 
 const initialState = {
     showModal: false,
@@ -88,13 +89,19 @@ export default (state = initialState, action) => {
             if(state.step) {
                 for(let key in state.step) {
                     if(state.step.hasOwnProperty(key) && state.values[key] !== undefined) {
+                        let value = state.step[key];
+
+                        if(key === 'dateStart' || key === 'dateEnd' || key === 'openingLuggage' || key === 'closingLuggage') {
+                            value = Moment(value);
+                        }
+
                         state = {
                             ...state,
                             values: {
                                 ...state.values,
                                 [key]: {
                                     ...state.values[key],
-                                    value: state.step[key],
+                                    value: value,
                                 }
                             }
                         }
