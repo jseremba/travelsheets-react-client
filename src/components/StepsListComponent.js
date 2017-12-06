@@ -2,10 +2,11 @@ import React, { PureComponent } from 'react';
 
 import {Button, ButtonGroup, Panel, PanelGroup} from "react-bootstrap";
 import AccomodationStepInfosComponent from "./Step/AccomodationStepInfosComponent";
+import AttachmentsContainer from "../containers/AttachmentsContainer";
 
 export default class StepsListComponent extends PureComponent {
     createListItem(item) {
-        const {onEdit, onDelete} = this.props;
+        const {onEdit, onDelete, activePanel} = this.props;
 
         return (
             <Panel eventKey={item['@id']} key={`step-${item['@id']}`} header={[
@@ -28,6 +29,15 @@ export default class StepsListComponent extends PureComponent {
                 <h4>Informations</h4>
 
                 <AccomodationStepInfosComponent step={item}/>
+
+                <h4>Fichiers</h4>
+
+                {
+                    activePanel === item['@id'] ? (
+                        <AttachmentsContainer step={item}/>
+                    ) : ''
+                }
+
             </Panel>
         );
     }
