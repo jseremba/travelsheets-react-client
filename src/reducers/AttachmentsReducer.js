@@ -60,6 +60,19 @@ export default (state = initialState, action) => {
                 collection: initialState.collection,
             };
 
+        case AttachmentsConstants.PUSH_ATTACHMENT:
+            return {
+                ...state,
+                collection: {
+                    ...state.collection,
+                    items: [
+                        ...state.collection.items,
+                        action.attachment,
+                    ]
+                }
+            };
+
+
         default:
             return state;
     }

@@ -5,13 +5,17 @@ import AttachmentsListComponent from "../components/AttachmentsListComponent";
 import {bindActionCreators} from "redux";
 
 import * as AttachmentsActions from '../actions/AttachmentsActions';
+import * as AttachmentFormActions from '../actions/AttachmentFormActions';
 import * as ConfirmActions from '../actions/ConfirmActions';
+
+import {Button, ButtonGroup} from "react-bootstrap";
 
 class AttachmentsContainer extends Component {
     constructor(props) {
         super(props);
 
         this.handleDelete = this.handleDelete.bind(this);
+        this.handleAdd = this.handleAdd.bind(this);
     }
 
     componentDidMount() {
@@ -36,6 +40,12 @@ class AttachmentsContainer extends Component {
         });
     }
 
+    handleAdd() {
+        const {step} = this.props;
+
+        this.props.attachmentFormActions.openModal(step);
+    }
+
     render() {
         const {isLoading, collection, travel, step} = this.props;
         const {items} = collection;
@@ -55,6 +65,9 @@ class AttachmentsContainer extends Component {
                                                   handleDelete={this.handleDelete} />
                     ) : ''
                 }
+                <ButtonGroup>
+                    <Button bsSize="small" onClick={this.handleAdd}>Ajouter un fichier</Button>
+                </ButtonGroup>
             </div>
         );
     }
@@ -71,6 +84,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = (dispatch, props) => {
     return {
         attachmentsActions: bindActionCreators(AttachmentsActions, dispatch, props),
+        attachmentFormActions: bindActionCreators(AttachmentFormActions, dispatch, props),
         confirmActions: bindActionCreators(ConfirmActions, dispatch, props)
     };
 };
