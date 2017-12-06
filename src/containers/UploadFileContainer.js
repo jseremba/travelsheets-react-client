@@ -4,7 +4,6 @@ import {bindActionCreators} from "redux";
 import {Button, FormControl, Glyphicon, InputGroup} from "react-bootstrap";
 
 import * as FileUploadActions from '../actions/FileUploadActions';
-import LoaderComponent from "../components/LoaderComponent";
 
 class UploadFileContainer extends Component {
     constructor(props) {
