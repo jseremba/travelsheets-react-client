@@ -4,7 +4,6 @@ import {bindActionCreators} from "redux";
 import {Button, Glyphicon, Modal} from "react-bootstrap";
 
 import * as AttachmentFormActions from '../actions/AttachmentFormActions';
-import * as FileUploadActions from '../actions/FileUploadActions';
 import AttachmentFormComponent from "../components/AttachmentFormComponent";
 
 class AttachmentFormContainer extends Component {

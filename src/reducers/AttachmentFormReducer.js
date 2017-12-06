@@ -1,5 +1,4 @@
 import * as AttachmentFormConstants from "../constants/AttachmentFormConstants";
-import * as fileUploadActions from "../actions/FileUploadActions";
 
 const initialState = {
     showModal: false,
