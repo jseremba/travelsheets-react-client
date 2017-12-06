@@ -3,7 +3,8 @@ import * as StepConstants from '../constants/StepConstants';
 const initialState = {
     collection: [],
     item: null,
-    isLoading: true
+    isLoading: true,
+    activePanel: null,
 };
 
 export default (state = initialState, action) => {
@@ -59,6 +60,12 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 collection: action.steps,
+            };
+
+        case StepConstants.SET_ACTIVE_PANEL:
+            return {
+                ...state,
+                activePanel: action.activePanel,
             };
 
         default:

@@ -16,6 +16,7 @@ class StepsContainer extends Component {
         super(props);
 
         this.handleAddStep = this.handleAddStep.bind(this);
+        this.handleSelect = this.handleSelect.bind(this);
         this.onDelete = this.onDelete.bind(this);
         this.onEdit = this.onEdit.bind(this);
     }
@@ -33,6 +34,10 @@ class StepsContainer extends Component {
 
     handleAddStep(eventKey) {
         this.props.stepFormActions.openAddModal(eventKey);
+    }
+
+    handleSelect(activePanel) {
+        this.props.stepActions.setActivePanel(activePanel);
     }
 
     onEdit(step) {
@@ -55,7 +60,7 @@ class StepsContainer extends Component {
     }
 
     render() {
-        const {collection, isLoading, travel} = this.props;
+        const {collection, isLoading, travel, activePanel} = this.props;
 
         let steps = collection.items;
 
@@ -68,7 +73,11 @@ class StepsContainer extends Component {
                 }
                 {
                     steps && steps.length > 0 ? (
-                        <StepsListComponent steps={steps} onEdit={this.onEdit} onDelete={this.onDelete} />
+                        <StepsListComponent steps={steps}
+                                            onEdit={this.onEdit}
+                                            onDelete={this.onDelete}
+                                            handleSelect={this.handleSelect}
+                                            activePanel={activePanel}/>
                     ) : ''
                 }
                 <DropdownButton bsSize="small" title="Ajouter une étape&nbsp;" id="addStepButton">
@@ -86,7 +95,8 @@ class StepsContainer extends Component {
 const mapStateToProps = state => {
     return {
         collection: state.StepReducer.collection,
-        isLoading: state.StepReducer.isLoading
+        isLoading: state.StepReducer.isLoading,
+        activePanel: state.StepReducer.activePanel,
     };
 };
 
