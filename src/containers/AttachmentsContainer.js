@@ -22,7 +22,7 @@ class AttachmentsContainer extends Component {
     }
 
     render() {
-        const {isLoading, collection} = this.props;
+        const {isLoading, collection, travel, step} = this.props;
         const {items} = collection;
 
         return (
@@ -34,7 +34,9 @@ class AttachmentsContainer extends Component {
                 }
                 {
                     items && items.length > 0 ? (
-                        <AttachmentsListComponent attachments={items} />
+                        <AttachmentsListComponent attachments={items}
+                                                  travel={travel}
+                                                  step={step}/>
                     ) : ''
                 }
             </div>

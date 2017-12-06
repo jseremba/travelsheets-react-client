@@ -4,13 +4,15 @@ import {API_URL} from "../settings/configuration";
 
 export default class AttachmentsListComponent extends React.PureComponent {
     createListItem(item) {
-        let url = API_URL + '/uploads/' + item.file['@id'] + '/download';
+        const {travel, step} = this.props;
+
+        let url = API_URL + '/travels/' + travel['@id'] + '/steps/' + step['@id'] + '/attachments/' + item['@id'] + '/download';
 
         return (
             <ListGroupItem key={`attachment-${item['@id']}`}>
                 <Glyphicon glyph="file"/>&nbsp;{item.name}
                 <ButtonGroup style={{float: 'right'}}>
-                    <Button bsSize="xsmall" href={url} target="_blank">
+                    <Button bsSize="xsmall" href={url}>
                         <Glyphicon glyph="save" />
                     </Button>
                     <Button bsSize="xsmall">
