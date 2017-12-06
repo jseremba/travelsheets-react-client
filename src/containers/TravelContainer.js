@@ -60,7 +60,7 @@ class TravelContainer extends Component {
                                 <StepsContainer travel={travel}/>
                             </Col>
                         </Row>
-                        <AttachmentFormContainer/>
+                        <AttachmentFormContainer travel={travel}/>
                         <TravelFormContainer travel={travel}/>
                         <TravelDeleteContainer travel={travel}/>
                     </Grid>

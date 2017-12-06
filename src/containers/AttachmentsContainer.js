@@ -41,7 +41,9 @@ class AttachmentsContainer extends Component {
     }
 
     handleAdd() {
-        this.props.attachmentFormActions.openModal();
+        const {step} = this.props;
+
+        this.props.attachmentFormActions.openModal(step);
     }
 
     render() {

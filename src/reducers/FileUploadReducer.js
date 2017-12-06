@@ -27,7 +27,6 @@ export default (state = initialState, action) => {
             };
 
         case FileUploadConstants.RESET_VALUE:
-            console.log('RESET_VALUE');
             return {
                 ...initialState,
             };

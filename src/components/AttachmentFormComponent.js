@@ -1,6 +1,6 @@
 import React from 'react';
 import {ControlLabel, FormControl, FormGroup, HelpBlock} from "react-bootstrap";
-import UploadFileContainer from "../containers/UploadFileContainer";
+import FileUploadContainer from "../containers/FileUploadContainer";
 
 export default class AttachmentFormComponent extends React.PureComponent {
     render() {
@@ -20,7 +20,7 @@ export default class AttachmentFormComponent extends React.PureComponent {
                 </FormGroup>
                 <FormGroup controlId="attachmentFile" validationState={values.file.validation}>
                     <ControlLabel>Fichier*</ControlLabel>
-                    <UploadFileContainer onUploadFinish={(file) => {onChange(file['@id'], 'file')}}
+                    <FileUploadContainer onUploadFinish={(file) => {onChange(file['@id'], 'file')}}
                                          onLoading={() => {
                                              onChange('loading', 'file')}}/>
                     {values.file.error && <HelpBlock>{values.file.error}</HelpBlock>}

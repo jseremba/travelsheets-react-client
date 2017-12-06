@@ -5,17 +5,17 @@ import {Button, FormControl, Glyphicon, InputGroup} from "react-bootstrap";
 
 import * as FileUploadActions from '../actions/FileUploadActions';
 
-class UploadFileContainer extends Component {
+class FileUploadContainer extends Component {
     constructor(props) {
         super(props);
 
         this.handleUploadFile = this.handleUploadFile.bind(this);
     }
 
-    componentDidMount() {
-    }
+    componentDidMount() {}
 
     componentWillUnmount() {
+        this.props.fileUploadActions.resetValue();
     }
 
     componentWillReceiveProps(nextProps) {
@@ -85,4 +85,4 @@ const mapDispatchToProps = (dispatch, props) => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(UploadFileContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(FileUploadContainer);
