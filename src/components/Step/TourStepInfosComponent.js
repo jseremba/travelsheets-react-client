@@ -6,6 +6,15 @@ export default class TourStepInfosComponent extends PureComponent {
     render() {
         const {step} = this.props;
 
+        const types = {
+            museum: "Musée",
+            place: "Lieu touristique",
+            restaurant: "Restaurant",
+            coffee: "Café",
+            club: "Bar / Club",
+            other: "Autre",
+        };
+
         return (
             <Table bordered>
                 <tbody>
@@ -19,7 +28,7 @@ export default class TourStepInfosComponent extends PureComponent {
                 </tr>
                 <tr>
                     <th>Type de visite</th>
-                    <td>{step.type ? step.type : '-'}</td>
+                    <td>{step.type ? types[step.type] : '-'}</td>
                 </tr>
                 <tr>
                     <th>Numéro de réservation</th>

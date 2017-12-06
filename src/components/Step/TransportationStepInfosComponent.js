@@ -6,6 +6,17 @@ export default class TransportationStepInfosComponent extends PureComponent {
     render() {
         const {step} = this.props;
 
+        const types = {
+            plane: "Avion",
+            boat: "Bateau",
+            car: "Voiture",
+            train: "Train",
+            taxi: "Taxi / VTC",
+            bike: "Vélo",
+            subway: "Transports en commun",
+            other: "Autre",
+        };
+
         return (
             <Table bordered>
                 <tbody>
@@ -19,7 +30,7 @@ export default class TransportationStepInfosComponent extends PureComponent {
                     </tr>
                     <tr>
                         <th>Type de transport</th>
-                        <td>{step.type ? step.type : '-'}</td>
+                        <td>{step.type ? types[step.type] : '-'}</td>
                     </tr>
                     <tr>
                         <th>Compagnie</th>

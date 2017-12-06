@@ -6,6 +6,14 @@ export default class AccomodationStepInfosComponent extends PureComponent {
     render() {
         const {step} = this.props;
 
+        const types = {
+            hotel: "Hôtel",
+            location: "Location",
+            camping: "Camping",
+            hostel: "Auberge",
+            other: "Autre",
+        };
+
         return (
             <Table bordered>
                 <tbody>
@@ -19,7 +27,7 @@ export default class AccomodationStepInfosComponent extends PureComponent {
                 </tr>
                 <tr>
                     <th>Type de logement</th>
-                    <td>{step.type ? step.type : '-'}</td>
+                    <td>{types[step.type]}</td>
                 </tr>
                 <tr>
                     <th>Compagnie</th>
