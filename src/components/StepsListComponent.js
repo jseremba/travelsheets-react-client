@@ -1,25 +1,62 @@
 import React, { PureComponent } from 'react';
 
-import StepItemComponent from './StepItemComponent';
+import {Button, ButtonGroup, Panel, PanelGroup} from "react-bootstrap";
+import AccomodationStepInfosComponent from "./Step/AccomodationStepInfosComponent";
+import AttachmentsContainer from "../containers/AttachmentsContainer";
 
 export default class StepsListComponent extends PureComponent {
+    createListItem(item) {
+        const {onEdit, onDelete, activePanel} = this.props;
+
+        return (
+            <Panel eventKey={item['@id']} key={`step-${item['@id']}`} header={[
+                <ButtonGroup style={{float: 'right'}} key={`step-${item['@id']}-actions`}>
+                    <Button bsStyle="primary" bsSize="xsmall" onClick={() => { onEdit(item) }}>
+                        <i className="glyphicon glyphicon-pencil"/>
+                    </Button>
+                    <Button bsStyle="primary" bsSize="xsmall" onClick={() => { onDelete(item) }}>
+                        <i className="glyphicon glyphicon-trash"/>
+                    </Button>
+                </ButtonGroup>,
+                <div key={`step-${item['@id']}-title`}>
+                    <i className={`icon-step ${item['@type'].toLowerCase()} ${item.type}`}/>&nbsp;&nbsp;{item.name}
+                </div>,
+            ]}>
+                {item.summary ? (
+                    <p>{item.summary}</p>
+                ) : ''}
+
+                <h4>Informations</h4>
+
+                <AccomodationStepInfosComponent step={item}/>
+
+                <h4>Fichiers</h4>
+
+                {
+                    activePanel === item['@id'] ? (
+                        <AttachmentsContainer step={item}/>
+                    ) : ''
+                }
+
+            </Panel>
+        );
+    }
+
     render() {
-        const {steps, onEdit, onDelete} = this.props;
+        const {steps, activePanel, handleSelect} = this.props;
 
         if(!steps) {
             return '';
         }
 
         return (
-            <div className="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+            <PanelGroup activeKey={activePanel} onSelect={handleSelect} accordion>
                 {
                     steps && steps.map(step => {
-                        return (
-                            <StepItemComponent step={step} key={step['@id']} onEdit={onEdit} onDelete={onDelete} />
-                        );
+                        return this.createListItem(step);
                     })
                 }
-            </div>
+            </PanelGroup>
         )
     }
 }

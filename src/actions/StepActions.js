@@ -94,3 +94,12 @@ export const setSteps = (steps = []) => {
         });
     }
 };
+
+export const setActivePanel = (activePanel) => {
+    return dispatch => {
+        dispatch({
+            type: StepConstants.SET_ACTIVE_PANEL,
+            activePanel,
+        });
+    };
+};

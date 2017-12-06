@@ -11,3 +11,5 @@ export const DELETE_SUCCESS = 'step/DELETE_SUCCESS';
 export const DELETE_FAILURE = 'step/DELETE_FAILURE';
 
 export const SET_STEPS = 'step/SET_STEPS';
+
+export const SET_ACTIVE_PANEL = 'step/SET_ACTIVE_PANEL';
