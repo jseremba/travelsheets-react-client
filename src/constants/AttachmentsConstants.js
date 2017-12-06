@@ -7,3 +7,4 @@ export const DELETE_SUCCESS = 'AttachmentsConstants/DELETE_SUCCESS';
 export const DELETE_FAILURE = 'AttachmentsConstants/DELETE_FAILURE';
 
 export const RESET_ATTACHMENTS = 'AttachmentsConstants/RESET_ATTACHMENTS';
+export const PUSH_ATTACHMENT = 'AttachmentsConstants/PUSH_ATTACHMENT';

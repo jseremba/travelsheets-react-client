@@ -103,3 +103,12 @@ export const resetAttachments = () => {
         }
     };
 };
+
+export const pushAttachment = (attachment) => {
+    return dispatch => {
+        dispatch({
+            type: AttachmentsConstants.PUSH_ATTACHMENT,
+            attachment,
+        });
+    }
+};

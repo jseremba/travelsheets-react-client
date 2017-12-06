@@ -9,7 +9,7 @@ import * as Notifications from "react-notification-system-redux";
 import * as AttachmentFormConstants from '../constants/AttachmentFormConstants';
 
 import {API_URL} from "../settings/configuration";
-import {fetchAttachments} from "./AttachmentsActions";
+import {pushAttachment} from "./AttachmentsActions";
 
 export const openModal = (step) => {
     return dispatch => {
@@ -98,7 +98,7 @@ export const addAttachment = (travelId, stepId, data) => {
                     }
                 }));
 
-                fetchAttachments(travelId, stepId)(dispatch);
+                pushAttachment(response.data)(dispatch);
             })
             .catch(error => {
                 dispatch({
