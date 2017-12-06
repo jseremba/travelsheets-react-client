@@ -5,10 +5,13 @@ import AttachmentsListComponent from "../components/AttachmentsListComponent";
 import {bindActionCreators} from "redux";
 
 import * as AttachmentsActions from '../actions/AttachmentsActions';
+import * as ConfirmActions from '../actions/ConfirmActions';
 
 class AttachmentsContainer extends Component {
     constructor(props) {
         super(props);
+
+        this.handleDelete = this.handleDelete.bind(this);
     }
 
     componentDidMount() {
@@ -19,6 +22,18 @@ class AttachmentsContainer extends Component {
 
     componentWillUnmount() {
         this.props.attachmentsActions.resetAttachments();
+    }
+
+    handleDelete(attachment) {
+        const {travel, step} = this.props;
+        let travelId = travel ? travel['@id'] : null;
+        let stepId = step['@id'];
+
+        this.props.confirmActions.openConfirm('Voulez-vous vraiment supprimer ce fichier ?', 'Confirmation', () => {
+            if(travelId && stepId) {
+                this.props.attachmentsActions.deleteAttachment(travelId, stepId, attachment['@id']);
+            }
+        });
     }
 
     render() {
@@ -36,7 +51,8 @@ class AttachmentsContainer extends Component {
                     items && items.length > 0 ? (
                         <AttachmentsListComponent attachments={items}
                                                   travel={travel}
-                                                  step={step}/>
+                                                  step={step}
+                                                  handleDelete={this.handleDelete} />
                     ) : ''
                 }
             </div>
@@ -54,7 +70,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch, props) => {
     return {
-        attachmentsActions: bindActionCreators(AttachmentsActions, dispatch, props)
+        attachmentsActions: bindActionCreators(AttachmentsActions, dispatch, props),
+        confirmActions: bindActionCreators(ConfirmActions, dispatch, props)
     };
 };
 
