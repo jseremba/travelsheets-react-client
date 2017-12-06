@@ -1,16 +1,17 @@
 import React from "react";
 import {Button, ButtonGroup, Glyphicon, ListGroup, ListGroupItem} from "react-bootstrap";
+import {API_URL} from "../settings/configuration";
 
 export default class AttachmentsListComponent extends React.PureComponent {
     createListItem(item) {
-        console.log(item);
+        let url = API_URL + '/uploads/' + item.file['@id'] + '/download';
 
         return (
             <ListGroupItem key={`attachment-${item['@id']}`}>
                 <Glyphicon glyph="file"/>&nbsp;{item.name}
                 <ButtonGroup style={{float: 'right'}}>
-                    <Button bsSize="xsmall">
-                        <Glyphicon glyph="save"/>
+                    <Button bsSize="xsmall" href={url} target="_blank">
+                        <Glyphicon glyph="save" />
                     </Button>
                     <Button bsSize="xsmall">
                         <Glyphicon glyph="trash"/>
