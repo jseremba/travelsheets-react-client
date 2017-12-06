@@ -12,6 +12,7 @@ import TravelInfosComponent from "../components/TravelInfosComponent";
 import StepsContainer from "./StepsContainer";
 import TravelFormContainer from "./TravelFormContainer";
 import TravelDeleteContainer from "./TravelDeleteContainer";
+import AttachmentFormContainer from "./AttachmentFormContainer";
 
 class TravelContainer extends Component {
     constructor(props) {
@@ -59,6 +60,7 @@ class TravelContainer extends Component {
                                 <StepsContainer travel={travel}/>
                             </Col>
                         </Row>
+                        <AttachmentFormContainer/>
                         <TravelFormContainer travel={travel}/>
                         <TravelDeleteContainer travel={travel}/>
                     </Grid>

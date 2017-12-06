@@ -10,6 +10,7 @@ import TravelDeleteReducer from "./TravelDeleteReducer";
 import StepFormReducer from "./StepFormReducer";
 import ConfirmReducer from "./ConfirmReducer";
 import AttachmentsReducer from "./AttachmentsReducer";
+import AttachmentFormReducer from "./AttachmentFormReducer";
 
 export default combineReducers({
     routing: routerReducer,
@@ -22,4 +23,5 @@ export default combineReducers({
     StepReducer: StepReducer,
     StepFormReducer: StepFormReducer,
     AttachmentsReducer: AttachmentsReducer,
+    AttachmentFormReducer: AttachmentFormReducer,
 });
