@@ -29,12 +29,14 @@ export default (state = initialState, action) => {
         case StepConstants.DELETE_REQUESTED:
             let index = -1;
 
-            state.collection.items.map((item, i) => {
+            for(let i=0; i<state.collection.items.length; i++) {
+                let item = state.collection.items[i];
+
                 if(item['@id'] === action.stepId) {
                     index = i;
-                    return;
+                    break;
                 }
-            });
+            }
 
             return {
                 ...state,
