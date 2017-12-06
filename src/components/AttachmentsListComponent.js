@@ -4,7 +4,7 @@ import {API_URL} from "../settings/configuration";
 
 export default class AttachmentsListComponent extends React.PureComponent {
     createListItem(item) {
-        const {travel, step} = this.props;
+        const {travel, step, handleDelete} = this.props;
 
         let url = API_URL + '/travels/' + travel['@id'] + '/steps/' + step['@id'] + '/attachments/' + item['@id'] + '/download';
 
@@ -15,7 +15,7 @@ export default class AttachmentsListComponent extends React.PureComponent {
                     <Button bsSize="xsmall" href={url}>
                         <Glyphicon glyph="save" />
                     </Button>
-                    <Button bsSize="xsmall">
+                    <Button bsSize="xsmall" onClick={() => {handleDelete(item)}}>
                         <Glyphicon glyph="trash"/>
                     </Button>
                 </ButtonGroup>

@@ -52,6 +52,46 @@ export const fetchAttachments = (travelId, stepId) => {
     };
 };
 
+export const deleteAttachment = (travelId, stepId, attachmentId) => {
+    return dispatch => {
+        dispatch({
+            type: AttachmentsConstants.DELETE_REQUESTED,
+            attachmentId,
+        });
+
+        let url = `${API_URL}/travels/${travelId}/steps/${stepId}/attachments/${attachmentId}`;
+
+        return axios.delete(url)
+            .then(response => {
+                dispatch({
+                    type: AttachmentsConstants.DELETE_SUCCESS,
+                });
+
+                dispatch(Notifications.success({
+                    title: 'Yeah!',
+                    message: 'Le fichier à bien été supprimé',
+                }));
+            })
+            .catch(error => {
+                dispatch({
+                    type: AttachmentsConstants.DELETE_FAILURE,
+                });
+
+                dispatch(Notifications.error({
+                    title: 'Oh!',
+                    message: 'Une erreur s\'est produite lors de la suppression du fichier.',
+                    autoDismiss: 0,
+                    action: {
+                        label: 'Réessayer',
+                        callback: () => {
+                            deleteAttachment(travelId, stepId, attachmentId)(dispatch);
+                        }
+                    }
+                }));
+            })
+    }
+};
+
 export const resetAttachments = () => {
     return dispatch => {
         dispatch({
