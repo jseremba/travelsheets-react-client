@@ -3,10 +3,14 @@ import React, { PureComponent } from 'react';
 import {Button, ButtonGroup, Panel, PanelGroup} from "react-bootstrap";
 import AccomodationStepInfosComponent from "./Step/AccomodationStepInfosComponent";
 import AttachmentsContainer from "../containers/AttachmentsContainer";
+import TransportationStepInfosComponent from "./Step/TransportationStepInfosComponent";
+import TourStepInfosComponent from "./Step/TourStepInfosComponent";
 
 export default class StepsListComponent extends PureComponent {
     createListItem(item) {
         const {onEdit, onDelete, activePanel} = this.props;
+
+        let type = item['@type'];
 
         return (
             <Panel eventKey={item['@id']} key={`step-${item['@id']}`} header={[
@@ -28,7 +32,17 @@ export default class StepsListComponent extends PureComponent {
 
                 <h4>Informations</h4>
 
-                <AccomodationStepInfosComponent step={item}/>
+                {
+                    type === 'TransportationStep' ? (
+                        <TransportationStepInfosComponent step={item} />
+                    ) : (
+                        type === 'AccomodationStep' ? (
+                            <AccomodationStepInfosComponent step={item} />
+                        ) : (
+                            <TourStepInfosComponent step={item} />
+                        )
+                    )
+                }
 
                 <h4>Fichiers</h4>
 

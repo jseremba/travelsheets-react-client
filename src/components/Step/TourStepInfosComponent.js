@@ -2,15 +2,16 @@ import React, {PureComponent} from 'react';
 import moment from "moment";
 import {Table} from "react-bootstrap";
 
-export default class AccomodationStepInfosComponent extends PureComponent {
+export default class TourStepInfosComponent extends PureComponent {
     render() {
         const {step} = this.props;
 
         const types = {
-            hotel: "Hôtel",
-            location: "Location",
-            camping: "Camping",
-            hostel: "Auberge",
+            museum: "Musée",
+            place: "Lieu touristique",
+            restaurant: "Restaurant",
+            coffee: "Café",
+            club: "Bar / Club",
             other: "Autre",
         };
 
@@ -18,20 +19,16 @@ export default class AccomodationStepInfosComponent extends PureComponent {
             <Table bordered>
                 <tbody>
                 <tr>
-                    <th>Arrivée</th>
+                    <th>Début</th>
                     <td>{step.dateStart ? moment(step.dateStart).calendar() : '-'}</td>
                 </tr>
                 <tr>
-                    <th>Départ</th>
+                    <th>Fin</th>
                     <td>{step.dateEnd ? moment(step.dateEnd).calendar() : '-'}</td>
                 </tr>
                 <tr>
-                    <th>Type de logement</th>
-                    <td>{types[step.type]}</td>
-                </tr>
-                <tr>
-                    <th>Compagnie</th>
-                    <td>{step.company ? step.company : '-'}</td>
+                    <th>Type de visite</th>
+                    <td>{step.type ? types[step.type] : '-'}</td>
                 </tr>
                 <tr>
                     <th>Numéro de réservation</th>
