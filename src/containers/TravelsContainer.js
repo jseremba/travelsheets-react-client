@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 import queryString from "query-string";
-import {Button, Grid, PageHeader, Pagination} from "react-bootstrap";
+import {Button, Grid, Nav, NavItem, PageHeader, Pagination, Tab, Tabs} from "react-bootstrap";
 
 import TravelsListComponent from "../components/TravelsListComponent";
 import LoaderComponent from "../components/LoaderComponent";
@@ -15,19 +15,16 @@ class TravelsContainer extends Component {
     constructor(props) {
         super(props);
 
-        this.setSearchBar = this.setSearchBar.bind(this);
         this.fetchTravels = this.fetchTravels.bind(this);
         this.changePage = this.changePage.bind(this);
-
-        this.searchTimeout = null;
+        this.setPast = this.setPast.bind(this);
     }
 
     componentDidMount() {
         // Fetch page from query
         let query = queryString.parse(this.props.location.search);
 
-        this.props.travelsActions.setSearchBar(query.search);
-        this.fetchTravels(query.page, query.search);
+        this.fetchTravels(query.page);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -38,41 +35,31 @@ class TravelsContainer extends Component {
             let oldPage = oldQuery.page ? parseInt(oldQuery.page, 0) : 1;
             let newPage = newQuery.page ? parseInt(newQuery.page, 0) : 1;
 
-            let oldSearch = oldQuery.search;
-            let newSearch = newQuery.search;
+            let oldPast = oldQuery.past ? oldQuery.past === 'true' : false;
+            let newPast = newQuery.past ? newQuery.past === 'true' : false;
 
-            if (oldPage !== newPage || oldSearch !== newSearch) {
-                this.fetchTravels(newPage, newSearch);
-            }
-
-            if (oldSearch !== newSearch) {
-                this.props.travelsActions.setSearchBar(newSearch);
+            if (oldPage !== newPage, oldPast !== newPast) {
+                this.fetchTravels(newPage, newPast);
             }
         }
     }
 
-    fetchTravels(page, keyword) {
-        this.props.travelsActions.fetchTravels(page, keyword);
-    }
-
-    setSearchBar(event) {
-        if (this.searchTimeout) clearTimeout(this.searchTimeout);
-
-        let keyword = event.target.value.toLowerCase();
-
-        this.searchTimeout = setTimeout(() => {
-            this.props.travelsActions.searchTravels(keyword);
-        }, 200);
-
-        this.props.travelsActions.setSearchBar(keyword);
+    fetchTravels(page, past = false) {
+        this.props.travelsActions.fetchTravels(page, past);
     }
 
     changePage(page) {
         this.props.travelsActions.changePage(page);
     }
 
+    setPast(past) {
+        this.props.travelsActions.setPast(past === 'past');
+    }
+
     render() {
         const {travels, isLoading} = this.props;
+
+        let query = queryString.parse(this.props.location.search);
 
         // Search
         let displayTravels = travels['items'];
@@ -85,8 +72,11 @@ class TravelsContainer extends Component {
                     &nbsp;<Button bsStyle="primary" bsSize="xsmall" onClick={this.props.travelFormActions.openModal}><i
                     className="glyphicon glyphicon-plus"/></Button>
                 </PageHeader>
-                <input type="search" value={this.props.searchBar} placeholder="Rechercher"
-                       className="form-control search-bar" onChange={this.setSearchBar}/>
+
+                <Nav bsStyle="pills" activeKey={query.past === 'true' ? 'past' : 'future'} onSelect={this.setPast} style={{marginBottom: 20}}>
+                    <NavItem eventKey="future">Prochains voyages</NavItem>
+                    <NavItem eventKey="past">Anciens voyages</NavItem>
+                </Nav>
 
                 {
                     isLoading ? (

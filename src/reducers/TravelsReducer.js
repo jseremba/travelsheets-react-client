@@ -6,7 +6,6 @@ const initialState = {
         pagination: null,
     },
     isLoading: true,
-    searchBar: '',
 };
 
 export default (state = initialState, action) => {
@@ -27,12 +26,6 @@ export default (state = initialState, action) => {
                 ...state,
                 travels: initialState.travels,
                 isLoading: false
-            };
-        case TravelConstant.SET_SEARCH_BAR:
-            return {
-                ...state,
-                searchBar: action.keyword,
-                isLoading: true
             };
 
         default:
