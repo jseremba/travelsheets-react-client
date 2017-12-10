@@ -12,7 +12,7 @@ import {API_URL} from '../settings/configuration';
  *
  * @returns {{type}}
  */
-export const fetchTravels = (page, keyword) => {
+export const fetchTravels = (page) => {
     return dispatch => {
         dispatch({
             type: TravelConstant.LIST_REQUESTED
@@ -25,13 +25,6 @@ export const fetchTravels = (page, keyword) => {
             query = {
                 ...query,
                 page: page
-            };
-        }
-
-        if(keyword) {
-            query = {
-                ...query,
-                search: keyword
             };
         }
 
@@ -56,29 +49,12 @@ export const fetchTravels = (page, keyword) => {
                     action: {
                         label: 'Réessayer',
                         callback: () => {
-                            fetchTravels(page, keyword)(dispatch);
+                            fetchTravels(page)(dispatch);
                         }
                     }
                 }));
             })
         ;
-    }
-};
-
-export const searchTravels = (keyword, page) => {
-    return (dispatch, getState) => {
-        let props = getState();
-        let query = queryString.parse(props.routing.location.search);
-
-        query = queryString.stringify({
-            ...query,
-            page: page ? page : undefined,
-            search: keyword ? keyword : undefined
-        });
-
-        dispatch(push({
-            search: `?${query}`,
-        }));
     }
 };
 
@@ -102,20 +78,5 @@ export const changePage = (page) => {
         dispatch(push({
             search: `?${query}`,
         }));
-    }
-};
-
-/**
- * Action SetSearchBar
- *
- * @param keyword
- * @returns {{type: *, keyword: *}}
- */
-export const setSearchBar = (keyword) => {
-    return (dispatch) => {
-        dispatch({
-            type: TravelConstant.SET_SEARCH_BAR,
-            keyword: keyword ? keyword : ""
-        });
     }
 };

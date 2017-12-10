@@ -15,19 +15,15 @@ class TravelsContainer extends Component {
     constructor(props) {
         super(props);
 
-        this.setSearchBar = this.setSearchBar.bind(this);
         this.fetchTravels = this.fetchTravels.bind(this);
         this.changePage = this.changePage.bind(this);
-
-        this.searchTimeout = null;
     }
 
     componentDidMount() {
         // Fetch page from query
         let query = queryString.parse(this.props.location.search);
 
-        this.props.travelsActions.setSearchBar(query.search);
-        this.fetchTravels(query.page, query.search);
+        this.fetchTravels(query.page);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -38,33 +34,14 @@ class TravelsContainer extends Component {
             let oldPage = oldQuery.page ? parseInt(oldQuery.page, 0) : 1;
             let newPage = newQuery.page ? parseInt(newQuery.page, 0) : 1;
 
-            let oldSearch = oldQuery.search;
-            let newSearch = newQuery.search;
-
-            if (oldPage !== newPage || oldSearch !== newSearch) {
-                this.fetchTravels(newPage, newSearch);
-            }
-
-            if (oldSearch !== newSearch) {
-                this.props.travelsActions.setSearchBar(newSearch);
+            if (oldPage !== newPage) {
+                this.fetchTravels(newPage);
             }
         }
     }
 
-    fetchTravels(page, keyword) {
-        this.props.travelsActions.fetchTravels(page, keyword);
-    }
-
-    setSearchBar(event) {
-        if (this.searchTimeout) clearTimeout(this.searchTimeout);
-
-        let keyword = event.target.value.toLowerCase();
-
-        this.searchTimeout = setTimeout(() => {
-            this.props.travelsActions.searchTravels(keyword);
-        }, 200);
-
-        this.props.travelsActions.setSearchBar(keyword);
+    fetchTravels(page, past = false) {
+        this.props.travelsActions.fetchTravels(page, past);
     }
 
     changePage(page) {
@@ -85,8 +62,6 @@ class TravelsContainer extends Component {
                     &nbsp;<Button bsStyle="primary" bsSize="xsmall" onClick={this.props.travelFormActions.openModal}><i
                     className="glyphicon glyphicon-plus"/></Button>
                 </PageHeader>
-                <input type="search" value={this.props.searchBar} placeholder="Rechercher"
-                       className="form-control search-bar" onChange={this.setSearchBar}/>
 
                 {
                     isLoading ? (
