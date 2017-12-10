@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 import queryString from "query-string";
-import {Button, Grid, PageHeader, Pagination} from "react-bootstrap";
+import {Button, Grid, Nav, NavItem, PageHeader, Pagination, Tab, Tabs} from "react-bootstrap";
 
 import TravelsListComponent from "../components/TravelsListComponent";
 import LoaderComponent from "../components/LoaderComponent";
@@ -17,6 +17,7 @@ class TravelsContainer extends Component {
 
         this.fetchTravels = this.fetchTravels.bind(this);
         this.changePage = this.changePage.bind(this);
+        this.setPast = this.setPast.bind(this);
     }
 
     componentDidMount() {
@@ -34,8 +35,11 @@ class TravelsContainer extends Component {
             let oldPage = oldQuery.page ? parseInt(oldQuery.page, 0) : 1;
             let newPage = newQuery.page ? parseInt(newQuery.page, 0) : 1;
 
-            if (oldPage !== newPage) {
-                this.fetchTravels(newPage);
+            let oldPast = oldQuery.past ? oldQuery.past === 'true' : false;
+            let newPast = newQuery.past ? newQuery.past === 'true' : false;
+
+            if (oldPage !== newPage, oldPast !== newPast) {
+                this.fetchTravels(newPage, newPast);
             }
         }
     }
@@ -48,8 +52,14 @@ class TravelsContainer extends Component {
         this.props.travelsActions.changePage(page);
     }
 
+    setPast(past) {
+        this.props.travelsActions.setPast(past === 'past');
+    }
+
     render() {
         const {travels, isLoading} = this.props;
+
+        let query = queryString.parse(this.props.location.search);
 
         // Search
         let displayTravels = travels['items'];
@@ -62,6 +72,11 @@ class TravelsContainer extends Component {
                     &nbsp;<Button bsStyle="primary" bsSize="xsmall" onClick={this.props.travelFormActions.openModal}><i
                     className="glyphicon glyphicon-plus"/></Button>
                 </PageHeader>
+
+                <Nav bsStyle="pills" activeKey={query.past === 'true' ? 'past' : 'future'} onSelect={this.setPast} style={{marginBottom: 20}}>
+                    <NavItem eventKey="future">Prochains voyages</NavItem>
+                    <NavItem eventKey="past">Anciens voyages</NavItem>
+                </Nav>
 
                 {
                     isLoading ? (

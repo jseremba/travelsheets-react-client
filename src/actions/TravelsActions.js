@@ -12,7 +12,7 @@ import {API_URL} from '../settings/configuration';
  *
  * @returns {{type}}
  */
-export const fetchTravels = (page) => {
+export const fetchTravels = (page, past = false) => {
     return dispatch => {
         dispatch({
             type: TravelConstant.LIST_REQUESTED
@@ -24,7 +24,8 @@ export const fetchTravels = (page) => {
         if(page) {
             query = {
                 ...query,
-                page: page
+                page: page,
+                past: past,
             };
         }
 
@@ -77,6 +78,23 @@ export const changePage = (page) => {
 
         dispatch(push({
             search: `?${query}`,
+        }));
+    }
+};
+
+export const setPast = (past) => {
+    return (dispatch, getState) => {
+        let props = getState();
+
+        let query = queryString.parse(props.routing.location.search);
+
+        query = queryString.stringify({
+            ...query,
+            past: past
+        });
+
+        dispatch(push({
+            search: `?${query}`
         }));
     }
 };
