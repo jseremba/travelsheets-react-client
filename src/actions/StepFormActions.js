@@ -1,9 +1,8 @@
-import axios from 'axios';
+import axios from '../helpers/axios';
 
 import * as Notifications from "react-notification-system-redux";
 
 import * as StepFormConstants from '../constants/StepFormConstants';
-import {API_URL} from "../settings/configuration";
 
 import {fetchSteps} from "./StepActions";
 
@@ -101,9 +100,9 @@ export const add = (travel, type, data) => {
             type: StepFormConstants.SAVE_REQUESTED,
         });
 
-        let url = `${API_URL}/travels/${travel}/steps?type=${type}`;
+        let url = `/travels/${travel}/steps?type=${type}`;
 
-        return axios.post(url, data)
+        return axios().post(url, data)
             .then(response => {
                 dispatch({
                     type: StepFormConstants.SAVE_SUCCESS,
@@ -159,9 +158,9 @@ export const edit = (stepId, travelId, data) => {
             type: StepFormConstants.SAVE_REQUESTED,
         });
 
-        let url = `${API_URL}/travels/${travelId}/steps/${stepId}`;
+        let url = `/travels/${travelId}/steps/${stepId}`;
 
-        axios.patch(url, data)
+        return axios().patch(url, data)
             .then(response => {
                 dispatch({
                     type: StepFormConstants.SAVE_SUCCESS,

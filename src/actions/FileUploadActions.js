@@ -1,9 +1,9 @@
-import axios from 'axios';
+import {CancelToken} from 'axios';
 
 import * as FileUploadConstants from '../constants/FileUploadConstants';
-import {API_URL} from "../settings/configuration";
 
-const CancelToken = axios.CancelToken;
+import axios from '../helpers/axios';
+
 let cancel;
 
 export const uploadFile = (data, originalFilename) => {
@@ -12,14 +12,16 @@ export const uploadFile = (data, originalFilename) => {
             type: FileUploadConstants.UPLOAD_REQUESTED,
         });
 
-        let url = API_URL + '/uploads';
+        let url = '/uploads';
 
-        axios.post(url, data, {
+        let options = {
             cancelToken: new CancelToken(function executor(c) {
                 // An executor function receives a cancel function as a parameter
                 cancel = c;
             }),
-        })
+        };
+
+        return axios().post(url, data, options)
             .then(response => {
                 dispatch({
                     type: FileUploadConstants.UPLOAD_SUCCESS,

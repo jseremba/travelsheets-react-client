@@ -5,7 +5,7 @@
  *
  * @returns {function(*)}
  */
-import axios from 'axios';
+import axios from '../helpers/axios';
 import Notifications from 'react-notification-system-redux';
 
 import * as TravelFormConstants from '../constants/TravelFormConstants';
@@ -13,17 +13,15 @@ import * as TravelConstants from '../constants/TravelConstants';
 
 import {fetchTravels} from './TravelsActions';
 
-import {API_URL} from "../settings/configuration";
-
 export const add = (data) => {
     return dispatch => {
         dispatch({
             type: TravelFormConstants.SAVE_REQUESTED
         });
 
-        let url = `${API_URL}/travels`;
+        let url = `/travels`;
 
-        return axios.post(url, data)
+        return axios().post(url, data)
             .then(response => {
                 dispatch({
                     type: TravelFormConstants.SAVE_SUCCESS,
@@ -77,9 +75,9 @@ export const edit = (id, data) => {
             type: TravelFormConstants.SAVE_REQUESTED
         });
 
-        let url = `${API_URL}/travels/${id}`;
+        let url = `/travels/${id}`;
 
-        return axios.patch(url, data)
+        return axios().patch(url, data)
             .then(response => {
                 dispatch({
                     type: TravelFormConstants.SAVE_SUCCESS,

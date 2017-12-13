@@ -1,9 +1,8 @@
-import axios from 'axios';
+import axios from '../helpers/axios';
 import Notifications from "react-notification-system-redux";
 
 import * as TravelDeleteConstants from '../constants/TravelDeleteConstants';
 
-import {API_URL} from "../settings/configuration";
 import {push} from "react-router-redux";
 
 export const deleteTravel = (id) => {
@@ -12,9 +11,9 @@ export const deleteTravel = (id) => {
             type: TravelDeleteConstants.DELETE_REQUESTED
         });
 
-        let url = `${API_URL}/travels/${id}`;
+        let url = `/travels/${id}`;
 
-        return axios.delete(url)
+        return axios().delete(url)
             .then(() => {
                 dispatch({
                     type: TravelDeleteConstants.DELETE_SUCCESS,

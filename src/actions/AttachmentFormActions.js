@@ -3,12 +3,11 @@
  *
  * @returns {function(*)}
  */
-import axios from 'axios';
 import * as Notifications from "react-notification-system-redux";
 
 import * as AttachmentFormConstants from '../constants/AttachmentFormConstants';
 
-import {API_URL} from "../settings/configuration";
+import axios from '../helpers/axios';
 import {pushAttachment} from "./AttachmentsActions";
 
 export const openModal = (step) => {
@@ -78,9 +77,9 @@ export const addAttachment = (travelId, stepId, data) => {
             type: AttachmentFormConstants.ADD_REQUESTED,
         });
 
-        let url = API_URL + '/travels/' + travelId + '/steps/' + stepId + '/attachments';
+        let url = '/travels/' + travelId + '/steps/' + stepId + '/attachments';
 
-        axios.post(url, data)
+        axios().post(url, data)
             .then(response => {
                 dispatch({
                     type: AttachmentFormConstants.ADD_SUCCESS,

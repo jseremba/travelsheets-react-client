@@ -1,11 +1,9 @@
-import axios from 'axios';
+import axios from '../helpers/axios';
 import {push} from 'react-router-redux';
 import queryString from 'query-string';
 import Notifications from 'react-notification-system-redux';
 
 import * as TravelConstant from '../constants/TravelsConstants';
-import {API_URL} from '../settings/configuration';
-
 
 /**
  * ListTravels action
@@ -18,7 +16,7 @@ export const fetchTravels = (page, past = false) => {
             type: TravelConstant.LIST_REQUESTED
         });
 
-        let url = `${API_URL}/travels`;
+        let url = `/travels`;
         let query = {};
 
         if(page) {
@@ -31,7 +29,7 @@ export const fetchTravels = (page, past = false) => {
 
         query = queryString.stringify(query);
 
-        return axios.get(url + '?' + query)
+        return axios().get(url + '?' + query)
             .then(response => {
                 dispatch({
                     type: TravelConstant.LIST_SUCCESS,
