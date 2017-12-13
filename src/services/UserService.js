@@ -24,6 +24,8 @@ export const login = (email, password) => {
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
                 localStorage.setItem('user', JSON.stringify(data));
             }
+
+            return Promise.resolve(data);
         })
         .catch(error => {
             return Promise.reject(error);

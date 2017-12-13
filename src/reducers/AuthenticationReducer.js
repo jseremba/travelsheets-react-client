@@ -12,7 +12,6 @@ export default function (state = initialState, action) {
         case UserConstants.LOGIN_REQUEST:
             return {
                 loggingIn: true,
-                user: action.user
             };
 
         case UserConstants.LOGIN_SUCCESS:
