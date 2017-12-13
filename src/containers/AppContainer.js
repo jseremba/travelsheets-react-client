@@ -6,8 +6,8 @@ import TravelsContainer from './TravelsContainer';
 import TravelContainer from './TravelContainer';
 import NotificationsContainer from "./NotificationsContainer";
 import ConfirmContainer from "./ConfirmContainer";
-
-
+import LoginContainer from "./LoginContainer";
+import {PrivateRoute} from "../components/PrivateRoute";
 
 const App = () => (
     <div>
@@ -19,8 +19,10 @@ const App = () => (
             </Navbar.Header>
         </Navbar>
 
-        <Route exact path="/" component={TravelsContainer}/>
-        <Route exact path="/travels/:id" component={TravelContainer}/>
+        <PrivateRoute exact path="/" component={TravelsContainer}/>
+        <PrivateRoute exact path="/travels/:id" component={TravelContainer}/>
+
+        <Route exact path="/login" component={LoginContainer}/>
 
         <NotificationsContainer/>
         <ConfirmContainer/>
