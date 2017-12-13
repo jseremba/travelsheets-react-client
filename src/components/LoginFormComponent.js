@@ -3,33 +3,35 @@ import {Button, ControlLabel, FormControl, FormGroup, Glyphicon, HelpBlock} from
 
 export default class LoginFormComponent extends React.PureComponent {
     render() {
-        const {values, isLoading} = this.props;
+        const {state, onChange, onSubmit} = this.props;
 
         return (
-            <form>
-                <FormGroup controlId="loginEmail" validationState={values.email.validation}>
+            <form onSubmit={onSubmit}>
+                <FormGroup controlId="loginEmail" validationState={state.email.validation}>
                     <ControlLabel>Email*</ControlLabel>
                     <FormControl type="email"
                                  placeholder="example@domain.com"
-                                 disabled={isLoading}
-                                 value={values.email.value ? values.email.value : ''}
+                                 disabled={state.submitted}
+                                 value={state.email.value ? state.email.value : ''}
                                  name="email"
+                                 onChange={onChange}
                     />
-                    {values.email.error && <HelpBlock>{values.email.error}</HelpBlock>}
+                    {state.email.error && <HelpBlock>{state.email.error}</HelpBlock>}
                 </FormGroup>
 
-                <FormGroup controlId="loginPassword" validationState={values.password.validation}>
+                <FormGroup controlId="loginPassword" validationState={state.password.validation}>
                     <ControlLabel>Mot de passe*</ControlLabel>
                     <FormControl type="password"
                                  placeholder="•••••••••"
-                                 disabled={isLoading}
-                                 value={values.password.value ? values.password.value : ''}
+                                 disabled={state.submitted}
+                                 value={state.password.value ? state.password.value : ''}
                                  name="password"
+                                 onChange={onChange}
                     />
-                    {values.password.error && <HelpBlock>{values.password.error}</HelpBlock>}
+                    {state.password.error && <HelpBlock>{state.password.error}</HelpBlock>}
                 </FormGroup>
 
-                <Button type="submit" disabled={isLoading} bsStyle="success">{isLoading ? (<Glyphicon glyph="repeat"/>) : 'Connexion'}</Button>
+                <Button type="submit" disabled={state.submitted} bsStyle="success">{state.submitted ? (<Glyphicon glyph="repeat"/>) : 'Connexion'}</Button>
             </form>
         );
     }
