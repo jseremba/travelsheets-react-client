@@ -1,10 +1,7 @@
-import axios from 'axios';
+import axios from '../helpers/axios';
 import Notifications from "react-notification-system-redux";
 
 import * as StepConstants from '../constants/StepConstants';
-
-import {API_URL} from "../settings/configuration";
-
 
 export const fetchSteps = (travel) => {
     return dispatch => {
@@ -12,9 +9,9 @@ export const fetchSteps = (travel) => {
             type: StepConstants.LIST_REQUESTED
         });
 
-        let url = `${API_URL}/travels/${travel}/steps`;
+        let url = `/travels/${travel}/steps`;
 
-        return axios.get(url)
+        return axios().get(url)
             .then(response => {
                 dispatch({
                     type: StepConstants.LIST_SUCCESS,
@@ -50,9 +47,9 @@ export const deleteStep = (stepId, travelId) => {
             stepId
         });
 
-        let url = `${API_URL}/travels/${travelId}/steps/${stepId}`;
+        let url = `/travels/${travelId}/steps/${stepId}`;
 
-        return axios.delete(url)
+        return axios().delete(url)
             .then(response => {
                 dispatch({
                     type: StepConstants.DELETE_SUCCESS,

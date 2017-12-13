@@ -1,9 +1,8 @@
-import axios from 'axios';
+import axios from '../helpers/axios';
 import Notifications from "react-notification-system-redux";
 
 import * as TravelConstants from '../constants/TravelConstants';
 
-import {API_URL} from "../settings/configuration";
 import {push} from "react-router-redux";
 
 export const fetchTravel = (id) => {
@@ -12,9 +11,9 @@ export const fetchTravel = (id) => {
             type: TravelConstants.GET_REQUESTED
         });
 
-        let url = `${API_URL}/travels/${id}`;
+        let url = `/travels/${id}`;
 
-        return axios.get(url)
+        return axios().get(url)
             .then(response => {
                 dispatch({
                     type: TravelConstants.GET_SUCCESS,

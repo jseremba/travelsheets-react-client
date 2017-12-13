@@ -1,26 +1,23 @@
 import React from 'react';
 import { Route, Link } from 'react-router-dom';
-import {Navbar} from 'react-bootstrap';
+
+import {PrivateRoute} from "../components/PrivateRoute";
 
 import TravelsContainer from './TravelsContainer';
 import TravelContainer from './TravelContainer';
 import NotificationsContainer from "./NotificationsContainer";
 import ConfirmContainer from "./ConfirmContainer";
-
-
+import LoginContainer from "./LoginContainer";
+import NavbarContainer from "./NavbarContainer";
 
 const App = () => (
     <div>
-        <Navbar fixedTop={true}>
-            <Navbar.Header>
-                <Navbar.Brand>
-                    <Link to="/">Travelsheets</Link>
-                </Navbar.Brand>
-            </Navbar.Header>
-        </Navbar>
+        <NavbarContainer/>
 
-        <Route exact path="/" component={TravelsContainer}/>
-        <Route exact path="/travels/:id" component={TravelContainer}/>
+        <PrivateRoute exact path="/" component={TravelsContainer}/>
+        <PrivateRoute exact path="/travels/:id" component={TravelContainer}/>
+
+        <Route exact path="/login" component={LoginContainer}/>
 
         <NotificationsContainer/>
         <ConfirmContainer/>

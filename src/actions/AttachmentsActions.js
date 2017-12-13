@@ -1,11 +1,9 @@
-import axios from 'axios';
+import axios from '../helpers/axios';
+import {CancelToken, isCancel} from 'axios';
 import * as Notifications from "react-notification-system-redux";
 
 import * as AttachmentsConstants from '../constants/AttachmentsConstants';
 
-import {API_URL} from "../settings/configuration";
-
-const CancelToken = axios.CancelToken;
 let cancel;
 
 export const fetchAttachments = (travelId, stepId) => {
@@ -14,15 +12,16 @@ export const fetchAttachments = (travelId, stepId) => {
             type: AttachmentsConstants.LIST_REQUESTED,
         });
 
-        let url = `${API_URL}/travels/${travelId}/steps/${stepId}/attachments`;
+        let url = `/travels/${travelId}/steps/${stepId}/attachments`;
 
-        return axios
-            .get(url, {
-                cancelToken: new CancelToken(function executor(c) {
-                    // An executor function receives a cancel function as a parameter
-                    cancel = c;
-                }),
-            })
+        let options = {
+            cancelToken: new CancelToken(function executor(c) {
+                // An executor function receives a cancel function as a parameter
+                cancel = c;
+            }),
+        };
+
+        return axios().get(url, options)
             .then(response => {
                 dispatch({
                     type: AttachmentsConstants.LIST_SUCCESS,
@@ -30,7 +29,7 @@ export const fetchAttachments = (travelId, stepId) => {
                 });
             })
             .catch(error => {
-                if (!axios.isCancel(error)) {
+                if (!isCancel(error)) {
                     dispatch({
                         type: AttachmentsConstants.LIST_FAILURE,
                         error: error,
@@ -59,9 +58,9 @@ export const deleteAttachment = (travelId, stepId, attachmentId) => {
             attachmentId,
         });
 
-        let url = `${API_URL}/travels/${travelId}/steps/${stepId}/attachments/${attachmentId}`;
+        let url = `/travels/${travelId}/steps/${stepId}/attachments/${attachmentId}`;
 
-        return axios.delete(url)
+        return axios().delete(url)
             .then(response => {
                 dispatch({
                     type: AttachmentsConstants.DELETE_SUCCESS,
