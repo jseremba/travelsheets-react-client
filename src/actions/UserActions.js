@@ -1,6 +1,7 @@
 import * as UserConstants from '../constants/UserConstants';
 import * as UserService from "../services/UserService";
 import * as Notifications from "react-notification-system-redux";
+import {push} from "react-router-redux";
 
 export const login = (email, password) => {
     return dispatch => {
@@ -10,7 +11,7 @@ export const login = (email, password) => {
             .then(
                 user => {
                     dispatch(success(user));
-                    history.push('/');
+                    dispatch(push('/'));
                 },
                 error => {
                     dispatch(failure(error));
