@@ -82,13 +82,17 @@ class TravelsContainer extends Component {
                     isLoading ? (
                         <LoaderComponent/>
                     ) : (
-                        displayTravels && pagination && <div className="list-travels">
-                            <TravelsListComponent travels={displayTravels}/>
-                            <Pagination activePage={pagination.current}
-                                        items={pagination.last}
-                                        onSelect={this.changePage}
-                            />
-                        </div>
+                        displayTravels && displayTravels.length > 0 && pagination ? (
+                            <div className="list-travels">
+                                <TravelsListComponent travels={displayTravels}/>
+                                <Pagination activePage={pagination.current}
+                                            items={pagination.last}
+                                            onSelect={this.changePage}
+                                />
+                            </div>
+                        ) : (
+                            <p>Il n'y a pas encore de voyage, <a href="#" onClick={this.props.travelFormActions.openModal}>créé le premier</a>&nbsp;!</p>
+                        )
                     )
                 }
 
