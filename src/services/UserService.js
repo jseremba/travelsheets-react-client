@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from '../helpers/axios';
 import {API_URL} from '../settings/configuration';
 
 /**
@@ -15,7 +15,7 @@ export const login = (email, password) => {
         password: password,
     };
 
-    return axios.post(API_URL + '/auth/login', data)
+    return axios().post('/auth/login', data)
         .then(response => {
             let data = response.data;
 
@@ -39,4 +39,14 @@ export const login = (email, password) => {
 export const logout = () => {
     // remove user from local storage to log user out
     localStorage.removeItem('user');
+};
+
+export const register = (data) => {
+    return axios().post('auth/register', data)
+        .then(response => {
+            return Promise.resolve(response.data);
+        })
+        .catch(error => {
+            return Promise.reject(error);
+        });
 };

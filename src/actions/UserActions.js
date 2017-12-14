@@ -37,3 +37,32 @@ export const logout = () => {
     UserService.logout();
     return { type: UserConstants.LOGOUT };
 };
+
+export const register = (data) => {
+    return dispatch => {
+        dispatch(request(data));
+
+        UserService.register(data)
+            .then(
+                user => {
+                    dispatch(success(user));
+                },
+                error => {
+                    dispatch(failure(error));
+                    dispatch(Notifications.error(error));
+                }
+            );
+
+        function request(user) {
+            return { type: UserConstants.REGISTER_REQUEST, user }
+        }
+
+        function success(user) {
+            return { type: UserConstants.REGISTER_SUCCESS, user }
+        }
+
+        function failure(error) {
+            return { type: UserConstants.REGISTER_FAILURE, error }
+        }
+    }
+};
