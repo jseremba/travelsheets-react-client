@@ -66,3 +66,51 @@ export const register = (data) => {
         }
     }
 };
+
+export const registerConfirm = (email, token) => {
+    return dispatch => {
+        dispatch(request());
+
+        UserService.registerConfirm(email, token)
+            .then(
+                user => {
+                    dispatch(success(user));
+                },
+                error => {
+                    let message = '';
+
+                    if(error.response) {
+                        switch(error.response.status) {
+                            case 404:
+                                message = 'Cette adresse email est inconnue ou a déjà été validée.';
+                                break;
+                            default:
+                                message = 'Une erreur s\'est produite lors de l\'accès au serveur';
+                                break;
+                        }
+                    }
+
+                    dispatch(failure(error));
+
+                    dispatch(Notifications.error({
+                        'title': 'D\'oh!',
+                        'message': message,
+                    }));
+
+                    dispatch(push('/login'));
+                }
+            );
+
+        function request() {
+            return { type: UserConstants.CONFIRM_REQUEST }
+        }
+
+        function success(user) {
+            return { type: UserConstants.CONFIRM_SUCCESS, user }
+        }
+
+        function failure(error) {
+            return { type: UserConstants.CONFIRM_FAILURE, error }
+        }
+    };
+};

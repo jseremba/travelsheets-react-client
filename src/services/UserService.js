@@ -41,6 +41,13 @@ export const logout = () => {
     localStorage.removeItem('user');
 };
 
+/**
+ * Register
+ *
+ * @param data
+ *
+ * @returns {Promise.<*>}
+ */
 export const register = (data) => {
     return axios().post('auth/register', data)
         .then(response => {
@@ -49,4 +56,33 @@ export const register = (data) => {
         .catch(error => {
             return Promise.reject(error);
         });
+};
+
+/**
+ * Register Confirm
+ *
+ * @param email
+ * @param token
+ * @returns {Promise.<*>}
+ */
+export const registerConfirm = (email, token) => {
+    if(email && token) {
+        let data = {
+            email: email,
+            token: token
+        };
+
+        return axios().post('auth/register/confirm', data)
+            .then(response => {
+                return Promise.resolve(response.data);
+            })
+            .catch(error => {
+                return Promise.reject(error);
+            });
+    } else {
+        return Promise.reject({
+            'message': 'Il doit y avoir un email et un token',
+        });
+    }
+
 };
