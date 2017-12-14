@@ -13,6 +13,8 @@ import AttachmentsReducer from "./AttachmentsReducer";
 import AttachmentFormReducer from "./AttachmentFormReducer";
 import FileUploadReducer from "./FileUploadReducer";
 import AuthenticationReducer from "./AuthenticationReducer";
+import RegisterReducer from "./RegisterReducer";
+import RegisterConfirmReducer from "./RegisterConfirmReducer";
 
 export default combineReducers({
     routing: routerReducer,
@@ -28,4 +30,6 @@ export default combineReducers({
     AttachmentsReducer: AttachmentsReducer,
     AttachmentFormReducer: AttachmentFormReducer,
     AuthenticationReducer: AuthenticationReducer,
+    RegisterReducer: RegisterReducer,
+    RegisterConfirmReducer: RegisterConfirmReducer,
 });
