@@ -5,16 +5,6 @@ import {Link} from "react-router-dom";
 import {LinkContainer} from "react-router-bootstrap";
 
 class NavbarContainer extends Component {
-    constructor(props) {
-        super(props);
-    }
-
-    componentDidMount() {
-    }
-
-    componentWillUnmount() {
-    }
-
     render() {
         const {user, location} = this.props;
 

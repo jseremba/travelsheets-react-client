@@ -1,5 +1,4 @@
 import axios from '../helpers/axios';
-import {API_URL} from '../settings/configuration';
 
 /**
  * Login with email and password

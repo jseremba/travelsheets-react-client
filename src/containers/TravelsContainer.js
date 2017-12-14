@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 import queryString from "query-string";
-import {Button, Grid, Nav, NavItem, PageHeader, Pagination, Tab, Tabs} from "react-bootstrap";
+import {Button, Grid, Nav, NavItem, PageHeader, Pagination} from "react-bootstrap";
 
 import TravelsListComponent from "../components/TravelsListComponent";
 import LoaderComponent from "../components/LoaderComponent";
@@ -38,7 +38,7 @@ class TravelsContainer extends Component {
             let oldPast = oldQuery.past ? oldQuery.past === 'true' : false;
             let newPast = newQuery.past ? newQuery.past === 'true' : false;
 
-            if (oldPage !== newPage, oldPast !== newPast) {
+            if (oldPage !== newPage || oldPast !== newPast) {
                 this.fetchTravels(newPage, newPast);
             }
         }

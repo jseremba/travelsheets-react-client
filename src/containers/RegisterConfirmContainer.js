@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
-import {Button, Glyphicon, Grid, PageHeader} from "react-bootstrap";
+import {Button, Grid, PageHeader} from "react-bootstrap";
 import LoaderComponent from "../components/LoaderComponent";
 import {Link} from "react-router-dom";
 import {LinkContainer} from "react-router-bootstrap";
@@ -10,10 +10,6 @@ import queryString from 'query-string';
 import * as UserActions from '../actions/UserActions';
 
 class RegisterConfirmContainer extends Component {
-    constructor(props) {
-        super(props);
-    }
-
     componentDidMount() {
         // Fetch data from query
         const query = queryString.parse(this.props.location.search);
