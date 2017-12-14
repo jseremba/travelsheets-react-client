@@ -10,6 +10,7 @@ import ConfirmContainer from "./ConfirmContainer";
 import LoginContainer from "./LoginContainer";
 import RegisterContainer from "./RegisterContainer";
 import NavbarContainer from "./NavbarContainer";
+import RegisterConfirmContainer from "./RegisterConfirmContainer";
 
 const App = () => (
     <div>
@@ -20,6 +21,7 @@ const App = () => (
 
         <Route exact path="/login" component={LoginContainer}/>
         <Route exact path="/register" component={RegisterContainer}/>
+        <Route exact path="/register/confirm" component={RegisterConfirmContainer}/>
 
         <NotificationsContainer/>
         <ConfirmContainer/>
