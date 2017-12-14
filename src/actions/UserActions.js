@@ -77,24 +77,11 @@ export const registerConfirm = (email, token) => {
                     dispatch(success(user));
                 },
                 error => {
-                    let message = '';
-
-                    if(error.response) {
-                        switch(error.response.status) {
-                            case 404:
-                                message = 'Cette adresse email est inconnue ou a déjà été validée.';
-                                break;
-                            default:
-                                message = 'Une erreur s\'est produite lors de l\'accès au serveur';
-                                break;
-                        }
-                    }
-
                     dispatch(failure(error));
 
                     dispatch(Notifications.error({
                         'title': 'D\'oh!',
-                        'message': message,
+                        'message': error.message,
                     }));
 
                     dispatch(push('/login'));
