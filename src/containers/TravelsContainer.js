@@ -24,7 +24,7 @@ class TravelsContainer extends Component {
         // Fetch page from query
         let query = queryString.parse(this.props.location.search);
 
-        this.fetchTravels(query.page);
+        this.fetchTravels(query.page, query.past);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -44,7 +44,7 @@ class TravelsContainer extends Component {
         }
     }
 
-    fetchTravels(page, past = false) {
+    fetchTravels(page = 1, past = false) {
         this.props.travelsActions.fetchTravels(page, past);
     }
 

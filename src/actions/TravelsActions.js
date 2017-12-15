@@ -19,7 +19,7 @@ export const fetchTravels = (page, past = false) => {
         let url = `/travels`;
         let query = {};
 
-        if(page) {
+        if(page || past) {
             query = {
                 ...query,
                 page: page,
