@@ -1,0 +1,17 @@
+@import 'compass';
+
+@import 'libraries/bootstrap/bootstrap.min';
+@import 'libraries/flatly/flatly.min';
+
+// Bases
+@import 'bases/bases';
+@import 'bases/fonts';
+@import 'bases/icons';
+
+// Components
+@import 'components/list-travels';
+@import 'components/search-bar';
+@import 'components/loader';
+@import 'components/travel-infos-component';
+@import 'components/datepicker';
+@import 'components/form';

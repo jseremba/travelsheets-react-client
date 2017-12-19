@@ -24,3 +24,7 @@ yarn-error.log*
 *.iml
 out
 gen
+
+src/settings/configuration.js
+public/**/*.css
+.sass-cache

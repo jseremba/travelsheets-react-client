@@ -1,3 +1,6 @@
+@import './css/libraries/bootstrap/bootstrap.min.css';
+@import './css/libraries/flatly/flatly.min.css';
+
 body {
     padding-top: 80px;
     padding-bottom: 20px;
@@ -19,6 +22,10 @@ body {
 .panel-title a:hover {
     text-decoration: none;
     color: #18bc9c;
+}
+
+.list-travels {
+    margin-top: 20px;
 }
 
 @font-face {
